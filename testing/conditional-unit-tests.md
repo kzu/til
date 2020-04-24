@@ -26,3 +26,5 @@ public static bool OnCI() =>
 
 I didn't think it was necessary to create an `OnGitHub` method since the envvar is just `CI` and well, the method is already called `OnCI` :\)
 
+Another alternative is using the [Xunit.SkippableFact nuget package](https://github.com/AArnott/Xunit.SkippableFact).
+
