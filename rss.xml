@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Kzu's Today I Learned]]></title>
+        <description><![CDATA[My daily learning tidbits.]]></description>
+        <link>https://til.cazzulino.com/</link>
+        <image>
+            <url>https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg</url>
+            <title>Kzu&apos;s Today I Learned</title>
+            <link>https://til.cazzulino.com/</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Fri, 24 Apr 2020 06:26:50 GMT</lastBuildDate>
+        <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <author><![CDATA[Daniel Cazzulino]]></author>
+        <item>
+            <title><![CDATA[Today I Leaned]]></title>
+            <link>https://til.cazzulino.com/</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to locate dotnet]]></title>
+            <description><![CDATA[I've seen a bunch of DotNetMuxer implementations, but they all look quite similar (if not exactly the same).]]></description>
+            <link>https://til.cazzulino.com/dotnet/how-to-locate-dotnet.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/how-to-locate-dotnet.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Conditional unit tests]]></title>
+            <description><![CDATA[Turns out that there aren't any conditional FactAttribute in xunit, but you can pretty much copy wholesale the extensions created by the ASP.NET Core team from their repo.]]></description>
+            <link>https://til.cazzulino.com/testing/conditional-unit-tests.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/testing/conditional-unit-tests.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+    </channel>
+</rss>
