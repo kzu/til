@@ -6,3 +6,7 @@
 
 * [How to locate dotnet](dotnet/how-to-locate-dotnet.md)
 
+## testing
+
+* [Conditional unit tests](testing/conditional-unit-tests.md)
+
