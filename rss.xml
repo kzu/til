@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 24 Apr 2020 08:21:09 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 04 May 2020 07:08:01 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -30,6 +30,13 @@
             <description><![CDATA[Turns out that there aren't any conditional FactAttribute in xunit, but you can pretty much copy wholesale the extensions created by the ASP.NET Core team from their repo.]]></description>
             <link>https://til.cazzulino.com/testing/conditional-unit-tests.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/testing/conditional-unit-tests.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Skip tagged scenarios in SpecFlow with Xunit]]></title>
+            <description><![CDATA[First apply a tag of your choosing to flag scenarios that are still not ready for running:]]></description>
+            <link>https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
     </channel>
