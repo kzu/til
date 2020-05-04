@@ -9,4 +9,5 @@
 ## testing
 
 * [Conditional unit tests](testing/conditional-unit-tests.md)
+* [Skip tagged scenarios in SpecFlow with Xunit](testing/skip-tagged-scenarios-in-specflow-with-xunit.md)
 
