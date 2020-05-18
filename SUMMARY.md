@@ -4,6 +4,7 @@
 
 ## dotnet
 
+* [Using HashCode in .NETFramework](dotnet/using-hashcode-in-.netframework.md)
 * [How to locate dotnet](dotnet/how-to-locate-dotnet.md)
 
 ## testing
