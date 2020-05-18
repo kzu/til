@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 05 May 2020 04:42:12 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 18 May 2020 19:54:24 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Leaned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Using HashCode in .NETFramework]]></title>
+            <description><![CDATA[So, I just learned that not even in .net472/net48, you can leverage the cool HashCode type from .NETCore. It is mentioned in docs as available in ".NET Platform Extensions 3.1", which isn't quite clear what it means. After a quick search here and there, I found out the Microsoft.Bcl.HashCode package, which seems to be one such ".NET platform extension" (although the version # doesn't match either :/).]]></description>
+            <link>https://til.cazzulino.com/dotnet/using-hashcode-in-.netframework.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/using-hashcode-in-.netframework.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>

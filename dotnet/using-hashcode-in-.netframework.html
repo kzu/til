@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>How to locate dotnet · GitBook</title>
+        <title>Using HashCode in .NETFramework · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="How to locate dotnet from the currently running .NET Core application">
+        <meta name="description" content="How to use HashCode type in full .NET, which doesn't support it">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../testing/conditional-unit-tests.html" />
+    <link rel="next" href="how-to-locate-dotnet.html" />
     
     
-    <link rel="prev" href="using-hashcode-in-.netframework.html" />
+    <link rel="prev" href="../" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -114,7 +114,7 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="using-hashcode-in-.netframework.html">
+        <li class="chapter active" data-level="2.1" data-path="using-hashcode-in-.netframework.html">
             
                 <a href="using-hashcode-in-.netframework.html">
             
@@ -127,7 +127,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2" data-path="how-to-locate-dotnet.html">
+        <li class="chapter " data-level="2.2" data-path="how-to-locate-dotnet.html">
             
                 <a href="how-to-locate-dotnet.html">
             
@@ -223,7 +223,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >How to locate dotnet</a>
+        <a href=".." >Using HashCode in .NETFramework</a>
     </h1>
 </div>
 
@@ -238,15 +238,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="how-to-locate-dotnet">How to locate dotnet</h1>
-<p>I&apos;ve seen a bunch of <code>DotNetMuxer</code> implementations, but they all look quite similar (if not exactly the same). </p>
-<ul>
-<li><a href="https://github.com/dotnet/aspnetcore/blob/master/src/Shared/CommandLineUtils/Utilities/DotNetMuxer.cs" target="_blank">ASP.NET Core</a> (same used by others, like <a href="https://github.com/dotnet/orleans/blob/master/src/Orleans.CodeGenerator.MSBuild.Tasks/DotNetMuxer.cs" target="_blank">Orleans</a>)</li>
-<li><a href="https://github.com/dotnet/runtime/blob/master/src/libraries/Common/src/Extensions/CommandLineUtils/Utilities/DotNetMuxer.cs" target="_blank">.NET runtime</a>, <a href="https://github.com/dotnet/extensions/blob/master/src/Shared/src/CommandLineUtils/Utilities/DotNetMuxer.cs" target="_blank">.NET extensions</a></li>
-<li><a href="https://github.com/Azure/azure-webjobs-sdk/blob/master/src/Analyzer/ExtensionViewer/DotNetMuxer.cs" target="_blank">Azure WebJobs SDK</a> (same as <a href="https://github.com/Azure/azure-functions-vs-build-sdk/blob/master/src/Microsoft.NET.Sdk.Functions.MSBuild/Tasks/DotNetMuxer.cs" target="_blank">Azure Functions SDK</a>)</li>
-<li><a href="https://github.com/dotnet/command-line-api/blob/master/src/System.CommandLine.Suggest/DotnetMuxer.cs" target="_blank">.NET command-line-api</a></li>
-</ul>
-<p>Seems like there are two approaches: those that try to locate a <code>FX_DEPS_FILE</code> file and those that just use the current process&apos; <code>MainModule</code> (which would be <code>dotnet[.exe]</code> itself for a .NET Core app. The latter looks simpler and the former seems unnecessary, until you take into account <a href="https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained" target="_blank">self-contained .NET Core apps</a> or even <a href="https://docs.microsoft.com/en-us/dotnet/core/deploying/trim-self-contained" target="_blank">trimmed self-contained</a>, but even that version doesn&apos;t work in those cases :(</p>
+                                <h1 id="using-hashcode-in-netframework">Using HashCode in .NETFramework</h1>
+<p>So, I just learned that not even in .net472/net48, you can leverage the cool <a href="https://github.com/dotnet/coreclr/blob/master/src/System.Private.CoreLib/shared/System/HashCode.cs" target="_blank">HashCode</a> type from .NETCore. It <strong>is</strong> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.hashcode?view=dotnet-plat-ext-3.1" target="_blank">mentioned in docs</a> as available in &quot;.NET Platform Extensions 3.1&quot;, which isn&apos;t quite clear what it means. After a quick search here and there, I found out the <a href="https://www.nuget.org/packages/Microsoft.Bcl.HashCode/" target="_blank">Microsoft.Bcl.HashCode</a> package, which seems to be one such &quot;.NET platform extension&quot; (although the version # doesn&apos;t match either :/).</p>
+<p>With that, I can now make a <code>KeyValuePairComparer&lt;TKey, TValue&gt;</code>to check for dictionaries equality like:</p>
+<pre><code class="lang-text">    public class KeyValuePairComparer&lt;TKey, TValue&gt; : IEqualityComparer&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;
+    {
+        public static KeyValuePairComparer&lt;TKey, TValue&gt; Default { get;} = new KeyValuePairComparer&lt;TKey, TValue&gt;();
+
+        public bool Equals(KeyValuePair&lt;TKey, TValue&gt; x, KeyValuePair&lt;TKey, TValue&gt; y) =&gt; object.Equals(x.Key, y.Key) &amp;&amp; object.Equals(x.Value, y.Value);
+
+        public int GetHashCode(KeyValuePair&lt;TKey, TValue&gt; obj) =&gt; HashCode.Combine(obj.Key, obj.Value);
+    }
+</code></pre>
+<p>To be used as: </p>
+<pre><code class="lang-text">IReadOnlyDictionary&lt;string, string&gt; first = ...
+IReadOnlyDictionary&lt;string, string&gt; second = ...
+
+return first.SequenceEquals(second, KeyValuePairComparer&lt;string, string&gt;.Default);
+</code></pre>
 
                                 
                                 </section>
@@ -274,12 +283,12 @@
 
             
                 
-                <a href="using-hashcode-in-.netframework.html" class="navigation navigation-prev " aria-label="Previous page: Using HashCode in .NETFramework">
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Today I Leaned">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../testing/conditional-unit-tests.html" class="navigation navigation-next " aria-label="Next page: Conditional unit tests">
+                <a href="how-to-locate-dotnet.html" class="navigation navigation-next " aria-label="Next page: How to locate dotnet">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -290,7 +299,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"How to locate dotnet from the currently running .NET Core application","title":"How to locate dotnet","level":"2.2","depth":1,"next":{"title":"Conditional unit tests","level":"3.1","depth":1,"path":"testing/conditional-unit-tests.md","ref":"testing/conditional-unit-tests.md","articles":[]},"previous":{"title":"Using HashCode in .NETFramework","level":"2.1","depth":1,"path":"dotnet/using-hashcode-in-.netframework.md","ref":"dotnet/using-hashcode-in-.netframework.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/how-to-locate-dotnet.md","mtime":"2020-05-18T19:53:41.100Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-18T19:54:22.711Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"How to use HashCode type in full .NET, which doesn't support it","title":"Using HashCode in .NETFramework","level":"2.1","depth":1,"next":{"title":"How to locate dotnet","level":"2.2","depth":1,"path":"dotnet/how-to-locate-dotnet.md","ref":"dotnet/how-to-locate-dotnet.md","articles":[]},"previous":{"title":"Today I Leaned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/using-hashcode-in-.netframework.md","mtime":"2020-05-18T19:53:41.100Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-18T19:54:22.711Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
