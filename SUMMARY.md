@@ -16,3 +16,7 @@
 
 * [How to build project when content files change](msbuild/how-to-build-project-when-content-files-change.md)
 
+## azure
+
+* [Code-less redirection with serverless Azure Functions](azure/code-less-redirection-with-serverless-azure-functions.md)
+
