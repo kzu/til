@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 18 May 2020 19:54:24 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 09 Jun 2020 23:23:46 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -51,6 +51,13 @@
             <description><![CDATA[Visual Studio will typically just report the project is up-to-date and doesn't need to be built if you just changed a Content or None item. If you want it to consider those file types to also trigger a build, just add the relevant items as UpToDateCheckInput:]]></description>
             <link>https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Code-less redirection with serverless Azure Functions]]></title>
+            <description><![CDATA[Say you want to have a nicer URI for something (like an Azure storage blob, a feed or something else). You  likely have a nice short custom domain (i.e. I use kzu.io for things like this), and would like to set up arbitrary (temporary or permanent) redirections. This can trivially be achieved by creating an empty Functions App and leveraging Functions Proxies.]]></description>
+            <link>https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
     </channel>
