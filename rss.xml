@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 09 Jun 2020 23:23:46 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 14 Jun 2020 18:00:54 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -51,6 +51,13 @@
             <description><![CDATA[Visual Studio will typically just report the project is up-to-date and doesn't need to be built if you just changed a Content or None item. If you want it to consider those file types to also trigger a build, just add the relevant items as UpToDateCheckInput:]]></description>
             <link>https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Using Azure File Copy from DevOps yaml pipeline]]></title>
+            <description><![CDATA[Oh boy, did I waste time on this one :(. So I had my pipeline pretty naively doing an upload to blob storage:]]></description>
+            <link>https://til.cazzulino.com/azure/using-azure-file-copy-from-devops-yaml-pipeline.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/azure/using-azure-file-copy-from-devops-yaml-pipeline.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
