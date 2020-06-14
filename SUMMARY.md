@@ -18,5 +18,6 @@
 
 ## azure
 
+* [Using Azure File Copy from DevOps yaml pipeline](azure/using-azure-file-copy-from-devops-yaml-pipeline.md)
 * [Code-less redirection with serverless Azure Functions](azure/code-less-redirection-with-serverless-azure-functions.md)
 
