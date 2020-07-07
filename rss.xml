@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sun, 14 Jun 2020 18:00:54 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 07 Jul 2020 07:48:47 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -51,6 +51,13 @@
             <description><![CDATA[Visual Studio will typically just report the project is up-to-date and doesn't need to be built if you just changed a Content or None item. If you want it to consider those file types to also trigger a build, just add the relevant items as UpToDateCheckInput:]]></description>
             <link>https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Shared secret authorization with Azure SignalR Service]]></title>
+            <description><![CDATA[While testing out Azure Functions development and configuration with Azure SignalR Service, I needed a very simple key-based (shared secret) authorization mechanism so that my console-based SignalR client could connect to my Azure SignalR Service-powered hub using a very simple mechanism.]]></description>
+            <link>https://til.cazzulino.com/azure/shared-secret-authorization-with-azure-signalr-service.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/azure/shared-secret-authorization-with-azure-signalr-service.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
