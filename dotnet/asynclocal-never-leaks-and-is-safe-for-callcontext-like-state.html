@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>How to locate dotnet · GitBook</title>
+        <title>AsyncLocal never leaks and is safe for CallContext-like state · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="How to locate dotnet from the currently running .NET Core application">
+        <meta name="description" content="Even if it's typically used in a static field, the values never leak since they are bound to a transient ExecutionContext">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../testing/conditional-unit-tests.html" />
+    <link rel="next" href="using-hashcode-in-.netframework.html" />
     
     
-    <link rel="prev" href="using-hashcode-in-.netframework.html" />
+    <link rel="prev" href="../" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -114,7 +114,7 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
+        <li class="chapter active" data-level="2.1" data-path="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
             
                 <a href="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
             
@@ -140,7 +140,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.3" data-path="how-to-locate-dotnet.html">
+        <li class="chapter " data-level="2.3" data-path="how-to-locate-dotnet.html">
             
                 <a href="how-to-locate-dotnet.html">
             
@@ -282,7 +282,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >How to locate dotnet</a>
+        <a href=".." >AsyncLocal never leaks and is safe for CallContext-like state</a>
     </h1>
 </div>
 
@@ -297,15 +297,31 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="how-to-locate-dotnet">How to locate dotnet</h1>
-<p>I&apos;ve seen a bunch of <code>DotNetMuxer</code> implementations, but they all look quite similar (if not exactly the same). </p>
-<ul>
-<li><a href="https://github.com/dotnet/aspnetcore/blob/master/src/Shared/CommandLineUtils/Utilities/DotNetMuxer.cs" target="_blank">ASP.NET Core</a> (same used by others, like <a href="https://github.com/dotnet/orleans/blob/master/src/Orleans.CodeGenerator.MSBuild.Tasks/DotNetMuxer.cs" target="_blank">Orleans</a>)</li>
-<li><a href="https://github.com/dotnet/runtime/blob/master/src/libraries/Common/src/Extensions/CommandLineUtils/Utilities/DotNetMuxer.cs" target="_blank">.NET runtime</a>, <a href="https://github.com/dotnet/extensions/blob/master/src/Shared/src/CommandLineUtils/Utilities/DotNetMuxer.cs" target="_blank">.NET extensions</a></li>
-<li><a href="https://github.com/Azure/azure-webjobs-sdk/blob/master/src/Analyzer/ExtensionViewer/DotNetMuxer.cs" target="_blank">Azure WebJobs SDK</a> (same as <a href="https://github.com/Azure/azure-functions-vs-build-sdk/blob/master/src/Microsoft.NET.Sdk.Functions.MSBuild/Tasks/DotNetMuxer.cs" target="_blank">Azure Functions SDK</a>)</li>
-<li><a href="https://github.com/dotnet/command-line-api/blob/master/src/System.CommandLine.Suggest/DotnetMuxer.cs" target="_blank">.NET command-line-api</a></li>
-</ul>
-<p>Seems like there are two approaches: those that try to locate a <code>FX_DEPS_FILE</code> file and those that just use the current process&apos; <code>MainModule</code> (which would be <code>dotnet[.exe]</code> itself for a .NET Core app. The latter looks simpler and the former seems unnecessary, until you take into account <a href="https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained" target="_blank">self-contained .NET Core apps</a> or even <a href="https://docs.microsoft.com/en-us/dotnet/core/deploying/trim-self-contained" target="_blank">trimmed self-contained</a>, but even that version doesn&apos;t work in those cases :(</p>
+                                <h1 id="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state">AsyncLocal never leaks and is safe for CallContext-like state</h1>
+<p>Sometime ago I wrote on <a href="https://www.cazzulino.com/callcontext-netstandard-netcore.html" target="_blank">How to migrate CallContext to .NETStandard and .NETCore</a>, and one question mentioned that the values themselves might leak, which actually is not the case, as shown here, due to the &quot;magic&quot; that is AsyncLocal in combination with the <a href="https://github.com/dotnet/runtime/blob/master/src/libraries/System.Private.CoreLib/src/System/Threading/ExecutionContext.cs#L133-L200" target="_blank">transient nature of the ExecutionContext</a>:</p>
+<pre><code class="lang-text">static AsyncLocal&lt;object&gt; local = new AsyncLocal&lt;object&gt;();
+
+async Task Main()
+{
+    WeakReference data = null;
+
+    await Task.Run(() =&gt;
+    {
+        var o = new object();
+        data = new WeakReference(o);
+        // We assign to the static async local, to see if it leaks.
+        local.Value = o;
+    });
+
+    // After execution is finished, we do have a live reference still.
+    System.Diagnostics.Debug.Assert(data.IsAlive == true);
+
+    GC.Collect();
+
+    // But a GC proves nobody is holding a strong reference to it.
+    System.Diagnostics.Debug.Assert(data.IsAlive == false);
+}
+</code></pre>
 
                                 
                                 </section>
@@ -333,12 +349,12 @@
 
             
                 
-                <a href="using-hashcode-in-.netframework.html" class="navigation navigation-prev " aria-label="Previous page: Using HashCode in .NETFramework">
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Today I Leaned">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../testing/conditional-unit-tests.html" class="navigation navigation-next " aria-label="Next page: Conditional unit tests">
+                <a href="using-hashcode-in-.netframework.html" class="navigation navigation-next " aria-label="Next page: Using HashCode in .NETFramework">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -349,7 +365,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"How to locate dotnet from the currently running .NET Core application","title":"How to locate dotnet","level":"2.3","depth":1,"next":{"title":"Conditional unit tests","level":"3.1","depth":1,"path":"testing/conditional-unit-tests.md","ref":"testing/conditional-unit-tests.md","articles":[]},"previous":{"title":"Using HashCode in .NETFramework","level":"2.2","depth":1,"path":"dotnet/using-hashcode-in-.netframework.md","ref":"dotnet/using-hashcode-in-.netframework.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/how-to-locate-dotnet.md","mtime":"2020-07-20T17:32:45.946Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-07-20T17:33:33.734Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Even if it's typically used in a static field, the values never leak since they are bound to a transient ExecutionContext","title":"AsyncLocal never leaks and is safe for CallContext-like state","level":"2.1","depth":1,"next":{"title":"Using HashCode in .NETFramework","level":"2.2","depth":1,"path":"dotnet/using-hashcode-in-.netframework.md","ref":"dotnet/using-hashcode-in-.netframework.md","articles":[]},"previous":{"title":"Today I Leaned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.md","mtime":"2020-07-20T17:32:45.946Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-07-20T17:33:33.734Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 07 Jul 2020 07:48:47 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 20 Jul 2020 17:33:35 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Leaned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[AsyncLocal never leaks and is safe for CallContext-like state]]></title>
+            <description><![CDATA[Sometime ago I wrote on How to migrate CallContext to .NETStandard and .NETCore, and one question mentioned that the values themselves might leak, which actually is not the case, as shown here, due to the "magic" that is AsyncLocal in combination with the transient nature of the ExecutionContext:]]></description>
+            <link>https://til.cazzulino.com/dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
