@@ -4,6 +4,7 @@
 
 ## dotnet
 
+* [AsyncLocal never leaks and is safe for CallContext-like state](dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.md)
 * [Using HashCode in .NETFramework](dotnet/using-hashcode-in-.netframework.md)
 * [How to locate dotnet](dotnet/how-to-locate-dotnet.md)
 
