@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 20 Jul 2020 17:33:35 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 05 Aug 2020 06:10:58 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -58,6 +58,13 @@
             <description><![CDATA[Visual Studio will typically just report the project is up-to-date and doesn't need to be built if you just changed a Content or None item. If you want it to consider those file types to also trigger a build, just add the relevant items as UpToDateCheckInput:]]></description>
             <link>https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Exploring Azure Data with Kusto and Dashboards]]></title>
+            <description><![CDATA[In order to more effectively learn Kusto (the query language powering Azure analytics, log querying and PowerBI) and data visualization capabilites in Azure, I did the following:]]></description>
+            <link>https://til.cazzulino.com/azure/exploring-azure-data-with-kusto-and-dashboards.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/azure/exploring-azure-data-with-kusto-and-dashboards.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>

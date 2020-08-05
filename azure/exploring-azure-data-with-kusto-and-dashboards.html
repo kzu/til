@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Shared secret authorization with Azure SignalR Service · GitBook</title>
+        <title>Exploring Azure Data with Kusto and Dashboards · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="using-azure-file-copy-from-devops-yaml-pipeline.html" />
+    <link rel="next" href="shared-secret-authorization-with-azure-signalr-service.html" />
     
     
-    <link rel="prev" href="exploring-azure-data-with-kusto-and-dashboards.html" />
+    <link rel="prev" href="../msbuild/how-to-build-project-when-content-files-change.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -213,7 +213,7 @@
         
         
     
-        <li class="chapter " data-level="5.1" data-path="exploring-azure-data-with-kusto-and-dashboards.html">
+        <li class="chapter active" data-level="5.1" data-path="exploring-azure-data-with-kusto-and-dashboards.html">
             
                 <a href="exploring-azure-data-with-kusto-and-dashboards.html">
             
@@ -226,7 +226,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.2" data-path="shared-secret-authorization-with-azure-signalr-service.html">
+        <li class="chapter " data-level="5.2" data-path="shared-secret-authorization-with-azure-signalr-service.html">
             
                 <a href="shared-secret-authorization-with-azure-signalr-service.html">
             
@@ -295,7 +295,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Shared secret authorization with Azure SignalR Service</a>
+        <a href=".." >Exploring Azure Data with Kusto and Dashboards</a>
     </h1>
 </div>
 
@@ -310,30 +310,31 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="shared-secret-authorization-with-azure-signalr-service">Shared secret authorization with Azure SignalR Service</h1>
-<p>While testing out <a href="https://docs.microsoft.com/en-us/azure/azure-signalr/signalr-concept-serverless-development-config#negotiate-experience-in-class-based-model" target="_blank">Azure Functions development and configuration with Azure SignalR Service</a>, I needed a very simple key-based (shared secret) authorization mechanism so that my console-based SignalR client could connect to my Azure SignalR Service-powered hub using a very simple mechanism. </p>
-<p>The docs and the sample showcased the <code>negotiate</code> endpoint returning the connection info directly:</p>
-<pre><code class="lang-text">[FunctionName(&quot;negotiate&quot;)]
-public SignalRConnectionInfo Negotiate([HttpTrigger(AuthorizationLevel.Anonymous)]HttpRequest req)
-</code></pre>
-<p>But a <a href="https://stackoverflow.com/a/55586165/24684" target="_blank">stackoverflow answer</a> pointed me to the solution: just the proper <code>IActionResult</code> using <code>OkObjectResult</code> with the connection info when the access key is properly validated:</p>
-<pre><code class="lang-text">[FunctionName(&quot;negotiate&quot;)]
-public IActionResult Negotiate(
-    [HttpTrigger(AuthorizationLevel.Anonymous, &quot;post&quot;)] HttpRequest req,
-    [SignalRConnectionInfo(HubName = &quot;events&quot;)] SignalRConnectionInfo connectionInfo)
-{
-    var expectedKey = Environment.GetEnvironmentVariable(&quot;AccessKey&quot;);
-    if (string.IsNullOrEmpty(expectedKey))
-        return new OkObjectResult(connectionInfo);
-
-    var accessKey = req.Query[&quot;accessKey&quot;];
-    if (StringValues.IsNullOrEmpty(accessKey) ||
-        !StringValues.Equals(expectedKey, accessKey))
-        return new UnauthorizedResult();
-
-    return new OkObjectResult(connectionInfo);
-}
-</code></pre>
+                                <h1 id="exploring-azure-data-with-kusto-and-dashboards">Exploring Azure Data with Kusto and Dashboards</h1>
+<p>In order to more effectively learn <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/query-language" target="_blank">Kusto</a> (the query language powering Azure analytics, log querying and PowerBI) and data visualization capabilites in Azure, I did the following:</p>
+<ol>
+<li><a href="https://docs.microsoft.com/en-us/azure/data-explorer/create-cluster-database-portal" target="_blank">Created a cluster and database</a> (this takes quite a while)</li>
+<li>Open the <a href="https://aka.ms/kwe" target="_blank">Azure Data Explorer</a> (a.k.a. Kusto Web Explorer) at <a href="https://aka.ms/kwe" target="_blank">https://aka.ms/kwe</a></li>
+<li>Add the cluster with the full URI or alternatively just the <code>name.region</code> parts (i.e. <code>kzukusto.centralus</code> vs <a href="https://kzukusto.centralus.kusto.windows.net" target="_blank"><code>https://kzukusto.centralus.kusto.windows.net</code></a>)</li>
+<li>Optionally add an arbitrary Application Insights app as a &quot;virtual cluster&quot;, <a href="https://docs.microsoft.com/en-us/azure/data-explorer/query-monitor-data#connect-to-the-proxy" target="_blank">using a url with the format</a> <code>https://ade.applicationinsights.io/subscriptions/&lt;id&gt;/resourcegroups/&lt;name&gt;/providers/microsoft.insights/components/&lt;ai-app-name&gt;</code></li>
+<li><p>Right--lick database and select Ingest new data</p>
+<p><img src="../.gitbook/assets/image.png" alt="Ingest new data context menu"></p>
+</li>
+<li><p>Find some interesting <a href="https://azure.microsoft.com/en-us/services/open-datasets/catalog/" target="_blank">Azure Open Dataset from the catalog</a> that has an Azure storage URL readily available from the Azure Open Datasets catalog, such as the <a href="https://azure.microsoft.com/en-us/services/open-datasets/catalog/bing-covid-19-data/" target="_blank">Bing COVID-19 Data</a> (I used the <code>.jsonl</code> link). NOTE: the <code>.json</code> one will not properly infer schema because it has a root object of type array. The <code>.jsonl</code> is actually a &quot;JSON fragment&quot; (if that even exists, would be the equivalent of an XML fragment) where each entry is just a JSON entry/line in the file.   </p>
+</li>
+</ol>
+<p>   <img src="../.gitbook/assets/image%20%281%29.png" alt=""></p>
+<p>   The JSON version is preferable to <code>.csv</code> because it properly infer the data type for columns. </p>
+<ol>
+<li>Click on <code>Dashboards</code> for the new stuff here. Parameters driven by queries are particularly handy:</li>
+</ol>
+<p><img src="../.gitbook/assets/image%20%282%29.png" alt="Query-driven multi-select parameter for widget"></p>
+<p>While editing the query/widget, if the parameter is used in the query, you can interactively change its value to explore the visualizations. For example:</p>
+<p><img src="../.gitbook/assets/image%20%283%29.png" alt="Used parameter becomes enabled for selection"></p>
+<p>Whereas if it wasn&apos;t used:</p>
+<p><img src="../.gitbook/assets/image%20%284%29.png" alt="Unused parameter unavailable"></p>
+<p>After shaping the <code>Results</code>the way you want, clicking the Visual tab allows configuring a bunch of visualizations. Inference works quite nicely if the data/results are filtered to just what you want to display.</p>
+<p><img src="../.gitbook/assets/image%20%285%29.png" alt="Many chart options and inference that works great"></p>
 
                                 
                                 </section>
@@ -361,12 +362,12 @@ public IActionResult Negotiate(
 
             
                 
-                <a href="exploring-azure-data-with-kusto-and-dashboards.html" class="navigation navigation-prev " aria-label="Previous page: Exploring Azure Data with Kusto and Dashboards">
+                <a href="../msbuild/how-to-build-project-when-content-files-change.html" class="navigation navigation-prev " aria-label="Previous page: How to build project when content files change">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="using-azure-file-copy-from-devops-yaml-pipeline.html" class="navigation navigation-next " aria-label="Next page: Using Azure File Copy from DevOps yaml pipeline">
+                <a href="shared-secret-authorization-with-azure-signalr-service.html" class="navigation navigation-next " aria-label="Next page: Shared secret authorization with Azure SignalR Service">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -377,7 +378,7 @@ public IActionResult Negotiate(
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Shared secret authorization with Azure SignalR Service","level":"5.2","depth":1,"next":{"title":"Using Azure File Copy from DevOps yaml pipeline","level":"5.3","depth":1,"path":"azure/using-azure-file-copy-from-devops-yaml-pipeline.md","ref":"azure/using-azure-file-copy-from-devops-yaml-pipeline.md","articles":[]},"previous":{"title":"Exploring Azure Data with Kusto and Dashboards","level":"5.1","depth":1,"path":"azure/exploring-azure-data-with-kusto-and-dashboards.md","ref":"azure/exploring-azure-data-with-kusto-and-dashboards.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"azure/shared-secret-authorization-with-azure-signalr-service.md","mtime":"2020-08-05T06:10:24.935Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-08-05T06:10:57.229Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Exploring Azure Data with Kusto and Dashboards","level":"5.1","depth":1,"next":{"title":"Shared secret authorization with Azure SignalR Service","level":"5.2","depth":1,"path":"azure/shared-secret-authorization-with-azure-signalr-service.md","ref":"azure/shared-secret-authorization-with-azure-signalr-service.md","articles":[]},"previous":{"title":"How to build project when content files change","level":"4.1","depth":1,"path":"msbuild/how-to-build-project-when-content-files-change.md","ref":"msbuild/how-to-build-project-when-content-files-change.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"azure/exploring-azure-data-with-kusto-and-dashboards.md","mtime":"2020-08-05T06:10:24.935Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-08-05T06:10:57.229Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
