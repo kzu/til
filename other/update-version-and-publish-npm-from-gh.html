@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Using Azure File Copy from DevOps yaml pipeline · GitBook</title>
+        <title>Update version and publish npm from GH · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="I learned that it's not enough to authorize Azure Resource Manager access from DevOps">
+        <meta name="description" content="Setting up CI with GitHub Actions to update a node.js package version from GitHub release tag and publish it to npm">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="code-less-redirection-with-serverless-azure-functions.html" />
     
-    
-    <link rel="prev" href="shared-secret-authorization-with-azure-signalr-service.html" />
+    <link rel="prev" href="../azure/code-less-redirection-with-serverless-azure-functions.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -213,9 +211,9 @@
         
         
     
-        <li class="chapter " data-level="5.1" data-path="exploring-azure-data-with-kusto-and-dashboards.html">
+        <li class="chapter " data-level="5.1" data-path="../azure/exploring-azure-data-with-kusto-and-dashboards.html">
             
-                <a href="exploring-azure-data-with-kusto-and-dashboards.html">
+                <a href="../azure/exploring-azure-data-with-kusto-and-dashboards.html">
             
                     
                     Exploring Azure Data with Kusto and Dashboards
@@ -226,9 +224,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.2" data-path="shared-secret-authorization-with-azure-signalr-service.html">
+        <li class="chapter " data-level="5.2" data-path="../azure/shared-secret-authorization-with-azure-signalr-service.html">
             
-                <a href="shared-secret-authorization-with-azure-signalr-service.html">
+                <a href="../azure/shared-secret-authorization-with-azure-signalr-service.html">
             
                     
                     Shared secret authorization with Azure SignalR Service
@@ -239,9 +237,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.3" data-path="using-azure-file-copy-from-devops-yaml-pipeline.html">
+        <li class="chapter " data-level="5.3" data-path="../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
             
-                <a href="using-azure-file-copy-from-devops-yaml-pipeline.html">
+                <a href="../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
             
                     
                     Using Azure File Copy from DevOps yaml pipeline
@@ -252,9 +250,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.4" data-path="code-less-redirection-with-serverless-azure-functions.html">
+        <li class="chapter " data-level="5.4" data-path="../azure/code-less-redirection-with-serverless-azure-functions.html">
             
-                <a href="code-less-redirection-with-serverless-azure-functions.html">
+                <a href="../azure/code-less-redirection-with-serverless-azure-functions.html">
             
                     
                     Code-less redirection with serverless Azure Functions
@@ -272,9 +270,9 @@
         
         
     
-        <li class="chapter " data-level="6.1" data-path="../other/update-version-and-publish-npm-from-gh.html">
+        <li class="chapter active" data-level="6.1" data-path="update-version-and-publish-npm-from-gh.html">
             
-                <a href="../other/update-version-and-publish-npm-from-gh.html">
+                <a href="update-version-and-publish-npm-from-gh.html">
             
                     
                     Update version and publish npm from GH
@@ -315,7 +313,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Using Azure File Copy from DevOps yaml pipeline</a>
+        <a href=".." >Update version and publish npm from GH</a>
     </h1>
 </div>
 
@@ -330,26 +328,35 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="using-azure-file-copy-from-devops-yaml-pipeline">Using Azure File Copy from DevOps yaml pipeline</h1>
-<p>Oh boy, did I waste time on this one :(. So I had my pipeline pretty naively doing an upload to blob storage:</p>
-<pre><code class="lang-text">- task: AzureFileCopy@4
-  displayName: Upload Vsix
-  inputs:
-    SourcePath: &apos;$(Pipeline.Workspace)\vsix\RoslynDeployment.$(Build.BuildId).vsix&apos;
-    azureSubscription: &apos;roslyn-Azure&apos;
-    Destination: &apos;AzureBlob&apos;
-    storage: &apos;roslyn&apos;
-    ContainerName: &apos;vsix&apos;
-    BlobPrefix: &apos;$(Build.SourceBranchName)/RoslynDeployment.$(Build.BuildId).vsix&apos;
+                                <h1 id="update-version-and-publish-npm-from-gh">Update version and publish npm from GH</h1>
+<p>Super proud of this, since it&apos;s my first node.js package ever (created brand-new account on <a href="https://www.npmjs.com/" target="_blank">https://www.npmjs.com/</a> and all &#x1F601;), for doing <a href="https://github.com/dotnetconfig/highlightjs-dotnetconfig" target="_blank">syntax highlighting</a> for <a href="https://dotnetconfig.org/" target="_blank">dotnetconfig</a> that works in <a href="https://github.com/dotnetconfig/dotnet-config/tree/dev/docs" target="_blank">docfx</a>. </p>
+<p>Assuming you already have a <code>package.json</code> in the root repo dir, add the <code>.github\workflows\npm.yml</code> as follows:</p>
+<pre><code class="lang-text">name: publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Set version from tag
+        run: npm --no-git-tag-version version ${GITHUB_REF#refs/*/}
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 </code></pre>
-<p>I used a service principal <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=azure-devops#create-an-azure-resource-manager-service-connection-using-automated-security" target="_blank">managed by DevOps which is the recommended approach</a>. The blob storage account was under the same subscription, where the automatically created app properly showed up in IAM:</p>
-<p><img src="../.gitbook/assets/azure-storage-iam.png" alt="Access control \(IAM\) pane for storage account"></p>
-<p>as a contributor:</p>
-<p><img src="../.gitbook/assets/azure-storage-contributor.png" alt="DevOps-managed app as contributor to the storage account"></p>
-<p>I kept getting a 403 response when the task run, with the message <code>This request is not authorized to perform this operation using this permission.</code></p>
-<p>Turns out being a <strong>Contributor</strong> is not enough. I tried <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/release/azure-rm-endpoint?view=azure-devops#insufficient-privileges-to-complete-the-operation" target="_blank">changing guest user permissions</a>, but in the end the only thing that worked was manually adding the <a href="https://github.com/MicrosoftDocs/azure-docs/issues/36454" target="_blank">Storage Blob Data Contributor role</a>, which I found mentioned in a<a href="https://www.catrina.me/azcopy-403-error/" target="_blank"> blog post</a>. </p>
-<p>In the process I learned how DevOps creates the app registration and what-not, but still, not fun.</p>
-<p><a href="https://github.com/MicrosoftDocs/azure-devops-docs/pull/8622" target="_blank">Submitted a doc fix</a> for the <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-file-copy-version3?view=azure-devops" target="_blank">AzureFileCopy task docs</a> so this is more easily discoverable.</p>
+<ol>
+<li>I&apos;m running only on release creation</li>
+<li>Using the GitHub envvar for the <a href="https://stackoverflow.com/questions/58177786/get-the-current-pushed-tag-in-github-actions/58178121#58178121" target="_blank">checked out tag</a>, I&apos;m <a href="https://docs.npmjs.com/cli/version" target="_blank">updating the version</a> but opting out of the git behavior (which fails on CI because it&apos;s a detached head at that point)</li>
+<li>Finally you&apos;ll need to create that secret in <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets" target="_blank">GH</a> for the publish step.</li>
+</ol>
 
                                 
                                 </section>
@@ -377,14 +384,10 @@
 
             
                 
-                <a href="shared-secret-authorization-with-azure-signalr-service.html" class="navigation navigation-prev " aria-label="Previous page: Shared secret authorization with Azure SignalR Service">
+                <a href="../azure/code-less-redirection-with-serverless-azure-functions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Code-less redirection with serverless Azure Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="code-less-redirection-with-serverless-azure-functions.html" class="navigation navigation-next " aria-label="Next page: Code-less redirection with serverless Azure Functions">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -393,7 +396,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"I learned that it's not enough to authorize Azure Resource Manager access from DevOps","title":"Using Azure File Copy from DevOps yaml pipeline","level":"5.3","depth":1,"next":{"title":"Code-less redirection with serverless Azure Functions","level":"5.4","depth":1,"path":"azure/code-less-redirection-with-serverless-azure-functions.md","ref":"azure/code-less-redirection-with-serverless-azure-functions.md","articles":[]},"previous":{"title":"Shared secret authorization with Azure SignalR Service","level":"5.2","depth":1,"path":"azure/shared-secret-authorization-with-azure-signalr-service.md","ref":"azure/shared-secret-authorization-with-azure-signalr-service.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"azure/using-azure-file-copy-from-devops-yaml-pipeline.md","mtime":"2020-09-09T20:56:46.703Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-09T20:57:25.481Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Setting up CI with GitHub Actions to update a node.js package version from GitHub release tag and publish it to npm","title":"Update version and publish npm from GH","level":"6.1","depth":1,"previous":{"title":"Code-less redirection with serverless Azure Functions","level":"5.4","depth":1,"path":"azure/code-less-redirection-with-serverless-azure-functions.md","ref":"azure/code-less-redirection-with-serverless-azure-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"other/update-version-and-publish-npm-from-gh.md","mtime":"2020-09-09T20:56:46.703Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-09T20:57:25.481Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
