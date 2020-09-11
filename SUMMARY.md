@@ -13,7 +13,7 @@
 * [Conditional unit tests](testing/conditional-unit-tests.md)
 * [Skip tagged scenarios in SpecFlow with Xunit](testing/skip-tagged-scenarios-in-specflow-with-xunit.md)
 
-## MSBuild
+## msbuild
 
 * [How to build project when content files change](msbuild/how-to-build-project-when-content-files-change.md)
 
