@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>AsyncLocal never leaks and is safe for CallContext-like state · GitBook</title>
+        <title>Publishing function app from GitHub folder · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="Even if it's typically used in a static field, the values never leak since they are bound to a transient ExecutionContext">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="using-hashcode-in-.netframework.html" />
+    <link rel="next" href="exploring-azure-data-with-kusto-and-dashboards.html" />
     
     
-    <link rel="prev" href="../" />
+    <link rel="prev" href="../msbuild/how-to-build-project-when-content-files-change.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -114,9 +114,9 @@
         
         
     
-        <li class="chapter active" data-level="2.1" data-path="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
+        <li class="chapter " data-level="2.1" data-path="../dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
             
-                <a href="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
+                <a href="../dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
             
                     
                     AsyncLocal never leaks and is safe for CallContext-like state
@@ -127,9 +127,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="using-hashcode-in-.netframework.html">
+        <li class="chapter " data-level="2.2" data-path="../dotnet/using-hashcode-in-.netframework.html">
             
-                <a href="using-hashcode-in-.netframework.html">
+                <a href="../dotnet/using-hashcode-in-.netframework.html">
             
                     
                     Using HashCode in .NETFramework
@@ -140,9 +140,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="how-to-locate-dotnet.html">
+        <li class="chapter " data-level="2.3" data-path="../dotnet/how-to-locate-dotnet.html">
             
-                <a href="how-to-locate-dotnet.html">
+                <a href="../dotnet/how-to-locate-dotnet.html">
             
                     
                     How to locate dotnet
@@ -213,9 +213,9 @@
         
         
     
-        <li class="chapter " data-level="5.1" data-path="../azure/publishing-function-app-from-github-folder.html">
+        <li class="chapter active" data-level="5.1" data-path="publishing-function-app-from-github-folder.html">
             
-                <a href="../azure/publishing-function-app-from-github-folder.html">
+                <a href="publishing-function-app-from-github-folder.html">
             
                     
                     Publishing function app from GitHub folder
@@ -226,9 +226,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.2" data-path="../azure/exploring-azure-data-with-kusto-and-dashboards.html">
+        <li class="chapter " data-level="5.2" data-path="exploring-azure-data-with-kusto-and-dashboards.html">
             
-                <a href="../azure/exploring-azure-data-with-kusto-and-dashboards.html">
+                <a href="exploring-azure-data-with-kusto-and-dashboards.html">
             
                     
                     Exploring Azure Data with Kusto and Dashboards
@@ -239,9 +239,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.3" data-path="../azure/shared-secret-authorization-with-azure-signalr-service.html">
+        <li class="chapter " data-level="5.3" data-path="shared-secret-authorization-with-azure-signalr-service.html">
             
-                <a href="../azure/shared-secret-authorization-with-azure-signalr-service.html">
+                <a href="shared-secret-authorization-with-azure-signalr-service.html">
             
                     
                     Shared secret authorization with Azure SignalR Service
@@ -252,9 +252,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.4" data-path="../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
+        <li class="chapter " data-level="5.4" data-path="using-azure-file-copy-from-devops-yaml-pipeline.html">
             
-                <a href="../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
+                <a href="using-azure-file-copy-from-devops-yaml-pipeline.html">
             
                     
                     Using Azure File Copy from DevOps yaml pipeline
@@ -265,9 +265,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.5" data-path="../azure/code-less-redirection-with-serverless-azure-functions.html">
+        <li class="chapter " data-level="5.5" data-path="code-less-redirection-with-serverless-azure-functions.html">
             
-                <a href="../azure/code-less-redirection-with-serverless-azure-functions.html">
+                <a href="code-less-redirection-with-serverless-azure-functions.html">
             
                     
                     Code-less redirection with serverless Azure Functions
@@ -328,7 +328,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >AsyncLocal never leaks and is safe for CallContext-like state</a>
+        <a href=".." >Publishing function app from GitHub folder</a>
     </h1>
 </div>
 
@@ -343,31 +343,15 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state">AsyncLocal never leaks and is safe for CallContext-like state</h1>
-<p>Sometime ago I wrote on <a href="https://www.cazzulino.com/callcontext-netstandard-netcore.html" target="_blank">How to migrate CallContext to .NETStandard and .NETCore</a>, and one question mentioned that the values themselves might leak, which actually is not the case, as shown here, due to the &quot;magic&quot; that is AsyncLocal in combination with the <a href="https://github.com/dotnet/runtime/blob/master/src/libraries/System.Private.CoreLib/src/System/Threading/ExecutionContext.cs#L133-L200" target="_blank">transient nature of the ExecutionContext</a>:</p>
-<pre><code class="lang-text">static AsyncLocal&lt;object&gt; local = new AsyncLocal&lt;object&gt;();
-
-async Task Main()
-{
-    WeakReference data = null;
-
-    await Task.Run(() =&gt;
-    {
-        var o = new object();
-        data = new WeakReference(o);
-        // We assign to the static async local, to see if it leaks.
-        local.Value = o;
-    });
-
-    // After execution is finished, we do have a live reference still.
-    System.Diagnostics.Debug.Assert(data.IsAlive == true);
-
-    GC.Collect();
-
-    // But a GC proves nobody is holding a strong reference to it.
-    System.Diagnostics.Debug.Assert(data.IsAlive == false);
-}
-</code></pre>
+                                <h1 id="publishing-function-app-from-github-folder">Publishing function app from GitHub folder</h1>
+<p>For very simple functions, I really liked just hacking them in the Azure portal. This is super brittle, however, since changes that break the app can&apos;t be undone. Great for learning, not so much once you start depending on those functions.</p>
+<p>While you can deploy using <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-github-actions?tabs=javascript" target="_blank">GitHub Actions</a> and <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-azure-devops?tabs=csharp" target="_blank">Azure Pipelines</a>, both seem a massive leap in complexity from the beauty of in-portal editing and updating. <a href="https://docs.microsoft.com/en-us/azure/app-service/deploy-continuous-deployment#option-1-kudu-app-service" target="_blank">Kudu</a> (or <em>App Service build service</em>) is way simpler and generally sufficient for simple functions. You just select GitHub as the source:</p>
+<p><img src="../.gitbook/assets/image%20%287%29.png" alt=""></p>
+<p>And App Service build service as the build provider:</p>
+<p><img src="../.gitbook/assets/image%20%286%29.png" alt=""></p>
+<p>You next simply connect it to your GitHub repository and that&apos;s it. But what if you want to deploy a <a href="https://github.com/kzu/azdo/tree/main/redir" target="_blank">subfolder</a> from the repository as the function app? </p>
+<p>Turns out you can just add an application setting to the function app, named <code>DEPLOYMENT_SOURCE</code>, pointing to the right subfolder (i.e. <code>.\redir</code> or <code>.\api</code> in my case) and that&apos;s it! Here you can see it in action in the logs, where just the <code>redir</code> subfolder is being sync&apos;ed to the <code>wwwroot</code> for the function app:</p>
+<p><img src="../.gitbook/assets/image%20%288%29.png" alt=""></p>
 
                                 
                                 </section>
@@ -395,12 +379,12 @@ async Task Main()
 
             
                 
-                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Today I Leaned">
+                <a href="../msbuild/how-to-build-project-when-content-files-change.html" class="navigation navigation-prev " aria-label="Previous page: How to build project when content files change">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="using-hashcode-in-.netframework.html" class="navigation navigation-next " aria-label="Next page: Using HashCode in .NETFramework">
+                <a href="exploring-azure-data-with-kusto-and-dashboards.html" class="navigation navigation-next " aria-label="Next page: Exploring Azure Data with Kusto and Dashboards">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -411,7 +395,7 @@ async Task Main()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Even if it's typically used in a static field, the values never leak since they are bound to a transient ExecutionContext","title":"AsyncLocal never leaks and is safe for CallContext-like state","level":"2.1","depth":1,"next":{"title":"Using HashCode in .NETFramework","level":"2.2","depth":1,"path":"dotnet/using-hashcode-in-.netframework.md","ref":"dotnet/using-hashcode-in-.netframework.md","articles":[]},"previous":{"title":"Today I Leaned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.md","mtime":"2020-09-11T21:47:45.978Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-11T21:48:27.733Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Publishing function app from GitHub folder","level":"5.1","depth":1,"next":{"title":"Exploring Azure Data with Kusto and Dashboards","level":"5.2","depth":1,"path":"azure/exploring-azure-data-with-kusto-and-dashboards.md","ref":"azure/exploring-azure-data-with-kusto-and-dashboards.md","articles":[]},"previous":{"title":"How to build project when content files change","level":"4.1","depth":1,"path":"msbuild/how-to-build-project-when-content-files-change.md","ref":"msbuild/how-to-build-project-when-content-files-change.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"azure/publishing-function-app-from-github-folder.md","mtime":"2020-09-11T21:47:45.978Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-11T21:48:27.733Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

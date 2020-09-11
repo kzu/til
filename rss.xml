@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 11 Sep 2020 21:32:14 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 11 Sep 2020 21:48:29 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -58,6 +58,13 @@
             <description><![CDATA[Visual Studio will typically just report the project is up-to-date and doesn't need to be built if you just changed a Content or None item. If you want it to consider those file types to also trigger a build, just add the relevant items as UpToDateCheckInput:]]></description>
             <link>https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Publishing function app from GitHub folder]]></title>
+            <description><![CDATA[For very simple functions, I really liked just hacking them in the Azure portal. This is super brittle, however, since changes that break the app can't be undone. Great for learning, not so much once you start depending on those functions.]]></description>
+            <link>https://til.cazzulino.com/azure/publishing-function-app-from-github-folder.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/azure/publishing-function-app-from-github-folder.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
