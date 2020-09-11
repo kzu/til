@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 11 Sep 2020 21:48:29 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 11 Sep 2020 22:05:25 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -58,6 +58,13 @@
             <description><![CDATA[Visual Studio will typically just report the project is up-to-date and doesn't need to be built if you just changed a Content or None item. If you want it to consider those file types to also trigger a build, just add the relevant items as UpToDateCheckInput:]]></description>
             <link>https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[C# script function apps beyond Azure portal]]></title>
+            <description><![CDATA[Creating a C# function app in the Azure portal is incredibly simple and great for playing and learning. I love the simplicity and light-ness that comes from just having a single .csx script file with everything you need for the function. The more "serious" approach with a "proper" C# project, the functions SDK and the corresponding CI/CD setup seems quite the leap, in comparison.]]></description>
+            <link>https://til.cazzulino.com/azure/c-script-function-apps-beyond-azure-portal.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/azure/c-script-function-apps-beyond-azure-portal.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
