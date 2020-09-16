@@ -7,18 +7,19 @@ If you are using [Microsoft.SourceLink](https://www.nuget.org/packages?q=Microso
 ```markup
   <Target Name="UpdatePackageMetadata" 
           BeforeTargets="PrepareForBuild;GetAssemblyVersion;GenerateNuspec;Pack"
-          Condition="'$(PackageProjectUrl)' != '' And '$(SourceRevisionId)' != ''">
+          Condition="'$(RepositoryUrl)' != '' And '$(SourceRevisionId)' != ''">
     <PropertyGroup>
       <Description>
         $(Description)
 
-        Built from $(PackageProjectUrl)/tree/$(SourceRevisionId.Substring(0, 9))
+        Built from $(RepositoryUrl)/tree/$(SourceRevisionId.Substring(0, 9))
       </Description>
+      <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     </PropertyGroup>
   </Target>
 ```
 
 This will result in a short-ish link \(we trim it to 9 chars, which is the common short sha in Git\) to the repo, similar to many [ASP.NET Core](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/) [packages](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Core/).
 
-If you're using [GitInfo](https://www.nuget.org/packages/GitInfo/) instead, you'll have to populate the `PackageProjectUrl` yourself, and replace `SourceRevisionId` with `GitSha`.
+If you're using [GitInfo](https://www.nuget.org/packages/GitInfo/) instead, you'll have to populate the `RepositoryUrl` yourself, and replace `SourceRevisionId` with `GitSha`.
 
