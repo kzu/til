@@ -15,6 +15,7 @@
 
 ## msbuild
 
+* [How to include commit URL in nuget package description](msbuild/how-to-include-commit-url-in-nuget-package-description.md)
 * [How to include package reference files in your nuget](msbuild/how-to-include-package-reference-files-in-your-nuget-package.md)
 * [How to build project when content files change](msbuild/how-to-build-project-when-content-files-change.md)
 
