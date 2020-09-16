@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Exploring Azure Data with Kusto and Dashboards · GitBook</title>
+        <title>How to include referenced package files in your nuget package · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="shared-secret-authorization-with-azure-signalr-service.html" />
+    <link rel="next" href="how-to-build-project-when-content-files-change.html" />
     
     
-    <link rel="prev" href="publishing-function-app-from-github-folder.html" />
+    <link rel="prev" href="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -193,9 +193,9 @@
         
         
     
-        <li class="chapter " data-level="4.1" data-path="../msbuild/how-to-include-referenced-package-files-in-your-nuget-package.html">
+        <li class="chapter active" data-level="4.1" data-path="how-to-include-referenced-package-files-in-your-nuget-package.html">
             
-                <a href="../msbuild/how-to-include-referenced-package-files-in-your-nuget-package.html">
+                <a href="how-to-include-referenced-package-files-in-your-nuget-package.html">
             
                     
                     How to include referenced package files in your nuget package
@@ -206,9 +206,9 @@
             
         </li>
     
-        <li class="chapter " data-level="4.2" data-path="../msbuild/how-to-build-project-when-content-files-change.html">
+        <li class="chapter " data-level="4.2" data-path="how-to-build-project-when-content-files-change.html">
             
-                <a href="../msbuild/how-to-build-project-when-content-files-change.html">
+                <a href="how-to-build-project-when-content-files-change.html">
             
                     
                     How to build project when content files change
@@ -226,9 +226,9 @@
         
         
     
-        <li class="chapter " data-level="5.1" data-path="c-script-function-apps-beyond-azure-portal.html">
+        <li class="chapter " data-level="5.1" data-path="../azure/c-script-function-apps-beyond-azure-portal.html">
             
-                <a href="c-script-function-apps-beyond-azure-portal.html">
+                <a href="../azure/c-script-function-apps-beyond-azure-portal.html">
             
                     
                     C# script function apps beyond Azure portal
@@ -239,9 +239,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.2" data-path="publishing-function-app-from-github-folder.html">
+        <li class="chapter " data-level="5.2" data-path="../azure/publishing-function-app-from-github-folder.html">
             
-                <a href="publishing-function-app-from-github-folder.html">
+                <a href="../azure/publishing-function-app-from-github-folder.html">
             
                     
                     Publishing function app from GitHub folder
@@ -252,9 +252,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.3" data-path="exploring-azure-data-with-kusto-and-dashboards.html">
+        <li class="chapter " data-level="5.3" data-path="../azure/exploring-azure-data-with-kusto-and-dashboards.html">
             
-                <a href="exploring-azure-data-with-kusto-and-dashboards.html">
+                <a href="../azure/exploring-azure-data-with-kusto-and-dashboards.html">
             
                     
                     Exploring Azure Data with Kusto and Dashboards
@@ -265,9 +265,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.4" data-path="shared-secret-authorization-with-azure-signalr-service.html">
+        <li class="chapter " data-level="5.4" data-path="../azure/shared-secret-authorization-with-azure-signalr-service.html">
             
-                <a href="shared-secret-authorization-with-azure-signalr-service.html">
+                <a href="../azure/shared-secret-authorization-with-azure-signalr-service.html">
             
                     
                     Shared secret authorization with Azure SignalR Service
@@ -278,9 +278,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.5" data-path="using-azure-file-copy-from-devops-yaml-pipeline.html">
+        <li class="chapter " data-level="5.5" data-path="../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
             
-                <a href="using-azure-file-copy-from-devops-yaml-pipeline.html">
+                <a href="../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
             
                     
                     Using Azure File Copy from DevOps yaml pipeline
@@ -291,9 +291,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.6" data-path="code-less-redirection-with-serverless-azure-functions.html">
+        <li class="chapter " data-level="5.6" data-path="../azure/code-less-redirection-with-serverless-azure-functions.html">
             
-                <a href="code-less-redirection-with-serverless-azure-functions.html">
+                <a href="../azure/code-less-redirection-with-serverless-azure-functions.html">
             
                     
                     Code-less redirection with serverless Azure Functions
@@ -354,7 +354,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Exploring Azure Data with Kusto and Dashboards</a>
+        <a href=".." >How to include referenced package files in your nuget package</a>
     </h1>
 </div>
 
@@ -369,31 +369,42 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="exploring-azure-data-with-kusto-and-dashboards">Exploring Azure Data with Kusto and Dashboards</h1>
-<p>In order to more effectively learn <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/query-language" target="_blank">Kusto</a> (the query language powering Azure analytics, log querying and PowerBI) and data visualization capabilites in Azure, I did the following:</p>
+                                <h1 id="how-to-include-referenced-package-files-in-your-nuget-package">How to include referenced package files in your nuget package</h1>
+<p>This is a particularly common scenario if you&apos;re developing MSBuild tasks or Roslyn code analyzers: all the dependencies you use in your task, analyzer or source generator, need to be included in your nuget package too, alongside your project primary output (i.e. under the proper<code>analyzer, tools or build</code>folders). A very convenient way (if not comprehensive, since it won&apos;t include with transitive dependencies) to do so is by annotating your <code>PackageReference</code> themselves, like:</p>
+<pre><code class="lang-markup">&lt;PackageReference Include=&quot;Scriban&quot; Version=&quot;2.1.2&quot; PrivateAssets=&quot;all&quot; Pack=&quot;true&quot; /&gt;
+</code></pre>
+<p>The <code>Pack</code> metadata value can then be used to include the assets in the package with the following target:</p>
+<pre><code class="lang-markup">  &lt;!-- For every PackageReference with Pack=true, we include the assemblies from it in the package --&gt;
+  &lt;Target Name=&quot;AddPackDependencies&quot; Inputs=&quot;@(RuntimeCopyLocalItems)&quot; Outputs=&quot;%(RuntimeCopyLocalItems.NuGetPackageId)&quot; AfterTargets=&quot;ResolvePackageAssets&quot;&gt;
+    &lt;ItemGroup&gt;
+      &lt;NuGetPackageId Include=&quot;@(RuntimeCopyLocalItems -&gt; &apos;%(NuGetPackageId)&apos;)&quot; /&gt;
+    &lt;/ItemGroup&gt;
+    &lt;PropertyGroup&gt;
+      &lt;NuGetPackageId&gt;@(NuGetPackageId -&amp;gt; Distinct())&lt;/NuGetPackageId&gt;
+    &lt;/PropertyGroup&gt;
+    &lt;ItemGroup&gt;
+      &lt;PackageReferenceDependency Include=&quot;@(PackageReference -&amp;gt; WithMetadataValue(&apos;Identity&apos;, &apos;$(NuGetPackageId)&apos;))&quot; /&gt;
+    &lt;/ItemGroup&gt;
+    &lt;PropertyGroup&gt;
+      &lt;NuGetPackagePack&gt;@(PackageReferenceDependency -&gt; &apos;%(Pack)&apos;)&lt;/NuGetPackagePack&gt;
+    &lt;/PropertyGroup&gt;
+    &lt;ItemGroup Condition=&quot;&apos;$(NuGetPackagePack)&apos; == &apos;true&apos;&quot;&gt;
+      &lt;_PackageFiles Include=&quot;@(RuntimeCopyLocalItems)&quot; PackagePath=&quot;$(BuildOutputTargetFolder)/$(TargetFramework)/%(Filename)%(Extension)&quot; /&gt;
+      &lt;RuntimeCopyLocalItems Update=&quot;@(RuntimeCopyLocalItems)&quot; CopyLocal=&quot;true&quot; Private=&quot;true&quot; /&gt;
+      &lt;ResolvedFileToPublish Include=&quot;@(RuntimeCopyLocalItems)&quot; CopyToPublishDirectory=&quot;PreserveNewest&quot; RelativePath=&quot;%(Filename)%(Extension)&quot; /&gt;
+    &lt;/ItemGroup&gt;
+  &lt;/Target&gt;
+</code></pre>
+<p>Quite a few things to note in the above target that aren&apos;t too obvious:</p>
 <ol>
-<li><a href="https://docs.microsoft.com/en-us/azure/data-explorer/create-cluster-database-portal" target="_blank">Created a cluster and database</a> (this takes quite a while)</li>
-<li>Open the <a href="https://aka.ms/kwe" target="_blank">Azure Data Explorer</a> (a.k.a. Kusto Web Explorer) at <a href="https://aka.ms/kwe" target="_blank">https://aka.ms/kwe</a></li>
-<li>Add the cluster with the full URI or alternatively just the <code>name.region</code> parts (i.e. <code>kzukusto.centralus</code> vs <a href="https://kzukusto.centralus.kusto.windows.net" target="_blank"><code>https://kzukusto.centralus.kusto.windows.net</code></a>)</li>
-<li>Optionally add an arbitrary Application Insights app as a &quot;virtual cluster&quot;, <a href="https://docs.microsoft.com/en-us/azure/data-explorer/query-monitor-data#connect-to-the-proxy" target="_blank">using a url with the format</a> <code>https://ade.applicationinsights.io/subscriptions/&lt;id&gt;/resourcegroups/&lt;name&gt;/providers/microsoft.insights/components/&lt;ai-app-name&gt;</code></li>
-<li><p>Right--lick database and select Ingest new data</p>
-<p><img src="../.gitbook/assets/image.png" alt="Ingest new data context menu"></p>
-</li>
-<li><p>Find some interesting <a href="https://azure.microsoft.com/en-us/services/open-datasets/catalog/" target="_blank">Azure Open Dataset from the catalog</a> that has an Azure storage URL readily available from the Azure Open Datasets catalog, such as the <a href="https://azure.microsoft.com/en-us/services/open-datasets/catalog/bing-covid-19-data/" target="_blank">Bing COVID-19 Data</a> (I used the <code>.jsonl</code> link). NOTE: the <code>.json</code> one will not properly infer schema because it has a root object of type array. The <code>.jsonl</code> is actually a &quot;JSON fragment&quot; (if that even exists, would be the equivalent of an XML fragment) where each entry is just a JSON entry/line in the file.   </p>
-</li>
+<li>We use the <code>RuntimeCopyLocalItems</code> item group which is resolved by <code>ResolvePackageAssets</code> and contains the stuff that is needed for the dependency to run (i.e. the actual binaries, not reference assemblies, if it includes them).</li>
+<li>We use Inputs/Outputs on it so we can batch by <code>%(RuntimeCopyLocalItems.NuGetPackageId)</code>: this makes processing simpler inside the target, since we&apos;ll be dealing with a single <code>NuGetPackageId</code> for each batch, regardless of how many <code>RuntimeCopyLocalItems</code>there are.</li>
+<li>We next get that package ID as a property, and find the <code>@(PackageReference)</code> with that ID, to determine if it needs to be packed or not.</li>
+<li>Note we use property syntax next since we know there can be at most one such <code>@(PackageReferenceDependency)</code>, in which case we&apos;d get either an empty value or <code>true</code> for <code>%(Pack)</code>.</li>
+<li>If we have to pack, we include all the <code>@(RuntimeCopyLocalItems)</code> (in the current batch, MSBuild does this for us for free thanks to the Inputs/Outputs) and use as the package path the same as what the primary project output will use. These are added directly as <code>_PackageFiles</code> which is what the SDK-style project <code>Pack</code> uses.</li>
+<li>We update the items metadata so they are also flagged as copy-local</li>
+<li>Finally, the <code>ResolvedFileToPublish</code> is useful when creating dotnet tools, since packing those is slightly different and includes a publish operation.</li>
 </ol>
-<p>   <img src="../.gitbook/assets/image%20%281%29.png" alt=""></p>
-<p>   The JSON version is preferable to <code>.csv</code> because it properly infer the data type for columns. </p>
-<ol>
-<li>Click on <code>Dashboards</code> for the new stuff here. Parameters driven by queries are particularly handy:</li>
-</ol>
-<p><img src="../.gitbook/assets/image%20%282%29.png" alt="Query-driven multi-select parameter for widget"></p>
-<p>While editing the query/widget, if the parameter is used in the query, you can interactively change its value to explore the visualizations. For example:</p>
-<p><img src="../.gitbook/assets/image%20%283%29.png" alt="Used parameter becomes enabled for selection"></p>
-<p>Whereas if it wasn&apos;t used:</p>
-<p><img src="../.gitbook/assets/image%20%284%29.png" alt="Unused parameter unavailable"></p>
-<p>After shaping the <code>Results</code>the way you want, clicking the Visual tab allows configuring a bunch of visualizations. Inference works quite nicely if the data/results are filtered to just what you want to display.</p>
-<p><img src="../.gitbook/assets/image%20%285%29.png" alt="Many chart options and inference that works great"></p>
 
                                 
                                 </section>
@@ -421,12 +432,12 @@
 
             
                 
-                <a href="publishing-function-app-from-github-folder.html" class="navigation navigation-prev " aria-label="Previous page: Publishing function app from GitHub folder">
+                <a href="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html" class="navigation navigation-prev " aria-label="Previous page: Skip tagged scenarios in SpecFlow with Xunit">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="shared-secret-authorization-with-azure-signalr-service.html" class="navigation navigation-next " aria-label="Next page: Shared secret authorization with Azure SignalR Service">
+                <a href="how-to-build-project-when-content-files-change.html" class="navigation navigation-next " aria-label="Next page: How to build project when content files change">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -437,7 +448,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Exploring Azure Data with Kusto and Dashboards","level":"5.3","depth":1,"next":{"title":"Shared secret authorization with Azure SignalR Service","level":"5.4","depth":1,"path":"azure/shared-secret-authorization-with-azure-signalr-service.md","ref":"azure/shared-secret-authorization-with-azure-signalr-service.md","articles":[]},"previous":{"title":"Publishing function app from GitHub folder","level":"5.2","depth":1,"path":"azure/publishing-function-app-from-github-folder.md","ref":"azure/publishing-function-app-from-github-folder.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"azure/exploring-azure-data-with-kusto-and-dashboards.md","mtime":"2020-09-16T04:17:00.897Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-16T04:17:45.807Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"How to include referenced package files in your nuget package","level":"4.1","depth":1,"next":{"title":"How to build project when content files change","level":"4.2","depth":1,"path":"msbuild/how-to-build-project-when-content-files-change.md","ref":"msbuild/how-to-build-project-when-content-files-change.md","articles":[]},"previous":{"title":"Skip tagged scenarios in SpecFlow with Xunit","level":"3.2","depth":1,"path":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","ref":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"msbuild/how-to-include-referenced-package-files-in-your-nuget-package.md","mtime":"2020-09-16T04:17:00.897Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-16T04:17:45.807Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
