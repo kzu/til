@@ -14,7 +14,9 @@ If you are using [Microsoft.SourceLink](https://www.nuget.org/packages?q=Microso
 
         Built from $(RepositoryUrl)/tree/$(SourceRevisionId.Substring(0, 9))
       </Description>
+      <!-- Update nuspec properties too -->
       <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+      <PackageDescription> $(Description)</PackageDescription>
     </PropertyGroup>
   </Target>
 ```
