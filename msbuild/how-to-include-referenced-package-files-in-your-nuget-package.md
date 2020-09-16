@@ -1,4 +1,4 @@
-# How to include referenced package files in your nuget
+# How to include package reference files in your nuget
 
 This is a particularly common scenario if you're developing MSBuild tasks or Roslyn code analyzers: all the dependencies you use in your task, analyzer or source generator, need to be included in your nuget package too, alongside your project primary output \(i.e. under the proper`analyzer, tools or build`folders\). A very convenient way \(if not comprehensive, since it won't include with transitive dependencies\) to do so is by annotating your `PackageReference` themselves, like:
 
