@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 16 Sep 2020 04:22:49 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 16 Sep 2020 04:42:10 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -51,6 +51,13 @@
             <description><![CDATA[First apply a tag of your choosing to flag scenarios that are still not ready for running:]]></description>
             <link>https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to include commit URL in nuget package description]]></title>
+            <description><![CDATA[It's quite helpful to include a direct link to the source code that produced a given package version, so your users can quickly see what's included (i.e. they may be tracking a bug fix).]]></description>
+            <link>https://til.cazzulino.com/msbuild/how-to-include-commit-url-in-nuget-package-description.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-include-commit-url-in-nuget-package-description.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>

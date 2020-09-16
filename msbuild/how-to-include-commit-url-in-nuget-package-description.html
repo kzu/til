@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Conditional unit tests · GitBook</title>
+        <title>How to include commit URL in nuget package description · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="How to run xunit tests conditionally depending on the environment that is running the tests">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="skip-tagged-scenarios-in-specflow-with-xunit.html" />
+    <link rel="next" href="how-to-include-package-reference-files-in-your-nuget-package.html" />
     
     
-    <link rel="prev" href="../dotnet/how-to-locate-dotnet.html" />
+    <link rel="prev" href="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -160,9 +160,9 @@
         
         
     
-        <li class="chapter active" data-level="3.1" data-path="conditional-unit-tests.html">
+        <li class="chapter " data-level="3.1" data-path="../testing/conditional-unit-tests.html">
             
-                <a href="conditional-unit-tests.html">
+                <a href="../testing/conditional-unit-tests.html">
             
                     
                     Conditional unit tests
@@ -173,9 +173,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2" data-path="skip-tagged-scenarios-in-specflow-with-xunit.html">
+        <li class="chapter " data-level="3.2" data-path="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html">
             
-                <a href="skip-tagged-scenarios-in-specflow-with-xunit.html">
+                <a href="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html">
             
                     
                     Skip tagged scenarios in SpecFlow with Xunit
@@ -193,9 +193,9 @@
         
         
     
-        <li class="chapter " data-level="4.1" data-path="../msbuild/how-to-include-commit-url-in-nuget-package-description.html">
+        <li class="chapter active" data-level="4.1" data-path="how-to-include-commit-url-in-nuget-package-description.html">
             
-                <a href="../msbuild/how-to-include-commit-url-in-nuget-package-description.html">
+                <a href="how-to-include-commit-url-in-nuget-package-description.html">
             
                     
                     How to include commit URL in nuget package description
@@ -206,9 +206,9 @@
             
         </li>
     
-        <li class="chapter " data-level="4.2" data-path="../msbuild/how-to-include-package-reference-files-in-your-nuget-package.html">
+        <li class="chapter " data-level="4.2" data-path="how-to-include-package-reference-files-in-your-nuget-package.html">
             
-                <a href="../msbuild/how-to-include-package-reference-files-in-your-nuget-package.html">
+                <a href="how-to-include-package-reference-files-in-your-nuget-package.html">
             
                     
                     How to include package reference files in your nuget
@@ -219,9 +219,9 @@
             
         </li>
     
-        <li class="chapter " data-level="4.3" data-path="../msbuild/how-to-build-project-when-content-files-change.html">
+        <li class="chapter " data-level="4.3" data-path="how-to-build-project-when-content-files-change.html">
             
-                <a href="../msbuild/how-to-build-project-when-content-files-change.html">
+                <a href="how-to-build-project-when-content-files-change.html">
             
                     
                     How to build project when content files change
@@ -367,7 +367,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Conditional unit tests</a>
+        <a href=".." >How to include commit URL in nuget package description</a>
     </h1>
 </div>
 
@@ -382,20 +382,23 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="conditional-unit-tests">Conditional unit tests</h1>
-<p>Turns out that there aren&apos;t any conditional <code>FactAttribute</code> in <a href="https://github.com/xunit/xunit" target="_blank">xunit</a>, but you can pretty much copy wholesale the extensions created by the <a href="https://github.com/dotnet/runtime/tree/master/src/libraries/Common/tests/Extensions/TestingUtils/Microsoft.AspNetCore.Testing/src/xunit" target="_blank">ASP.NET Core team from their repo</a>.</p>
-<p>It allows you to do things like:</p>
-<pre><code class="lang-text">[SkipOnCI]
-[ConditionalFact]
-public async Task SomeTest()
+                                <h1 id="how-to-include-commit-url-in-nuget-package-description">How to include commit URL in nuget package description</h1>
+<p>It&apos;s quite helpful to include a <a href="https://www.nuget.org/packages/Microsoft.AspnetCore.Authorization" target="_blank">direct link to the source code</a> that produced a given package version, so your users can quickly see what&apos;s included (i.e. they may be tracking a bug fix). </p>
+<p>If you are using <a href="https://www.nuget.org/packages?q=Microsoft.SourceLink" target="_blank">Microsoft.SourceLink</a>, you already have all the information you need automatically populated for you. The following target will update the description just before the nuget is produced:</p>
+<pre><code class="lang-markup">  &lt;Target Name=&quot;UpdatePackageMetadata&quot; 
+          BeforeTargets=&quot;PrepareForBuild;GetAssemblyVersion;GenerateNuspec;Pack&quot;
+          Condition=&quot;&apos;$(PackageProjectUrl)&apos; != &apos;&apos; And &apos;$(SourceRevisionId)&apos; != &apos;&apos;&quot;&gt;
+    &lt;PropertyGroup&gt;
+      &lt;Description&gt;
+        $(Description)
+
+        Built from $(PackageProjectUrl)/tree/$(SourceRevisionId.Substring(0, 9))
+      &lt;/Description&gt;
+    &lt;/PropertyGroup&gt;
+  &lt;/Target&gt;
 </code></pre>
-<p>to avoid running a test entirely if you&apos;re on CI. the implementation didn&apos;t take into account CI builds running via GH actions/workflows, so I tweaked the <a href="https://github.com/dotnet/runtime/blob/master/src/libraries/Common/tests/Extensions/TestingUtils/Microsoft.AspNetCore.Testing/src/xunit/SkipOnCIAttribute.cs#L38" target="_blank">OnCI() method</a> like so to also consider the commonly used <code>CI</code> envvar too:</p>
-<pre><code class="lang-text">public static bool OnCI() =&gt; 
-   (bool.TryParse(Environment.GetEnvironmentVariable(&quot;CI&quot;), out var ci) &amp;&amp; ci) || 
-   OnHelix() || OnAzdo();
-</code></pre>
-<p>I didn&apos;t think it was necessary to create an <code>OnGitHub</code> method since the envvar is just <code>CI</code> and well, the method is already called <code>OnCI</code> :)</p>
-<p>Another alternative is using the <a href="https://github.com/AArnott/Xunit.SkippableFact" target="_blank">Xunit.SkippableFact nuget package</a>.</p>
+<p>This will result in a short-ish link (we trim it to 9 chars, which is the common short sha in Git) to the repo, similar to many <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Http/" target="_blank">ASP.NET Core</a> <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Core/" target="_blank">packages</a>.</p>
+<p>If you&apos;re using <a href="https://www.nuget.org/packages/GitInfo/" target="_blank">GitInfo</a> instead, you&apos;ll have to populate the <code>PackageProjectUrl</code> yourself, and replace <code>SourceRevisionId</code> with <code>GitSha</code>.</p>
 
                                 
                                 </section>
@@ -423,12 +426,12 @@ public async Task SomeTest()
 
             
                 
-                <a href="../dotnet/how-to-locate-dotnet.html" class="navigation navigation-prev " aria-label="Previous page: How to locate dotnet">
+                <a href="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html" class="navigation navigation-prev " aria-label="Previous page: Skip tagged scenarios in SpecFlow with Xunit">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="skip-tagged-scenarios-in-specflow-with-xunit.html" class="navigation navigation-next " aria-label="Next page: Skip tagged scenarios in SpecFlow with Xunit">
+                <a href="how-to-include-package-reference-files-in-your-nuget-package.html" class="navigation navigation-next " aria-label="Next page: How to include package reference files in your nuget">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -439,7 +442,7 @@ public async Task SomeTest()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"How to run xunit tests conditionally depending on the environment that is running the tests","title":"Conditional unit tests","level":"3.1","depth":1,"next":{"title":"Skip tagged scenarios in SpecFlow with Xunit","level":"3.2","depth":1,"path":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","ref":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","articles":[]},"previous":{"title":"How to locate dotnet","level":"2.3","depth":1,"path":"dotnet/how-to-locate-dotnet.md","ref":"dotnet/how-to-locate-dotnet.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"testing/conditional-unit-tests.md","mtime":"2020-09-16T04:41:24.689Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-16T04:42:08.310Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"How to include commit URL in nuget package description","level":"4.1","depth":1,"next":{"title":"How to include package reference files in your nuget","level":"4.2","depth":1,"path":"msbuild/how-to-include-package-reference-files-in-your-nuget-package.md","ref":"msbuild/how-to-include-package-reference-files-in-your-nuget-package.md","articles":[]},"previous":{"title":"Skip tagged scenarios in SpecFlow with Xunit","level":"3.2","depth":1,"path":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","ref":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"msbuild/how-to-include-commit-url-in-nuget-package-description.md","mtime":"2020-09-16T04:41:24.689Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-16T04:42:08.310Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
