@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 16 Sep 2020 04:20:48 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 16 Sep 2020 04:22:09 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -54,17 +54,17 @@
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
+            <title><![CDATA[How to include package reference files in your nuget]]></title>
+            <description><![CDATA[This is a particularly common scenario if you're developing MSBuild tasks or Roslyn code analyzers: all the dependencies you use in your task, analyzer or source generator, need to be included in your nuget package too, alongside your project primary output (i.e. under the properanalyzer, tools or buildfolders). A very convenient way (if not comprehensive, since it won't include with transitive dependencies) to do so is by annotating your PackageReference themselves, like:]]></description>
+            <link>https://til.cazzulino.com/msbuild/how-to-include-referenced-package-files-in-your-nuget-package.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-include-referenced-package-files-in-your-nuget-package.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
             <title><![CDATA[How to build project when content files change]]></title>
             <description><![CDATA[Visual Studio will typically just report the project is up-to-date and doesn't need to be built if you just changed a Content or None item. If you want it to consider those file types to also trigger a build, just add the relevant items as UpToDateCheckInput:]]></description>
             <link>https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</guid>
-            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
-        </item>
-        <item>
-            <title><![CDATA[How to include referenced package files in your nuget]]></title>
-            <description><![CDATA[This is a particularly common scenario if you're developing MSBuild tasks or Roslyn code analyzers: all the dependencies you use in your task, analyzer or source generator, need to be included in your nuget package too, alongside your project primary output (i.e. under the properanalyzer, tools or buildfolders). A very convenient way (if not comprehensive, since it won't include with transitive dependencies) to do so is by annotating your PackageReference themselves, like:]]></description>
-            <link>https://til.cazzulino.com/msbuild/how-to-include-referenced-package-files-in-your-nuget-package.html</link>
-            <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-include-referenced-package-files-in-your-nuget-package.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
