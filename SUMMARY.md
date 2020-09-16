@@ -15,7 +15,7 @@
 
 ## msbuild
 
-* [How to include package reference files in your nuget](msbuild/how-to-include-referenced-package-files-in-your-nuget-package.md)
+* [How to include package reference files in your nuget](msbuild/how-to-include-package-reference-files-in-your-nuget-package.md)
 * [How to build project when content files change](msbuild/how-to-build-project-when-content-files-change.md)
 
 ## azure
