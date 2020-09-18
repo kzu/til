@@ -3,12 +3,12 @@
 The new C\# 9 records syntax is quite nice:
 
 ```csharp
-    [DebuggerDisplay("{Name} = {Value}")]
-    record ResourceValue(string Name, string Value, bool HasFormat)
-    {
-        public bool IsIndexed { get; init; }
-        public List<string> Format { get; } = new List<string>();
-    }
+[DebuggerDisplay("{Name} = {Value}")]
+record ResourceValue(string Name, string Value, bool HasFormat)
+{
+    public bool IsIndexed { get; init; }
+    public List<string> Format { get; } = new List<string>();
+}
 ```
 
 When using it in a non-_net5.0_ project \(i.e. _netstandard2.0_\), [compilation fails with an error](https://github.com/dotnet/roslyn/issues/45510):
