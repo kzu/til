@@ -1,6 +1,17 @@
 # Use C\# 9 records in non-net5.0 projects
 
-When using the new records syntax, [compilation fails with an error](https://github.com/dotnet/roslyn/issues/45510):
+The new C\# 9 records syntax is quite nice:
+
+```csharp
+    [DebuggerDisplay("{Name} = {Value}")]
+    record ResourceValue(string Name, string Value, bool HasFormat)
+    {
+        public bool IsIndexed { get; init; }
+        public List<string> Format { get; } = new List<string>();
+    }
+```
+
+When using it in a non-_net5.0_ project \(i.e. _netstandard2.0_\), [compilation fails with an error](https://github.com/dotnet/roslyn/issues/45510):
 
 ```text
 Predefined type 'System.Runtime.CompilerServices.IsExternalInit' is not defined or imported
