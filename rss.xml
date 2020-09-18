@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 16 Sep 2020 18:46:43 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 18 Sep 2020 17:04:30 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Leaned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Use C# 9 records in non-net5.0 projects]]></title>
+            <description><![CDATA[When using the new records syntax, compilation fails with an error:]]></description>
+            <link>https://til.cazzulino.com/dotnet/use-c-9-records-in-non-net5.0-projects.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/use-c-9-records-in-non-net5.0-projects.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
