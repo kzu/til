@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Using HashCode in .NETFramework · GitBook</title>
+        <title>Packaging transitive analyzers with NuGet · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="How to use HashCode type in full .NET, which doesn't support it">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="how-to-locate-dotnet.html" />
+    <link rel="next" href="use-c-9-records-in-non-net5.0-projects.html" />
     
     
-    <link rel="prev" href="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html" />
+    <link rel="prev" href="../" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -114,7 +114,7 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="packaging-transitive-analyzers-with-nuget.html">
+        <li class="chapter active" data-level="2.1" data-path="packaging-transitive-analyzers-with-nuget.html">
             
                 <a href="packaging-transitive-analyzers-with-nuget.html">
             
@@ -153,7 +153,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.4" data-path="using-hashcode-in-.netframework.html">
+        <li class="chapter " data-level="2.4" data-path="using-hashcode-in-.netframework.html">
             
                 <a href="using-hashcode-in-.netframework.html">
             
@@ -393,7 +393,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Using HashCode in .NETFramework</a>
+        <a href=".." >Packaging transitive analyzers with NuGet</a>
     </h1>
 </div>
 
@@ -408,24 +408,27 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="using-hashcode-in-netframework">Using HashCode in .NETFramework</h1>
-<p>So, I just learned that not even in .net472/net48, you can leverage the cool <a href="https://github.com/dotnet/coreclr/blob/master/src/System.Private.CoreLib/shared/System/HashCode.cs" target="_blank">HashCode</a> type from .NETCore. It <strong>is</strong> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.hashcode?view=dotnet-plat-ext-3.1" target="_blank">mentioned in docs</a> as available in &quot;.NET Platform Extensions 3.1&quot;, which isn&apos;t quite clear what it means. After a quick search here and there, I found out the <a href="https://www.nuget.org/packages/Microsoft.Bcl.HashCode/" target="_blank">Microsoft.Bcl.HashCode</a> package, which seems to be one such &quot;.NET platform extension&quot; (although the version # doesn&apos;t match either :/).</p>
-<p>With that, I can now make a <code>KeyValuePairComparer&lt;TKey, TValue&gt;</code>to check for dictionaries equality like:</p>
-<pre><code class="lang-text">    public class KeyValuePairComparer&lt;TKey, TValue&gt; : IEqualityComparer&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;
-    {
-        public static KeyValuePairComparer&lt;TKey, TValue&gt; Default { get;} = new KeyValuePairComparer&lt;TKey, TValue&gt;();
-
-        public bool Equals(KeyValuePair&lt;TKey, TValue&gt; x, KeyValuePair&lt;TKey, TValue&gt; y) =&gt; object.Equals(x.Key, y.Key) &amp;&amp; object.Equals(x.Value, y.Value);
-
-        public int GetHashCode(KeyValuePair&lt;TKey, TValue&gt; obj) =&gt; HashCode.Combine(obj.Key, obj.Value);
-    }
+                                <h1 id="packaging-transitive-analyzers-with-nuget">Packaging transitive analyzers with NuGet</h1>
+<p>Consider the scenario of <a href="https://github.com/kzu/ThisAssembly" target="_blank">ThisAssembly</a> and its referenced packages: the main package is essentially a meta-package so that anyone wanting to leverage all the codegen in all the ThisAssembly.* packages can reference a single one. By default, NuGet pack will create a package that declares the project reference dependencies like so:</p>
+<pre><code class="lang-markup">    &lt;dependencies&gt;
+      &lt;group targetFramework=&quot;.NETStandard2.0&quot;&gt;
+        &lt;dependency id=&quot;ThisAssembly.AssemblyInfo&quot; version=&quot;42.42.42&quot; exclude=&quot;Build,Analyzers&quot; /&gt;
+        &lt;dependency id=&quot;ThisAssembly.Metadata&quot; version=&quot;42.42.42&quot; exclude=&quot;Build,Analyzers&quot; /&gt;
+        &lt;dependency id=&quot;ThisAssembly.Project&quot; version=&quot;42.42.42&quot; exclude=&quot;Build,Analyzers&quot; /&gt;
+        &lt;dependency id=&quot;ThisAssembly.Strings&quot; version=&quot;42.42.42&quot; exclude=&quot;Build,Analyzers&quot; /&gt;
+      &lt;/group&gt;
+    &lt;/dependencies&gt;
 </code></pre>
-<p>To be used as: </p>
-<pre><code class="lang-text">IReadOnlyDictionary&lt;string, string&gt; first = ...
-IReadOnlyDictionary&lt;string, string&gt; second = ...
-
-return first.SequenceEquals(second, KeyValuePairComparer&lt;string, string&gt;.Default);
+<p> Note all those <code>exclude</code>. Not good since now it means projects referencing this package will not get the transitive analyzers, which are precisely the point of this meta-package. </p>
+<p>The fix is <a href="https://github.com/NuGet/Home/issues/3697#issuecomment-342983009" target="_blank">highly non-obvious</a>: you must explicitly state that <em>none</em> of the referenced project assets are to be flagged as private:</p>
+<pre><code class="lang-markup">  &lt;ItemGroup&gt;
+    &lt;ProjectReference Include=&quot;../ThisAssembly.AssemblyInfo/ThisAssembly.AssemblyInfo.csproj&quot; PrivateAssets=&quot;none&quot; /&gt;
+    &lt;ProjectReference Include=&quot;../ThisAssembly.Metadata/ThisAssembly.Metadata.csproj&quot; PrivateAssets=&quot;none&quot; /&gt;
+    &lt;ProjectReference Include=&quot;../ThisAssembly.Project/ThisAssembly.Project.csproj&quot; PrivateAssets=&quot;none&quot; /&gt;
+    &lt;ProjectReference Include=&quot;../ThisAssembly.Strings/ThisAssembly.Strings.csproj&quot; PrivateAssets=&quot;none&quot; /&gt;
+  &lt;/ItemGroup&gt;
 </code></pre>
+<p>This properly allows the transitive build and analyzer assets to be properly installed on the referencing project.</p>
 
                                 
                                 </section>
@@ -453,12 +456,12 @@ return first.SequenceEquals(second, KeyValuePairComparer&lt;string, string&gt;.D
 
             
                 
-                <a href="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html" class="navigation navigation-prev " aria-label="Previous page: AsyncLocal never leaks and is safe for CallContext-like state">
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Today I Leaned">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="how-to-locate-dotnet.html" class="navigation navigation-next " aria-label="Next page: How to locate dotnet">
+                <a href="use-c-9-records-in-non-net5.0-projects.html" class="navigation navigation-next " aria-label="Next page: Use C# 9 records in non-net5.0 projects">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -469,7 +472,7 @@ return first.SequenceEquals(second, KeyValuePairComparer&lt;string, string&gt;.D
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"How to use HashCode type in full .NET, which doesn't support it","title":"Using HashCode in .NETFramework","level":"2.4","depth":1,"next":{"title":"How to locate dotnet","level":"2.5","depth":1,"path":"dotnet/how-to-locate-dotnet.md","ref":"dotnet/how-to-locate-dotnet.md","articles":[]},"previous":{"title":"AsyncLocal never leaks and is safe for CallContext-like state","level":"2.3","depth":1,"path":"dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.md","ref":"dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/using-hashcode-in-.netframework.md","mtime":"2020-09-21T00:31:23.606Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-21T00:32:09.894Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Packaging transitive analyzers with NuGet","level":"2.1","depth":1,"next":{"title":"Use C# 9 records in non-net5.0 projects","level":"2.2","depth":1,"path":"dotnet/use-c-9-records-in-non-net5.0-projects.md","ref":"dotnet/use-c-9-records-in-non-net5.0-projects.md","articles":[]},"previous":{"title":"Today I Leaned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/packaging-transitive-analyzers-with-nuget.md","mtime":"2020-09-21T00:31:23.606Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-21T00:32:09.894Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

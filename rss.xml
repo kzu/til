@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 18 Sep 2020 17:06:39 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 21 Sep 2020 00:32:12 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Leaned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Packaging transitive analyzers with NuGet]]></title>
+            <description><![CDATA[Consider the scenario of ThisAssembly and its referenced packages: the main package is essentially a meta-package so that anyone wanting to leverage all the codegen in all the ThisAssembly.* packages can reference a single one. By default, NuGet pack will create a package that declares the project reference dependencies like so:]]></description>
+            <link>https://til.cazzulino.com/dotnet/packaging-transitive-analyzers-with-nuget.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/packaging-transitive-analyzers-with-nuget.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
