@@ -4,6 +4,7 @@
 
 ## dotnet
 
+* [Packaging transitive analyzers with NuGet](dotnet/packaging-transitive-analyzers-with-nuget.md)
 * [Use C\# 9 records in non-net5.0 projects](dotnet/use-c-9-records-in-non-net5.0-projects.md)
 * [AsyncLocal never leaks and is safe for CallContext-like state](dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.md)
 * [Using HashCode in .NETFramework](dotnet/using-hashcode-in-.netframework.md)
