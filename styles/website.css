@@ -1,9 +1,3 @@
-/* @import "normalize.css"; */
-/* 
-a:link {
-    color: blue;
+a {
+    text-decoration: underline;
 }
-
-a:visited {
-    color: green;
-} */
