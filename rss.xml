@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 30 Sep 2020 14:56:40 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 07 Oct 2020 05:19:18 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -65,6 +65,13 @@
             <description><![CDATA[First apply a tag of your choosing to flag scenarios that are still not ready for running:]]></description>
             <link>https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Write entire XML fragments in MSBuild with XmlPoke]]></title>
+            <description><![CDATA[I recently needed to write an entire project file via a targets (weird, I know). I was dreading all the crazy angle brackets escaping as &lt; and &gt; when I decided to check the latest official docs on XmlPoke to refresh the parameters and format. To my surprise, I found this example:]]></description>
+            <link>https://til.cazzulino.com/msbuild/write-entire-xml-fragments-in-msbuild-with-xmlpoke.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/msbuild/write-entire-xml-fragments-in-msbuild-with-xmlpoke.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
