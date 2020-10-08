@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 07 Oct 2020 05:19:18 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 08 Oct 2020 05:01:29 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Leaned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Hide contentFiles from your nuget packages]]></title>
+            <description><![CDATA[When you package compile items with your package (i.e. .cs), they are visible by default in your consumer's project. That's not always what you want. From a github issue on NuGet, I learned a neat trick to hide all the files in your package, automatically! All you need is to include a .props file in your package build folder (i.e. if your package is named Foo, make sure the file ends up build\Foo.props)]]></description>
+            <link>https://til.cazzulino.com/dotnet/hide-contentfiles-from-your-nuget-packages.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/hide-contentfiles-from-your-nuget-packages.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>

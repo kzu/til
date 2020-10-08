@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>AsyncLocal never leaks and is safe for CallContext-like state · GitBook</title>
+        <title>Hide contentFiles from your nuget packages · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="Even if it's typically used in a static field, the values never leak since they are bound to a transient ExecutionContext">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="using-hashcode-in-.netframework.html" />
+    <link rel="next" href="packaging-transitive-analyzers-with-nuget.html" />
     
     
-    <link rel="prev" href="use-c-9-records-in-non-net5.0-projects.html" />
+    <link rel="prev" href="../" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -114,7 +114,7 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="hide-contentfiles-from-your-nuget-packages.html">
+        <li class="chapter active" data-level="2.1" data-path="hide-contentfiles-from-your-nuget-packages.html">
             
                 <a href="hide-contentfiles-from-your-nuget-packages.html">
             
@@ -153,7 +153,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.4" data-path="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
+        <li class="chapter " data-level="2.4" data-path="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
             
                 <a href="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
             
@@ -432,7 +432,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >AsyncLocal never leaks and is safe for CallContext-like state</a>
+        <a href=".." >Hide contentFiles from your nuget packages</a>
     </h1>
 </div>
 
@@ -447,31 +447,19 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="asynclocal-never-leaks-and-is-safe-for-callcontext-like-state">AsyncLocal never leaks and is safe for CallContext-like state</h1>
-<p>Sometime ago I wrote on <a href="https://www.cazzulino.com/callcontext-netstandard-netcore.html" target="_blank">How to migrate CallContext to .NETStandard and .NETCore</a>, and one question mentioned that the values themselves might leak, which actually is not the case, as shown here, due to the &quot;magic&quot; that is AsyncLocal in combination with the <a href="https://github.com/dotnet/runtime/blob/master/src/libraries/System.Private.CoreLib/src/System/Threading/ExecutionContext.cs#L133-L200" target="_blank">transient nature of the ExecutionContext</a>:</p>
-<pre><code class="lang-text">static AsyncLocal&lt;object&gt; local = new AsyncLocal&lt;object&gt;();
+                                <h1 id="hide-contentfiles-from-your-nuget-packages">Hide contentFiles from your nuget packages</h1>
+<p>When you package compile items with your package (i.e. <code>.cs)</code>, they are visible by default in your consumer&apos;s project. That&apos;s not always what you want. From <a href="https://github.com/NuGet/Home/issues/4856#issuecomment-288151716" target="_blank">a github issue on NuGet</a>, I learned a neat trick to hide all the files in your package, automatically! All you need is to include a .props file in your package <code>build</code> folder (i.e. if your package is named <code>Foo</code>, make sure the file ends up <code>build\Foo.props</code>)</p>
+<pre><code class="lang-markup">&lt;Project&gt;
 
-async Task Main()
-{
-    WeakReference data = null;
+  &lt;ItemGroup&gt;
+    &lt;Compile Update=&quot;@(Compile)&quot;&gt;
+      &lt;Visible Condition=&quot;&apos;%(NuGetItemType)&apos; == &apos;Compile&apos; and &apos;%(NuGetPackageId)&apos; == &apos;Foo&apos;&quot;&gt;false&lt;/Visible&gt;
+    &lt;/Compile&gt;
+  &lt;/ItemGroup&gt;
 
-    await Task.Run(() =&gt;
-    {
-        var o = new object();
-        data = new WeakReference(o);
-        // We assign to the static async local, to see if it leaks.
-        local.Value = o;
-    });
-
-    // After execution is finished, we do have a live reference still.
-    System.Diagnostics.Debug.Assert(data.IsAlive == true);
-
-    GC.Collect();
-
-    // But a GC proves nobody is holding a strong reference to it.
-    System.Diagnostics.Debug.Assert(data.IsAlive == false);
-}
+&lt;/Project&gt;
 </code></pre>
+<p>This works because NuGet generates a .props file containing all your contentFiles items, under the <code>obj</code> folder, which contains both pieces of metadata used above to filter the visibility on items coming from our package. </p>
 
                                 
                                 </section>
@@ -499,12 +487,12 @@ async Task Main()
 
             
                 
-                <a href="use-c-9-records-in-non-net5.0-projects.html" class="navigation navigation-prev " aria-label="Previous page: Use C# 9 records in non-net5.0 projects">
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Today I Leaned">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="using-hashcode-in-.netframework.html" class="navigation navigation-next " aria-label="Next page: Using HashCode in .NETFramework">
+                <a href="packaging-transitive-analyzers-with-nuget.html" class="navigation navigation-next " aria-label="Next page: Packaging transitive analyzers with NuGet">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -515,7 +503,7 @@ async Task Main()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Even if it's typically used in a static field, the values never leak since they are bound to a transient ExecutionContext","title":"AsyncLocal never leaks and is safe for CallContext-like state","level":"2.4","depth":1,"next":{"title":"Using HashCode in .NETFramework","level":"2.5","depth":1,"path":"dotnet/using-hashcode-in-.netframework.md","ref":"dotnet/using-hashcode-in-.netframework.md","articles":[]},"previous":{"title":"Use C# 9 records in non-net5.0 projects","level":"2.3","depth":1,"path":"dotnet/use-c-9-records-in-non-net5.0-projects.md","ref":"dotnet/use-c-9-records-in-non-net5.0-projects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.md","mtime":"2020-10-08T05:00:38.930Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-08T05:01:26.248Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Hide contentFiles from your nuget packages","level":"2.1","depth":1,"next":{"title":"Packaging transitive analyzers with NuGet","level":"2.2","depth":1,"path":"dotnet/packaging-transitive-analyzers-with-nuget.md","ref":"dotnet/packaging-transitive-analyzers-with-nuget.md","articles":[]},"previous":{"title":"Today I Leaned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/hide-contentfiles-from-your-nuget-packages.md","mtime":"2020-10-08T05:00:38.930Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-08T05:01:26.248Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
