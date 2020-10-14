@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 08 Oct 2020 05:01:29 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 14 Oct 2020 02:49:24 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -72,6 +72,13 @@
             <description><![CDATA[First apply a tag of your choosing to flag scenarios that are still not ready for running:]]></description>
             <link>https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Modify all command-line builds in entire repo]]></title>
+            <description><![CDATA[I used to place msbuild.rsp response files alongside solution and project files to avoid repeating -nr:false -v:m -bl (no node reuse, minimal verbosity, binlogs). It was super annoying to have to have it all over the place. While browsing another repo, I just learned that since MSBuild 15.6+, you can now have a Directory.Build.rsp response file that affects every build in every descendent folder. This sounds like a great default one for me:]]></description>
+            <link>https://til.cazzulino.com/msbuild/modify-all-command-line-builds-in-entire-repo.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/msbuild/modify-all-command-line-builds-in-entire-repo.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
