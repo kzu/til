@@ -18,6 +18,7 @@
 
 ## msbuild
 
+* [Modify all command-line builds in entire repo](msbuild/modify-all-command-line-builds-in-entire-repo.md)
 * [Write entire XML fragments in MSBuild with XmlPoke](msbuild/write-entire-xml-fragments-in-msbuild-with-xmlpoke.md)
 * [How to select first item in an ItemGroup](msbuild/how-to-select-first-item-in-an-itemgroup.md)
 * [How to include commit URL in nuget package description](msbuild/how-to-include-commit-url-in-nuget-package-description.md)
