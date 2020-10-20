@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 14 Oct 2020 02:49:24 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 20 Oct 2020 20:20:10 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -72,6 +72,13 @@
             <description><![CDATA[First apply a tag of your choosing to flag scenarios that are still not ready for running:]]></description>
             <link>https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Detect CI builds for every CI system]]></title>
+            <description><![CDATA[In order to unify the environment variable to detect whether a build is a CI build as simply CI (as is done already in GitHub Actions, Circle CI and GitLab), you just place this bit of MSBuild in every project's Directory.Build.props to make things consistent everywhere:]]></description>
+            <link>https://til.cazzulino.com/msbuild/detect-ci-builds-for-every-ci-system.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/msbuild/detect-ci-builds-for-every-ci-system.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
