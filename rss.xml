@@ -9,11 +9,11 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 21 Oct 2020 07:39:13 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2020 20:29:18 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
-            <title><![CDATA[Today I Leaned]]></title>
+            <title><![CDATA[Today I Learned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
