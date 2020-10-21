@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 20 Oct 2020 20:20:10 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2020 07:39:13 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -72,6 +72,13 @@
             <description><![CDATA[First apply a tag of your choosing to flag scenarios that are still not ready for running:]]></description>
             <link>https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Modifying the build for every solution in a repository]]></title>
+            <description><![CDATA[Just like you can have Directory.Build.props and Directory.Build.targets to customize your projects' build, you can also use Directory.Solution.props and Directory.Solution.targets to customize your solutions (command-line) builds. Just like the original (older?) mecanisms, Visual Studio will not load those customizations either, however.]]></description>
+            <link>https://til.cazzulino.com/msbuild/modifying-the-build-for-every-solution-in-a-repository.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/msbuild/modifying-the-build-for-every-solution-in-a-repository.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>

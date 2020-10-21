@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Write entire XML fragments in MSBuild with XmlPoke · GitBook</title>
+        <title>Modifying the build for every solution in a repository · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="how-to-select-first-item-in-an-itemgroup.html" />
+    <link rel="next" href="detect-ci-builds-for-every-ci-system.html" />
     
     
-    <link rel="prev" href="modify-all-command-line-builds-in-entire-repo.html" />
+    <link rel="prev" href="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -232,7 +232,7 @@
         
         
     
-        <li class="chapter " data-level="4.1" data-path="modifying-the-build-for-every-solution-in-a-repository.html">
+        <li class="chapter active" data-level="4.1" data-path="modifying-the-build-for-every-solution-in-a-repository.html">
             
                 <a href="modifying-the-build-for-every-solution-in-a-repository.html">
             
@@ -271,7 +271,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="4.4" data-path="write-entire-xml-fragments-in-msbuild-with-xmlpoke.html">
+        <li class="chapter " data-level="4.4" data-path="write-entire-xml-fragments-in-msbuild-with-xmlpoke.html">
             
                 <a href="write-entire-xml-fragments-in-msbuild-with-xmlpoke.html">
             
@@ -471,7 +471,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Write entire XML fragments in MSBuild with XmlPoke</a>
+        <a href=".." >Modifying the build for every solution in a repository</a>
     </h1>
 </div>
 
@@ -486,50 +486,56 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="write-entire-xml-fragments-in-msbuild-with-xmlpoke">Write entire XML fragments in MSBuild with XmlPoke</h1>
-<p>I recently needed to write an entire project file via a targets (weird, I know). I was dreading all the crazy angle brackets escaping as <code>&amp;lt;</code> and <code>&amp;gt;</code> when I decided to check the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/xmlpoke-task?view=vs-2019" target="_blank">latest official docs on XmlPoke</a> to refresh the parameters and format. To my surprise, I found this example:</p>
-<pre><code class="lang-markup">&lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
+                                <h1 id="modifying-the-build-for-every-solution-in-a-repository">Modifying the build for every solution in a repository</h1>
+<p>Just like you can have <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2019#directorybuildprops-and-directorybuildtargets" target="_blank">Directory.Build.props and Directory.Build.targets</a> to customize your projects&apos; build, you can also use <code>Directory.Solution.props</code> and <code>Directory.Solution.targets</code> to customize your solutions (command-line) builds. Just like the original (older?) mecanisms, <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2019#customize-the-solution-build" target="_blank">Visual Studio will not load those customizations either</a>, however.</p>
+<p>In order to inspect how and where they are included in the build, it&apos;s useful to set use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/how-to-build-specific-targets-in-solutions-by-using-msbuild-exe?view=vs-2019#troubleshooting" target="_blank">troubleshooting technique</a> of setting the envvar <code>MSBUILDEMITSOLUTION=1</code> and run a build. You can inspect the <em>.metaproj</em> MSBuild project generated from the solution, where you will see the imported projects.</p>
+<p>For a Directory.Solution.props with:</p>
+<pre><code class="lang-markup">&lt;Project&gt;
   &lt;PropertyGroup&gt;
-    &lt;Namespace&gt;
-        &lt;Namespace Prefix=&quot;dn&quot; Uri=&quot;http://schemas.microsoft.com/appx/manifest/foundation/windows10&quot; /&gt;
-        &lt;Namespace Prefix=&quot;mp&quot; Uri=&quot;http://schemas.microsoft.com/appx/2014/phone/manifest&quot; /&gt;
-        &lt;Namespace Prefix=&quot;uap&quot; Uri=&quot;http://schemas.microsoft.com/appx/manifest/uap/windows10&quot; /&gt;
-    &lt;/Namespace&gt;
-&lt;/PropertyGroup&gt;
-
-&lt;Target Name=&quot;Poke&quot;&gt;
-  &lt;XmlPoke
-    XmlInputPath=&quot;Sample.xml&quot;
-    Value=&quot;MyId&quot;
-    Query=&quot;/dn:Package/mp:PhoneIdentity/@PhoneProductId&quot;
-    Namespaces=&quot;$(Namespace)&quot;/&gt;
-&lt;/Target&gt;
-&lt;/Project&gt;
-</code></pre>
-<p>Notice how the <code>$(Namespace)</code> property has <strong>beautiful</strong> XML inside. Which only makes sense, since, there had to be <strong>some</strong> advantage in MSBuild being XML, right? So I figured, if the namespaces can be a full nested XML element, could the <code>Value</code> be too? And the answer was a <a href="https://github.com/kzu/SmallSharp/blob/main/src/SmallSharp/SmallSharp.targets#L88-L100" target="_blank">resounding YEAHHH</a>:</p>
-<pre><code class="lang-markup">  &lt;PropertyGroup&quot;&gt;
-    &lt;UserPropertyGroup&gt;
-      &lt;PropertyGroup&gt;
-        &lt;ActiveDebugProfile&gt;$(StartupFile)&lt;/ActiveDebugProfile&gt;
-      &lt;/PropertyGroup&gt;
-    &lt;/UserPropertyGroup&gt;    
-  &lt;/PropertyGroup&gt;
-
-  &lt;XmlPoke XmlInputPath=&quot;$(MSBuildProjectFullPath).user&quot;
-           Value=&quot;$(UserPropertyGroup)&quot;
-           Query=&quot;/msb:Project&quot;
-           Namespaces=&quot;$(UserProjectNamespace)&quot;/&gt;
-</code></pre>
-<p>That writes an entire <code>&lt;PropertyGroup&gt;</code> element into a .user project file!</p>
-<p>For the attentive reader: you&apos;d think I made a mistake, since, in XML-land, elements inherit the XML namespace of their parent element. Seems like the XML namespace management in XmlPoke is a bit on the loose side of things: the above snippets are in a .targets file without any xmlns (it&apos;s an SDK-style <code>&lt;Project&gt;</code> without namespace, to keep it clean. Yet, the property group is added without messing up the namespace:</p>
-<pre><code class="lang-markup">&lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
-  &lt;PropertyGroup&gt;
-    &lt;ActiveDebugProfile&gt;Program.cs&lt;/ActiveDebugProfile&gt;
+    &lt;SolutionPropsProp&gt;from-solution.props&lt;/SolutionPropsProp&gt;
   &lt;/PropertyGroup&gt;
 &lt;/Project&gt;
 </code></pre>
-<p>If it had inserted it without a namespace, per the XML spec, it should have added an <code>xmlns=&quot;&quot;</code> to clear the parent Project node namespace. But alas, it didn&apos;t, and in this particular case, it makes it way more convenient this way :).</p>
-<p>I&apos;m using this in <a href="https://github.com/kzu/SmallSharp" target="_blank">SmallSharp</a> to initialize the .user project options properly with the right startup file for multi-startup top-level statements scripts in a single project :).</p>
+<p>And a Directory.Solution.targets with:</p>
+<pre><code class="lang-markup">&lt;Project&gt;
+  &lt;PropertyGroup&gt;
+    &lt;SolutionTargetsProp&gt;from-solution.targets&lt;/SolutionTargetsProp&gt;
+  &lt;/PropertyGroup&gt;
+
+  &lt;Target Name=&quot;CustomSolutionBuild&quot;&gt;
+  &lt;/Target&gt;
+&lt;/Project&gt;
+</code></pre>
+<p>You will see a <em>.metaproj</em> similar to:</p>
+<pre><code class="lang-markup">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;Project ToolsVersion=&quot;Current&quot; xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot; InitialTargets=&quot;ValidateSolutionConfiguration;ValidateToolsVersions;ValidateProjects&quot; DefaultTargets=&quot;Build&quot;&gt;
+  &lt;PropertyGroup&gt;
+    &lt;RoslynTargetsPath&gt;C:\Program Files\dotnet\sdk\5.0.100-rc.2.20479.15\Roslyn&lt;/RoslynTargetsPath&gt;
+    &lt;_DirectorySolutionPropsFile&gt;Directory.Solution.props&lt;/_DirectorySolutionPropsFile&gt;
+    &lt;_DirectorySolutionPropsBasePath&gt;C:\Code\kzu\moq&lt;/_DirectorySolutionPropsBasePath&gt;
+    &lt;DirectorySolutionPropsPath&gt;C:\Code\kzu\moq\Directory.Solution.props&lt;/DirectorySolutionPropsPath&gt;
+    &lt;SolutionPropsProp&gt;from-solution.props&lt;/SolutionPropsProp&gt;
+    &lt;Configuration&gt;Debug&lt;/Configuration&gt;
+    &lt;Platform&gt;Any CPU&lt;/Platform&gt;
+    ...
+    &lt;_DirectorySolutionTargetsFile&gt;Directory.Solution.targets&lt;/_DirectorySolutionTargetsFile&gt;
+    &lt;_DirectorySolutionTargetsBasePath&gt;C:\Code\kzu\moq&lt;/_DirectorySolutionTargetsBasePath&gt;
+    &lt;DirectorySolutionTargetsPath&gt;C:\Code\kzu\moq\Directory.Solution.targets&lt;/DirectorySolutionTargetsPath&gt;
+    &lt;SolutionTargetsProp&gt;from-solution.targets&lt;/SolutionTargetsProp&gt;
+  &lt;/PropertyGroup&gt;
+  ...
+  &lt;Target Name=&quot;_IsProjectRestoreSupported&quot; Returns=&quot;@(_ValidProjectsForRestore)&quot; /&gt;
+  &lt;Target Name=&quot;CustomSolutionBuild&quot; /&gt;
+  &lt;Target Name=&quot;Build&quot; Outputs=&quot;@(CollectedBuildOutput)&quot;&gt;
+  ...
+&lt;/Project&gt;
+</code></pre>
+<p>Notice how the targets aren&apos;t imported but rather embedded in specific places (top of property group for .props-declared properties, bottom of property group for .targets-declared properties, and before Build target for targets). If you have properties, they are actually even evaluated before being embedded in the file, i.e.:</p>
+<pre><code class="lang-markup">&lt;SolutionNow&gt;$([System.DateTime]::Now)&lt;/SolutionNow&gt;
+</code></pre>
+<p>is embedded in the .metaproj as the actually evaluated value, such as:</p>
+<pre><code class="lang-markup">    &lt;SolutionNow&gt;10/21/2020 4:36:30 AM&lt;/SolutionNow&gt;
+</code></pre>
 
                                 
                                 </section>
@@ -557,12 +563,12 @@
 
             
                 
-                <a href="modify-all-command-line-builds-in-entire-repo.html" class="navigation navigation-prev " aria-label="Previous page: Modify all command-line builds in entire repo">
+                <a href="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html" class="navigation navigation-prev " aria-label="Previous page: Skip tagged scenarios in SpecFlow with Xunit">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="how-to-select-first-item-in-an-itemgroup.html" class="navigation navigation-next " aria-label="Next page: How to select first item in an ItemGroup">
+                <a href="detect-ci-builds-for-every-ci-system.html" class="navigation navigation-next " aria-label="Next page: Detect CI builds for every CI system">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -573,7 +579,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Write entire XML fragments in MSBuild with XmlPoke","level":"4.4","depth":1,"next":{"title":"How to select first item in an ItemGroup","level":"4.5","depth":1,"path":"msbuild/how-to-select-first-item-in-an-itemgroup.md","ref":"msbuild/how-to-select-first-item-in-an-itemgroup.md","articles":[]},"previous":{"title":"Modify all command-line builds in entire repo","level":"4.3","depth":1,"path":"msbuild/modify-all-command-line-builds-in-entire-repo.md","ref":"msbuild/modify-all-command-line-builds-in-entire-repo.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"msbuild/write-entire-xml-fragments-in-msbuild-with-xmlpoke.md","mtime":"2020-10-21T07:38:23.574Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-21T07:39:10.191Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Modifying the build for every solution in a repository","level":"4.1","depth":1,"next":{"title":"Detect CI builds for every CI system","level":"4.2","depth":1,"path":"msbuild/detect-ci-builds-for-every-ci-system.md","ref":"msbuild/detect-ci-builds-for-every-ci-system.md","articles":[]},"previous":{"title":"Skip tagged scenarios in SpecFlow with Xunit","level":"3.2","depth":1,"path":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","ref":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"msbuild/modifying-the-build-for-every-solution-in-a-repository.md","mtime":"2020-10-21T07:38:23.574Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-21T07:39:10.191Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
