@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Today I Leaned](README.md)
+* [Today I Learned](README.md)
 
 ## dotnet
 

@@ -5,5 +5,5 @@ description: >-
   rather than by date.
 ---
 
-# Today I Leaned
+# Today I Learned
 
