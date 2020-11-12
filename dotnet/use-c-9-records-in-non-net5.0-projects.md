@@ -41,3 +41,11 @@ namespace System.Runtime.CompilerServices
 
 \([as seen elsewhere too](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Text.Json/tests/Serialization/IsExternalInit.cs)\)
 
+If you're multitargeting net5.0 and other TFMs, just add this bit of MSBuild to remove it for net5.0 since it's built-in:
+
+```markup
+<ItemGroup>
+  <Compile Remove="IsExternalInit.cs" Condition="'$(TargetFramework)' == 'net5.0'" />
+</ItemGroup>
+```
+
