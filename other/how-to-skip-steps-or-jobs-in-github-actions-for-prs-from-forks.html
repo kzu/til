@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Publishing function app from GitHub folder · GitBook</title>
+        <title>How to skip steps or jobs in GitHub Actions for PRs from forks · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="exploring-azure-data-with-kusto-and-dashboards.html" />
+    <link rel="next" href="update-version-and-publish-npm-from-gh.html" />
     
     
-    <link rel="prev" href="c-script-function-apps-beyond-azure-portal.html" />
+    <link rel="prev" href="../azure/code-less-redirection-with-serverless-azure-functions.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -343,9 +343,9 @@
         
         
     
-        <li class="chapter " data-level="5.1" data-path="c-script-function-apps-beyond-azure-portal.html">
+        <li class="chapter " data-level="5.1" data-path="../azure/c-script-function-apps-beyond-azure-portal.html">
             
-                <a href="c-script-function-apps-beyond-azure-portal.html">
+                <a href="../azure/c-script-function-apps-beyond-azure-portal.html">
             
                     
                     C# script function apps beyond Azure portal
@@ -356,9 +356,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.2" data-path="publishing-function-app-from-github-folder.html">
+        <li class="chapter " data-level="5.2" data-path="../azure/publishing-function-app-from-github-folder.html">
             
-                <a href="publishing-function-app-from-github-folder.html">
+                <a href="../azure/publishing-function-app-from-github-folder.html">
             
                     
                     Publishing function app from GitHub folder
@@ -369,9 +369,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.3" data-path="exploring-azure-data-with-kusto-and-dashboards.html">
+        <li class="chapter " data-level="5.3" data-path="../azure/exploring-azure-data-with-kusto-and-dashboards.html">
             
-                <a href="exploring-azure-data-with-kusto-and-dashboards.html">
+                <a href="../azure/exploring-azure-data-with-kusto-and-dashboards.html">
             
                     
                     Exploring Azure Data with Kusto and Dashboards
@@ -382,9 +382,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.4" data-path="shared-secret-authorization-with-azure-signalr-service.html">
+        <li class="chapter " data-level="5.4" data-path="../azure/shared-secret-authorization-with-azure-signalr-service.html">
             
-                <a href="shared-secret-authorization-with-azure-signalr-service.html">
+                <a href="../azure/shared-secret-authorization-with-azure-signalr-service.html">
             
                     
                     Shared secret authorization with Azure SignalR Service
@@ -395,9 +395,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.5" data-path="using-azure-file-copy-from-devops-yaml-pipeline.html">
+        <li class="chapter " data-level="5.5" data-path="../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
             
-                <a href="using-azure-file-copy-from-devops-yaml-pipeline.html">
+                <a href="../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
             
                     
                     Using Azure File Copy from DevOps yaml pipeline
@@ -408,9 +408,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.6" data-path="code-less-redirection-with-serverless-azure-functions.html">
+        <li class="chapter " data-level="5.6" data-path="../azure/code-less-redirection-with-serverless-azure-functions.html">
             
-                <a href="code-less-redirection-with-serverless-azure-functions.html">
+                <a href="../azure/code-less-redirection-with-serverless-azure-functions.html">
             
                     
                     Code-less redirection with serverless Azure Functions
@@ -428,9 +428,9 @@
         
         
     
-        <li class="chapter " data-level="6.1" data-path="../other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
+        <li class="chapter active" data-level="6.1" data-path="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
             
-                <a href="../other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
+                <a href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
             
                     
                     How to skip steps or jobs in GitHub Actions for PRs from forks
@@ -441,9 +441,9 @@
             
         </li>
     
-        <li class="chapter " data-level="6.2" data-path="../other/update-version-and-publish-npm-from-gh.html">
+        <li class="chapter " data-level="6.2" data-path="update-version-and-publish-npm-from-gh.html">
             
-                <a href="../other/update-version-and-publish-npm-from-gh.html">
+                <a href="update-version-and-publish-npm-from-gh.html">
             
                     
                     Update version and publish npm from GH
@@ -484,7 +484,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Publishing function app from GitHub folder</a>
+        <a href=".." >How to skip steps or jobs in GitHub Actions for PRs from forks</a>
     </h1>
 </div>
 
@@ -499,15 +499,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="publishing-function-app-from-github-folder">Publishing function app from GitHub folder</h1>
-<p>For very simple functions, I really liked just hacking them in the Azure portal. This is super brittle, however, since changes that break the app can&apos;t be undone. Great for learning, not so much once you start depending on those functions.</p>
-<p>While you can deploy using <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-github-actions?tabs=javascript" target="_blank">GitHub Actions</a> and <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-azure-devops?tabs=csharp" target="_blank">Azure Pipelines</a>, both seem a massive leap in complexity from the beauty of in-portal editing and updating. <a href="https://docs.microsoft.com/en-us/azure/app-service/deploy-continuous-deployment#option-1-kudu-app-service" target="_blank">Kudu</a> (or <em>App Service build service</em>) is way simpler and generally sufficient for simple functions. You just select GitHub as the source:</p>
-<p><img src="../.gitbook/assets/image%20%2810%29.png" alt=""></p>
-<p>And App Service build service as the build provider:</p>
-<p><img src="../.gitbook/assets/image%20%286%29.png" alt=""></p>
-<p>You next simply connect it to your GitHub repository and that&apos;s it. But what if you want to deploy a <a href="https://github.com/kzu/azdo/tree/main/redir" target="_blank">subfolder</a> from the repository as the function app? </p>
-<p>Turns out you can just add an application setting to the function app, named <code>DEPLOYMENT_SOURCE</code>, pointing to the right subfolder (i.e. <code>.\redir</code> or <code>.\api</code> in my case) and that&apos;s it! Here you can see it in action in the logs, where just the <code>redir</code> subfolder is being sync&apos;ed to the <code>wwwroot</code> for the function app:</p>
-<p><img src="../.gitbook/assets/image%20%2811%29.png" alt=""></p>
+                                <h1 id="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks">How to skip steps or jobs in GitHub Actions for PRs from forks</h1>
+<p><a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#using-encrypted-secrets-in-a-workflow" target="_blank">Encrypted secrets in GitHub</a> actions aren&apos;t available for builds from forks, so if your build script includes PRs, like <a href="https://github.com/kzu/avatar/blob/main/.github/workflows/build.yml#L2-L6" target="_blank">Avatar</a>:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">on:</span> 
+<span class="hljs-attr">  push:</span>
+<span class="hljs-attr">    branches:</span> [ main, dev, <span class="hljs-string">&apos;feature/*&apos;</span>, <span class="hljs-string">&apos;rel/*&apos;</span> ]
+<span class="hljs-attr">  pull_request:</span>
+<span class="hljs-attr">    types:</span> [opened, synchronize, reopened]
+</code></pre>
+<p>You may need to limit steps or entire jobs from running when PRs are coming from forks due to missing secrets (i.e. pushing an output package to a CI nuget feed, say).</p>
+<p>The &quot;magic&quot; thing is to use an <code>if</code> condition with the following expression:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">  push:</span>
+<span class="hljs-attr">    name:</span> push nuget.ci
+<span class="hljs-attr">    runs-on:</span> ubuntu-latest
+<span class="hljs-attr">    needs:</span> [build, acceptance]
+<span class="hljs-attr">    if:</span> ${{ !github.event.pull_request.head.repo.fork }}
+<span class="hljs-attr">    steps:</span>
+</code></pre>
+<p>Note that in the above case, an entire job is skipped, but you can also apply it to a step instead.</p>
 
                                 
                                 </section>
@@ -535,12 +544,12 @@
 
             
                 
-                <a href="c-script-function-apps-beyond-azure-portal.html" class="navigation navigation-prev " aria-label="Previous page: C# script function apps beyond Azure portal">
+                <a href="../azure/code-less-redirection-with-serverless-azure-functions.html" class="navigation navigation-prev " aria-label="Previous page: Code-less redirection with serverless Azure Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="exploring-azure-data-with-kusto-and-dashboards.html" class="navigation navigation-next " aria-label="Next page: Exploring Azure Data with Kusto and Dashboards">
+                <a href="update-version-and-publish-npm-from-gh.html" class="navigation navigation-next " aria-label="Next page: Update version and publish npm from GH">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -551,7 +560,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Publishing function app from GitHub folder","level":"5.2","depth":1,"next":{"title":"Exploring Azure Data with Kusto and Dashboards","level":"5.3","depth":1,"path":"azure/exploring-azure-data-with-kusto-and-dashboards.md","ref":"azure/exploring-azure-data-with-kusto-and-dashboards.md","articles":[]},"previous":{"title":"C# script function apps beyond Azure portal","level":"5.1","depth":1,"path":"azure/c-script-function-apps-beyond-azure-portal.md","ref":"azure/c-script-function-apps-beyond-azure-portal.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"azure/publishing-function-app-from-github-folder.md","mtime":"2020-11-12T02:35:43.565Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-12T02:36:29.289Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"How to skip steps or jobs in GitHub Actions for PRs from forks","level":"6.1","depth":1,"next":{"title":"Update version and publish npm from GH","level":"6.2","depth":1,"path":"other/update-version-and-publish-npm-from-gh.md","ref":"other/update-version-and-publish-npm-from-gh.md","articles":[]},"previous":{"title":"Code-less redirection with serverless Azure Functions","level":"5.6","depth":1,"path":"azure/code-less-redirection-with-serverless-azure-functions.md","ref":"azure/code-less-redirection-with-serverless-azure-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md","mtime":"2020-11-12T02:35:43.565Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-12T02:36:29.289Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

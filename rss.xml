@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 21 Oct 2020 20:29:18 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 12 Nov 2020 02:36:32 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -170,6 +170,13 @@
             <description><![CDATA[Say you want to have a nicer URI for something (like an Azure storage blob, a feed or something else). You  likely have a nice short custom domain (i.e. I use kzu.io for things like this), and would like to set up arbitrary (temporary or permanent) redirections. This can trivially be achieved by creating an empty Functions App and leveraging Functions Proxies.]]></description>
             <link>https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to skip steps or jobs in GitHub Actions for PRs from forks]]></title>
+            <description><![CDATA[Encrypted secrets in GitHub actions aren't available for builds from forks, so if your build script includes PRs, like Avatar:]]></description>
+            <link>https://til.cazzulino.com/other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
