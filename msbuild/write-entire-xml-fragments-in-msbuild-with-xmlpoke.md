@@ -25,7 +25,7 @@ I recently needed to write an entire project file via a targets \(weird, I know\
 Notice how the `$(Namespace)` property has **beautiful** XML inside. Which only makes sense, since, there had to be **some** advantage in MSBuild being XML, right? So I figured, if the namespaces can be a full nested XML element, could the `Value` be too? And the answer was a [resounding YEAHHH](https://github.com/kzu/SmallSharp/blob/main/src/SmallSharp/SmallSharp.targets#L88-L100):
 
 ```markup
-  <PropertyGroup">
+  <PropertyGroup>
     <UserPropertyGroup>
       <PropertyGroup>
         <ActiveDebugProfile>$(StartupFile)</ActiveDebugProfile>
