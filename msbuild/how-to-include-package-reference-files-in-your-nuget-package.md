@@ -10,7 +10,12 @@ The `Pack` metadata value can then be used to include the assets in the package 
 
 ```markup
   <!-- For every PackageReference with Pack=true, we include the assemblies from it in the package -->
-  <Target Name="AddPackDependencies" Inputs="@(RuntimeCopyLocalItems)" Outputs="%(RuntimeCopyLocalItems.NuGetPackageId)" AfterTargets="ResolvePackageAssets">
+  <Target Name="AddPackDependencies" 
+          Inputs="@(RuntimeCopyLocalItems)" 
+          Outputs="%(RuntimeCopyLocalItems.NuGetPackageId)" 
+          DependsOnTargets="ResolvePackageAssets"
+          BeforeTargets="GenerateNuspec"
+          AfterTargets="ResolvePackageAssets">
     <ItemGroup>
       <NuGetPackageId Include="@(RuntimeCopyLocalItems -> '%(NuGetPackageId)')" />
     </ItemGroup>
