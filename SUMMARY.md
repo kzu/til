@@ -4,6 +4,7 @@
 
 ## dotnet
 
+* [Persisting output files from source generators](dotnet/persisting-output-files-from-source-generators.md)
 * [Hide contentFiles from your nuget packages](dotnet/hide-contentfiles-from-your-nuget-packages.md)
 * [Packaging transitive analyzers with NuGet](dotnet/packaging-transitive-analyzers-with-nuget.md)
 * [Use C\# 9 records in non-net5.0 projects](dotnet/use-c-9-records-in-non-net5.0-projects.md)
