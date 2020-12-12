@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 11 Dec 2020 01:34:51 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 12 Dec 2020 00:03:13 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Learned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Persisting output files from source generators]]></title>
+            <description><![CDATA[Some time back, I had my own I/O code that based on some MSBuild property would persist my generated source for troubleshooting. This is no longer needed since you can now set]]></description>
+            <link>https://til.cazzulino.com/dotnet/persisting-output-files-from-source-generators.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/persisting-output-files-from-source-generators.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
