@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 12 Dec 2020 00:03:13 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 16 Dec 2020 05:42:10 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Learned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Disable diagnostic analyzers for entire folder/submodules]]></title>
+            <description><![CDATA[When you have submodules in your repository, it's not uncommon for those to be subject to a different quality bar than your main project. You may not even have a say in fixing issues upstream, or conventions may be totally different even.]]></description>
+            <link>https://til.cazzulino.com/dotnet/disable-diagnostic-analyzers-for-entire-folder-submodules.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/disable-diagnostic-analyzers-for-entire-folder-submodules.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
