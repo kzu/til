@@ -4,6 +4,7 @@
 
 ## dotnet
 
+* [Quickly check C\# compiler and language version](dotnet/quickly-check-c-compiler-and-language-version.md)
 * [Populate RepositoryBranch in CI for NuGet Pack](dotnet/populate-repositorybranch-in-ci-for-nuget-pack.md)
 * [Disable diagnostic analyzers for entire folder/submodules](dotnet/disable-diagnostic-analyzers-for-entire-folder-submodules.md)
 * [Persisting output files from source generators](dotnet/persisting-output-files-from-source-generators.md)
