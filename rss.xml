@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 17 Dec 2020 16:18:32 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 17 Dec 2020 16:26:26 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -20,7 +20,7 @@
         </item>
         <item>
             <title><![CDATA[Populate RepositoryBranch in CI for NuGet Pack]]></title>
-            <description><![CDATA[I learned that RepositoryBranch is the only NuGet Pack-related property not populated already by the .NET SDK+SourceLink. So instead of going for a full-blown (and typically over-blown) solution for build/assembly versioning from Git information (such as GitInfo or GitVersion or the myriad others), you can trivially pass in this value from your CI script like so:]]></description>
+            <description><![CDATA[I learned that RepositoryBranch is the only NuGet Pack-related property not populated already by the .NET SDK+SourceLink. So instead of going for a full-blown (and typically over-blown) solution for build/assembly versioning from Git information (such as GitInfo or GitVersion or the myriad others), you can trivially pass in this value from your CI script with:]]></description>
             <link>https://til.cazzulino.com/dotnet/populate-repositorybranch-in-ci-for-nuget-pack.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/dotnet/populate-repositorybranch-in-ci-for-nuget-pack.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
