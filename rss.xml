@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 17 Dec 2020 16:28:18 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 17 Dec 2020 16:57:39 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Learned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Quickly check C# compiler and language version]]></title>
+            <description><![CDATA[Just add #error version anywhere in a C# file and you'll see a tooltip with the information:]]></description>
+            <link>https://til.cazzulino.com/dotnet/quickly-check-c-compiler-and-language-version.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/quickly-check-c-compiler-and-language-version.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
