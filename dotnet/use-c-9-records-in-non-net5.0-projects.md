@@ -33,13 +33,13 @@ namespace System.Runtime.CompilerServices
     /// This class should not be used by developers in source code.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public sealed class IsExternalInit
+    sealed class IsExternalInit
     {
     }
 }
 ```
 
-\([as seen elsewhere too](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Text.Json/tests/Serialization/IsExternalInit.cs)\)
+\([as seen elsewhere too](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Text.Json/tests/Serialization/IsExternalInit.cs)\). Note the class doesn't even need to be public.
 
 If you're multitargeting net5.0 and other TFMs, just add this bit of MSBuild to remove it for net5.0 since it's built-in:
 
