@@ -4,12 +4,14 @@
 
 ## dotnet
 
+* [NuGet](dotnet/nuget/README.md)
+  * [Hide contentFiles from your nuget packages](dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md)
+  * [Packaging transitive analyzers with NuGet](dotnet/nuget/packaging-transitive-analyzers-with-nuget.md)
+  * [How to add search to static nuget feed](dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md)
+  * [Populate RepositoryBranch in CI for NuGet Pack](dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.md)
 * [Quickly check C\# compiler and language version](dotnet/quickly-check-c-compiler-and-language-version.md)
-* [Populate RepositoryBranch in CI for NuGet Pack](dotnet/populate-repositorybranch-in-ci-for-nuget-pack.md)
 * [Disable diagnostic analyzers for entire folder/submodules](dotnet/disable-diagnostic-analyzers-for-entire-folder-submodules.md)
 * [Persisting output files from source generators](dotnet/persisting-output-files-from-source-generators.md)
-* [Hide contentFiles from your nuget packages](dotnet/hide-contentfiles-from-your-nuget-packages.md)
-* [Packaging transitive analyzers with NuGet](dotnet/packaging-transitive-analyzers-with-nuget.md)
 * [Use C\# 9 records in non-net5.0 projects](dotnet/use-c-9-records-in-non-net5.0-projects.md)
 * [AsyncLocal never leaks and is safe for CallContext-like state](dotnet/asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.md)
 * [Using HashCode in .NETFramework](dotnet/using-hashcode-in-.netframework.md)
@@ -42,7 +44,6 @@
 
 ## other
 
-* [How to add search to static nuget feed](other/use-dotnet-vs-to-get-developer-prompt-in-terminal.md)
 * [How to skip steps or jobs in GitHub Actions for PRs from forks](other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md)
 * [Update version and publish npm from GH](other/update-version-and-publish-npm-from-gh.md)
 
