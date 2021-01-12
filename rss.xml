@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 21 Dec 2020 20:11:26 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 12 Jan 2021 18:17:33 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -198,6 +198,13 @@
             <description><![CDATA[Say you want to have a nicer URI for something (like an Azure storage blob, a feed or something else). You  likely have a nice short custom domain (i.e. I use kzu.io for things like this), and would like to set up arbitrary (temporary or permanent) redirections. This can trivially be achieved by creating an empty Functions App and leveraging Functions Proxies.]]></description>
             <link>https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to add search to static nuget feed]]></title>
+            <description><![CDATA[I have been using static serverless nuget feeds for a while now. Sleet is totally awesome. One missing piece was search: searching a static feed would just return everything, always. Not anymore!]]></description>
+            <link>https://til.cazzulino.com/other/use-dotnet-vs-to-get-developer-prompt-in-terminal.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/other/use-dotnet-vs-to-get-developer-prompt-in-terminal.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>

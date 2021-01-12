@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Skip tagged scenarios in SpecFlow with Xunit · GitBook</title>
+        <title>How to add search to static nuget feed · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="How to skip scenarios with a certain tag from executing">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../msbuild/modifying-the-build-for-every-solution-in-a-repository.html" />
+    <link rel="next" href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html" />
     
     
-    <link rel="prev" href="conditional-unit-tests.html" />
+    <link rel="prev" href="../azure/code-less-redirection-with-serverless-azure-functions.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -251,9 +251,9 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="conditional-unit-tests.html">
+        <li class="chapter " data-level="3.1" data-path="../testing/conditional-unit-tests.html">
             
-                <a href="conditional-unit-tests.html">
+                <a href="../testing/conditional-unit-tests.html">
             
                     
                     Conditional unit tests
@@ -264,9 +264,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.2" data-path="skip-tagged-scenarios-in-specflow-with-xunit.html">
+        <li class="chapter " data-level="3.2" data-path="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html">
             
-                <a href="skip-tagged-scenarios-in-specflow-with-xunit.html">
+                <a href="../testing/skip-tagged-scenarios-in-specflow-with-xunit.html">
             
                     
                     Skip tagged scenarios in SpecFlow with Xunit
@@ -480,9 +480,9 @@
         
         
     
-        <li class="chapter " data-level="6.1" data-path="../other/use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
+        <li class="chapter active" data-level="6.1" data-path="use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
             
-                <a href="../other/use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
+                <a href="use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
             
                     
                     How to add search to static nuget feed
@@ -493,9 +493,9 @@
             
         </li>
     
-        <li class="chapter " data-level="6.2" data-path="../other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
+        <li class="chapter " data-level="6.2" data-path="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
             
-                <a href="../other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
+                <a href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
             
                     
                     How to skip steps or jobs in GitHub Actions for PRs from forks
@@ -506,9 +506,9 @@
             
         </li>
     
-        <li class="chapter " data-level="6.3" data-path="../other/update-version-and-publish-npm-from-gh.html">
+        <li class="chapter " data-level="6.3" data-path="update-version-and-publish-npm-from-gh.html">
             
-                <a href="../other/update-version-and-publish-npm-from-gh.html">
+                <a href="update-version-and-publish-npm-from-gh.html">
             
                     
                     Update version and publish npm from GH
@@ -549,7 +549,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Skip tagged scenarios in SpecFlow with Xunit</a>
+        <a href=".." >How to add search to static nuget feed</a>
     </h1>
 </div>
 
@@ -564,22 +564,16 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="skip-tagged-scenarios-in-specflow-with-xunit">Skip tagged scenarios in SpecFlow with Xunit</h1>
-<p>First apply a tag of your choosing to flag scenarios that are still not ready for running:</p>
-<pre><code class="lang-text">Feature: Skipping scenarios by tag
-
-@Draft
-Scenario: This is not ready yet
-    Given Something not done yet
-    Then It should not fail the CI build (yet)
-</code></pre>
-<p>Now in the <code>[Binding]</code> class for any of the steps in the scenario, create a constructor that receives the <code>ScenarioContext</code> as follows:</p>
-<pre><code class="lang-text">public Steps(ScenarioContext context)
-{
-   Skip.If(context.ScenarioInfo.Tags.Contains(&quot;Draft&quot;));
-}
-</code></pre>
-<p>That&apos;s it. Turns out that the generated test for a scenario is annotated with <code>[SkippableFact]</code> so you can just skip from anywhere during the test run. From <a href="https://www.nuget.org/packages/Xunit.SkippableFact/" target="_blank">SkippableFact</a> package.</p>
+                                <h1 id="how-to-add-search-to-static-nuget-feed">How to add search to static nuget feed</h1>
+<p>I have been using <a href="https://www.cazzulino.com/serverless-nuget-feed.html" target="_blank">static serverless nuget</a> feeds for a while now. <a href="https://github.com/emgarten/Sleet" target="_blank">Sleet</a> is totally awesome. One missing piece was search: searching a static feed would just return everything, always. <a href="https://github.com/emgarten/Sleet/pull/142" target="_blank">Not anymore</a>!</p>
+<p>To set it up:</p>
+<ol>
+<li>Fork <a href="https://github.com/emgarten/Sleet.Search" target="_blank">Sleet.Search</a>: this is the Azure function project that will perform the search on your static feeds. You&apos;ll host your own in a consumption (aka serverless) plan in Azure.</li>
+<li>Create an Azure Functions app and follow the <a href="https://www.cazzulino.com/minimalist-shortlinks.html#deployment" target="_blank">deployment steps from my blog</a>: that&apos;s basically setting up the simplest CI/CD for a GH repo.</li>
+<li>By default, the project allows passing in the static feed &quot;search&quot; url (which is a blob named under <code>/search/query</code> in your sleet blob container) and requires function authentication. In my case, I wanted a simpler search URL and anonymous access, so I <a href="https://github.com/kzu/Sleet.Search/commit/99c736b" target="_blank">made that change to Sleet.Search</a>. Basically the function can now be accessed at <code>/query</code>, without URL-encoding another URL parameter there.</li>
+<li>Follow instructions to <a href="https://github.com/emgarten/Sleet/blob/master/doc/external-search.md" target="_blank">enable search for your sleet feed via settings</a>. </li>
+</ol>
+<p>That&apos;s it. Now you can configure my feed <a href="https://pkg.kzu.io/index.json" target="_blank">https://pkg.kzu.io/index.json</a> and it will be fully searchable. Plus, I used <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-proxies" target="_blank">Azure Functions Proxies</a> to make the blob storage URL that much nicer. I even made the query URL nice, since it was trivial too: <a href="https://pkg.kzu.io/search" target="_blank">https://pkg.kzu.io/search</a> &#x1F60D;.</p>
 
                                 
                                 </section>
@@ -607,12 +601,12 @@ Scenario: This is not ready yet
 
             
                 
-                <a href="conditional-unit-tests.html" class="navigation navigation-prev " aria-label="Previous page: Conditional unit tests">
+                <a href="../azure/code-less-redirection-with-serverless-azure-functions.html" class="navigation navigation-prev " aria-label="Previous page: Code-less redirection with serverless Azure Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../msbuild/modifying-the-build-for-every-solution-in-a-repository.html" class="navigation navigation-next " aria-label="Next page: Modifying the build for every solution in a repository">
+                <a href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html" class="navigation navigation-next " aria-label="Next page: How to skip steps or jobs in GitHub Actions for PRs from forks">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -623,7 +617,7 @@ Scenario: This is not ready yet
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"How to skip scenarios with a certain tag from executing","title":"Skip tagged scenarios in SpecFlow with Xunit","level":"3.2","depth":1,"next":{"title":"Modifying the build for every solution in a repository","level":"4.1","depth":1,"path":"msbuild/modifying-the-build-for-every-solution-in-a-repository.md","ref":"msbuild/modifying-the-build-for-every-solution-in-a-repository.md","articles":[]},"previous":{"title":"Conditional unit tests","level":"3.1","depth":1,"path":"testing/conditional-unit-tests.md","ref":"testing/conditional-unit-tests.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"testing/skip-tagged-scenarios-in-specflow-with-xunit.md","mtime":"2021-01-12T18:16:48.581Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-12T18:17:29.377Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"How to add search to static nuget feed","level":"6.1","depth":1,"next":{"title":"How to skip steps or jobs in GitHub Actions for PRs from forks","level":"6.2","depth":1,"path":"other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md","ref":"other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md","articles":[]},"previous":{"title":"Code-less redirection with serverless Azure Functions","level":"5.6","depth":1,"path":"azure/code-less-redirection-with-serverless-azure-functions.md","ref":"azure/code-less-redirection-with-serverless-azure-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"other/use-dotnet-vs-to-get-developer-prompt-in-terminal.md","mtime":"2021-01-12T18:16:48.581Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-12T18:17:29.377Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
