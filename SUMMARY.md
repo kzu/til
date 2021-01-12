@@ -42,6 +42,7 @@
 
 ## other
 
+* [How to add search to static nuget feed](other/use-dotnet-vs-to-get-developer-prompt-in-terminal.md)
 * [How to skip steps or jobs in GitHub Actions for PRs from forks](other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md)
 * [Update version and publish npm from GH](other/update-version-and-publish-npm-from-gh.md)
 
