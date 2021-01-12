@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 12 Jan 2021 18:17:33 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 12 Jan 2021 18:22:21 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -19,17 +19,44 @@
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
-            <title><![CDATA[Quickly check C# compiler and language version]]></title>
-            <description><![CDATA[Just add #error version anywhere in a C# file and you'll see a tooltip with the information:]]></description>
-            <link>https://til.cazzulino.com/dotnet/quickly-check-c-compiler-and-language-version.html</link>
-            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/quickly-check-c-compiler-and-language-version.html</guid>
+            <title><![CDATA[NuGet]]></title>
+            <link>https://til.cazzulino.com/dotnet/nuget/README.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/README.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Hide contentFiles from your nuget packages]]></title>
+            <description><![CDATA[When you package compile items with your package (i.e. .cs), they are visible by default in your consumer's project. That's not always what you want. From a github issue on NuGet, I learned a neat trick to hide all the files in your package, automatically! All you need is to include a .props file in your package build folder (i.e. if your package is named Foo, make sure the file ends up build\Foo.props)]]></description>
+            <link>https://til.cazzulino.com/dotnet/nuget/hide-contentfiles-from-your-nuget-packages.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/hide-contentfiles-from-your-nuget-packages.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Packaging transitive analyzers with NuGet]]></title>
+            <description><![CDATA[Consider the scenario of ThisAssembly and its referenced packages: the main package is essentially a meta-package so that anyone wanting to leverage all the codegen in all the ThisAssembly.* packages can reference a single one. By default, NuGet pack will create a package that declares the project reference dependencies like so:]]></description>
+            <link>https://til.cazzulino.com/dotnet/nuget/packaging-transitive-analyzers-with-nuget.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/packaging-transitive-analyzers-with-nuget.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to add search to static nuget feed]]></title>
+            <description><![CDATA[I have been using static serverless nuget feeds for a while now. Sleet is totally awesome. One missing piece was search: searching a static feed would just return everything, always. Not anymore!]]></description>
+            <link>https://til.cazzulino.com/dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
             <title><![CDATA[Populate RepositoryBranch in CI for NuGet Pack]]></title>
             <description><![CDATA[I learned that RepositoryBranch is the only NuGet Pack-related property not populated already by the .NET SDK+SourceLink. So instead of going for a full-blown (and typically over-blown) solution for build/assembly versioning from Git information (such as GitInfo or GitVersion or the myriad others), you can trivially pass in this value from your CI script with:]]></description>
-            <link>https://til.cazzulino.com/dotnet/populate-repositorybranch-in-ci-for-nuget-pack.html</link>
-            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/populate-repositorybranch-in-ci-for-nuget-pack.html</guid>
+            <link>https://til.cazzulino.com/dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Quickly check C# compiler and language version]]></title>
+            <description><![CDATA[Just add #error version anywhere in a C# file and you'll see a tooltip with the information:]]></description>
+            <link>https://til.cazzulino.com/dotnet/quickly-check-c-compiler-and-language-version.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/quickly-check-c-compiler-and-language-version.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
@@ -44,20 +71,6 @@
             <description><![CDATA[Some time back, I had my own I/O code that based on some MSBuild property would persist my generated source for troubleshooting. This is no longer needed since you can now set]]></description>
             <link>https://til.cazzulino.com/dotnet/persisting-output-files-from-source-generators.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/dotnet/persisting-output-files-from-source-generators.html</guid>
-            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
-        </item>
-        <item>
-            <title><![CDATA[Hide contentFiles from your nuget packages]]></title>
-            <description><![CDATA[When you package compile items with your package (i.e. .cs), they are visible by default in your consumer's project. That's not always what you want. From a github issue on NuGet, I learned a neat trick to hide all the files in your package, automatically! All you need is to include a .props file in your package build folder (i.e. if your package is named Foo, make sure the file ends up build\Foo.props)]]></description>
-            <link>https://til.cazzulino.com/dotnet/hide-contentfiles-from-your-nuget-packages.html</link>
-            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/hide-contentfiles-from-your-nuget-packages.html</guid>
-            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
-        </item>
-        <item>
-            <title><![CDATA[Packaging transitive analyzers with NuGet]]></title>
-            <description><![CDATA[Consider the scenario of ThisAssembly and its referenced packages: the main package is essentially a meta-package so that anyone wanting to leverage all the codegen in all the ThisAssembly.* packages can reference a single one. By default, NuGet pack will create a package that declares the project reference dependencies like so:]]></description>
-            <link>https://til.cazzulino.com/dotnet/packaging-transitive-analyzers-with-nuget.html</link>
-            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/packaging-transitive-analyzers-with-nuget.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
@@ -198,13 +211,6 @@
             <description><![CDATA[Say you want to have a nicer URI for something (like an Azure storage blob, a feed or something else). You  likely have a nice short custom domain (i.e. I use kzu.io for things like this), and would like to set up arbitrary (temporary or permanent) redirections. This can trivially be achieved by creating an empty Functions App and leveraging Functions Proxies.]]></description>
             <link>https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</guid>
-            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
-        </item>
-        <item>
-            <title><![CDATA[How to add search to static nuget feed]]></title>
-            <description><![CDATA[I have been using static serverless nuget feeds for a while now. Sleet is totally awesome. One missing piece was search: searching a static feed would just return everything, always. Not anymore!]]></description>
-            <link>https://til.cazzulino.com/other/use-dotnet-vs-to-get-developer-prompt-in-terminal.html</link>
-            <guid isPermaLink="true">https://til.cazzulino.com/other/use-dotnet-vs-to-get-developer-prompt-in-terminal.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>

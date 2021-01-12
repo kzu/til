@@ -1,0 +1,670 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>NuGet · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="NuGet-related learnings">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="hide-contentfiles-from-your-nuget-packages.html" />
+    
+    
+    <link rel="prev" href="../../" />
+    
+
+    <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Today I Learned
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">dotnet</li>
+        
+        
+    
+        <li class="chapter active" data-level="2.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    NuGet
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="hide-contentfiles-from-your-nuget-packages.html">
+            
+                <a href="hide-contentfiles-from-your-nuget-packages.html">
+            
+                    
+                    Hide contentFiles from your nuget packages
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="packaging-transitive-analyzers-with-nuget.html">
+            
+                <a href="packaging-transitive-analyzers-with-nuget.html">
+            
+                    
+                    Packaging transitive analyzers with NuGet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
+            
+                <a href="use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
+            
+                    
+                    How to add search to static nuget feed
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="populate-repositorybranch-in-ci-for-nuget-pack.html">
+            
+                <a href="populate-repositorybranch-in-ci-for-nuget-pack.html">
+            
+                    
+                    Populate RepositoryBranch in CI for NuGet Pack
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../quickly-check-c-compiler-and-language-version.html">
+            
+                <a href="../quickly-check-c-compiler-and-language-version.html">
+            
+                    
+                    Quickly check C# compiler and language version
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../disable-diagnostic-analyzers-for-entire-folder-submodules.html">
+            
+                <a href="../disable-diagnostic-analyzers-for-entire-folder-submodules.html">
+            
+                    
+                    Disable diagnostic analyzers for entire folder/submodules
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../persisting-output-files-from-source-generators.html">
+            
+                <a href="../persisting-output-files-from-source-generators.html">
+            
+                    
+                    Persisting output files from source generators
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../use-c-9-records-in-non-net5.0-projects.html">
+            
+                <a href="../use-c-9-records-in-non-net5.0-projects.html">
+            
+                    
+                    Use C# 9 records in non-net5.0 projects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
+            
+                <a href="../asynclocal-never-leaks-and-is-safe-for-callcontext-like-state.html">
+            
+                    
+                    AsyncLocal never leaks and is safe for CallContext-like state
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../using-hashcode-in-.netframework.html">
+            
+                <a href="../using-hashcode-in-.netframework.html">
+            
+                    
+                    Using HashCode in .NETFramework
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../how-to-locate-dotnet.html">
+            
+                <a href="../how-to-locate-dotnet.html">
+            
+                    
+                    How to locate dotnet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">testing</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../../testing/conditional-unit-tests.html">
+            
+                <a href="../../testing/conditional-unit-tests.html">
+            
+                    
+                    Conditional unit tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../../testing/skip-tagged-scenarios-in-specflow-with-xunit.html">
+            
+                <a href="../../testing/skip-tagged-scenarios-in-specflow-with-xunit.html">
+            
+                    
+                    Skip tagged scenarios in SpecFlow with Xunit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">msbuild</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../../msbuild/modifying-the-build-for-every-solution-in-a-repository.html">
+            
+                <a href="../../msbuild/modifying-the-build-for-every-solution-in-a-repository.html">
+            
+                    
+                    Modifying the build for every solution in a repository
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../../msbuild/detect-ci-builds-for-every-ci-system.html">
+            
+                <a href="../../msbuild/detect-ci-builds-for-every-ci-system.html">
+            
+                    
+                    Detect CI builds for every CI system
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="../../msbuild/modify-all-command-line-builds-in-entire-repo.html">
+            
+                <a href="../../msbuild/modify-all-command-line-builds-in-entire-repo.html">
+            
+                    
+                    Modify all command-line builds in entire repo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="../../msbuild/write-entire-xml-fragments-in-msbuild-with-xmlpoke.html">
+            
+                <a href="../../msbuild/write-entire-xml-fragments-in-msbuild-with-xmlpoke.html">
+            
+                    
+                    Write entire XML fragments in MSBuild with XmlPoke
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="../../msbuild/how-to-select-first-item-in-an-itemgroup.html">
+            
+                <a href="../../msbuild/how-to-select-first-item-in-an-itemgroup.html">
+            
+                    
+                    How to select first item in an ItemGroup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="../../msbuild/how-to-include-commit-url-in-nuget-package-description.html">
+            
+                <a href="../../msbuild/how-to-include-commit-url-in-nuget-package-description.html">
+            
+                    
+                    How to include commit URL in nuget package description
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="../../msbuild/how-to-include-package-reference-files-in-your-nuget-package.html">
+            
+                <a href="../../msbuild/how-to-include-package-reference-files-in-your-nuget-package.html">
+            
+                    
+                    How to include package reference files in your nuget
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="../../msbuild/how-to-build-project-when-content-files-change.html">
+            
+                <a href="../../msbuild/how-to-build-project-when-content-files-change.html">
+            
+                    
+                    How to build project when content files change
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">azure</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../../azure/c-script-function-apps-beyond-azure-portal.html">
+            
+                <a href="../../azure/c-script-function-apps-beyond-azure-portal.html">
+            
+                    
+                    C# script function apps beyond Azure portal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../../azure/publishing-function-app-from-github-folder.html">
+            
+                <a href="../../azure/publishing-function-app-from-github-folder.html">
+            
+                    
+                    Publishing function app from GitHub folder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="../../azure/exploring-azure-data-with-kusto-and-dashboards.html">
+            
+                <a href="../../azure/exploring-azure-data-with-kusto-and-dashboards.html">
+            
+                    
+                    Exploring Azure Data with Kusto and Dashboards
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="../../azure/shared-secret-authorization-with-azure-signalr-service.html">
+            
+                <a href="../../azure/shared-secret-authorization-with-azure-signalr-service.html">
+            
+                    
+                    Shared secret authorization with Azure SignalR Service
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="../../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
+            
+                <a href="../../azure/using-azure-file-copy-from-devops-yaml-pipeline.html">
+            
+                    
+                    Using Azure File Copy from DevOps yaml pipeline
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="../../azure/code-less-redirection-with-serverless-azure-functions.html">
+            
+                <a href="../../azure/code-less-redirection-with-serverless-azure-functions.html">
+            
+                    
+                    Code-less redirection with serverless Azure Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">other</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../../other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
+            
+                <a href="../../other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
+            
+                    
+                    How to skip steps or jobs in GitHub Actions for PRs from forks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../../other/update-version-and-publish-npm-from-gh.html">
+            
+                <a href="../../other/update-version-and-publish-npm-from-gh.html">
+            
+                    
+                    Update version and publish npm from GH
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >NuGet</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="nuget">NuGet</h1>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../../" class="navigation navigation-prev " aria-label="Previous page: Today I Learned">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="hide-contentfiles-from-your-nuget-packages.html" class="navigation navigation-next " aria-label="Next page: Hide contentFiles from your nuget packages">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"NuGet-related learnings","title":"NuGet","level":"2.1","depth":1,"next":{"title":"Hide contentFiles from your nuget packages","level":"2.1.1","depth":2,"path":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","ref":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","articles":[]},"previous":{"title":"Today I Learned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/nuget/README.md","mtime":"2021-01-12T18:21:31.084Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-12T18:22:18.121Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-rss/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
