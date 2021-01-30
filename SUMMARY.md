@@ -42,8 +42,9 @@
 * [Using Azure File Copy from DevOps yaml pipeline](azure/using-azure-file-copy-from-devops-yaml-pipeline.md)
 * [Code-less redirection with serverless Azure Functions](azure/code-less-redirection-with-serverless-azure-functions.md)
 
-## other
+## DevOps/CI/CD
 
-* [How to skip steps or jobs in GitHub Actions for PRs from forks](other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md)
-* [Update version and publish npm from GH](other/update-version-and-publish-npm-from-gh.md)
+* [How to skip steps or jobs in GitHub Actions for PRs from forks](devops-ci-cd/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md)
+* [Update version and publish npm from GH](devops-ci-cd/update-version-and-publish-npm-from-gh.md)
+* [Push to protected branch from GitHub actions](devops-ci-cd/push-to-protected-branch-from-github-actions.md)
 
