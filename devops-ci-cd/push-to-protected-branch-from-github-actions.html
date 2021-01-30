@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Update version and publish npm from GH · GitBook</title>
+        <title>Push to protected branch from GitHub actions · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="Setting up CI with GitHub Actions to update a node.js package version from GitHub release tag and publish it to npm">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -61,7 +61,7 @@
 
     
     
-    <link rel="prev" href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html" />
+    <link rel="prev" href="update-version-and-publish-npm-from-gh.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -506,7 +506,7 @@
 
     
         
-        <li class="header">other</li>
+        <li class="header">DevOps/CI/CD</li>
         
         
     
@@ -523,12 +523,25 @@
             
         </li>
     
-        <li class="chapter active" data-level="6.2" data-path="update-version-and-publish-npm-from-gh.html">
+        <li class="chapter " data-level="6.2" data-path="update-version-and-publish-npm-from-gh.html">
             
                 <a href="update-version-and-publish-npm-from-gh.html">
             
                     
                     Update version and publish npm from GH
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.3" data-path="push-to-protected-branch-from-github-actions.html">
+            
+                <a href="push-to-protected-branch-from-github-actions.html">
+            
+                    
+                    Push to protected branch from GitHub actions
             
                 </a>
             
@@ -566,7 +579,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Update version and publish npm from GH</a>
+        <a href=".." >Push to protected branch from GitHub actions</a>
     </h1>
 </div>
 
@@ -581,35 +594,55 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="update-version-and-publish-npm-from-gh">Update version and publish npm from GH</h1>
-<p>Super proud of this, since it&apos;s my first node.js package ever (created brand-new account on <a href="https://www.npmjs.com/" target="_blank">https://www.npmjs.com/</a> and all &#x1F601;), for doing <a href="https://github.com/dotnetconfig/highlightjs-dotnetconfig" target="_blank">syntax highlighting</a> for <a href="https://dotnetconfig.org/" target="_blank">dotnetconfig</a> that works in <a href="https://github.com/dotnetconfig/dotnet-config/tree/dev/docs" target="_blank">docfx</a>. </p>
-<p>Assuming you already have a <code>package.json</code> in the root repo dir, add the <code>.github\workflows\npm.yml</code> as follows:</p>
-<pre><code class="lang-text">name: publish
-
+                                <h1 id="push-to-protected-branch-from-github-actions">Push to protected branch from GitHub actions</h1>
+<p>It turns out that you really can&apos;t just <code>git push</code> from your GitHub actions <a href="https://github.community/t/how-to-push-to-protected-branches-in-a-github-action/16101" target="_blank">if the repository has branch protection turned on</a> or required checks before merging. Sorta makes sense, but still a PITA.</p>
+<p>The solution that worked for me was to <a href="https://github.community/t/how-to-push-to-protected-branches-in-a-github-action/16101/34" target="_blank">use a different token on checkout</a>. Since the awesome GitHub CLI <a href="https://github.com/cli/cli/issues/1229" target="_blank">allows using a separate, higher-permissions token</a> named <code>GH_TOKEN</code> (since depending on the command you use, you might need a different one than <code>GITHUB_TOKEN</code>), I decided to (ab)use the same:</p>
+<p>An <a href="https://github.com/devlooped/oss/blob/main/.github/workflows/changelog.yml" target="_blank">example workflow</a> that uses this to generate a full changelog and push it to main on releases looks like this:</p>
+<pre><code class="lang-text">name: changelog
 on:
   release:
-    types: [created]
+    types: [released]
+
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  publish-npm:
+  changelog:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: &#x1F50D; GH_TOKEN
+        if: env.GH_TOKEN == &apos;&apos;
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo &quot;GH_TOKEN=${GITHUB_TOKEN}&quot; &gt;&gt; $GITHUB_ENV
+
+      - name: &#x1F918; checkout
+        uses: actions/checkout@v2
         with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - name: Set version from tag
-        run: npm --no-git-tag-version version ${GITHUB_REF#refs/*/}
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          fetch-depth: 0
+          ref: main
+          token: ${{ env.GH_TOKEN }}
+
+      - name: &#x2699; changelog
+        uses: faberNovel/github-changelog-generator-action@master
+        with:
+          options: --token ${{ secrets.GITHUB_TOKEN }} --o changelog.md
+
+      - name: &#x1F680; changelog
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email github-actions@github.com
+          git add changelog.md
+          git commit -m &quot;&#x1F589; Update changelog with ${GITHUB_REF#refs/*/}&quot;
+          git push
 </code></pre>
-<ol>
-<li>I&apos;m running only on release creation</li>
-<li>Using the GitHub envvar for the <a href="https://stackoverflow.com/questions/58177786/get-the-current-pushed-tag-in-github-actions/58178121#58178121" target="_blank">checked out tag</a>, I&apos;m <a href="https://docs.npmjs.com/cli/version" target="_blank">updating the version</a> but opting out of the git behavior (which fails on CI because it&apos;s a detached head at that point)</li>
-<li>Finally you&apos;ll need to create that secret in <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets" target="_blank">GH</a> for the publish step.</li>
-</ol>
+<p>Important parts:</p>
+<ul>
+<li>I default the <code>GH_TOKEN</code> envvar to a same-name secret, if present</li>
+<li>If it&apos;s not present, I default it to <code>GITHUB_TOKEN</code></li>
+<li>Checkout always uses <code>GH_TOKEN</code>, which now may be a higher-permissions PAT than the default</li>
+<li>I do the defaulting since the push <strong>will</strong> succeed if the repository doesn&apos;t use branch protection for <code>main</code> and in that case I don&apos;t want to always force the presence of a <code>GH_TOKEN</code> secret.</li>
+</ul>
 
                                 
                                 </section>
@@ -637,7 +670,7 @@ jobs:
 
             
                 
-                <a href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to skip steps or jobs in GitHub Actions for PRs from forks">
+                <a href="update-version-and-publish-npm-from-gh.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Update version and publish npm from GH">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -649,7 +682,7 @@ jobs:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Setting up CI with GitHub Actions to update a node.js package version from GitHub release tag and publish it to npm","title":"Update version and publish npm from GH","level":"6.2","depth":1,"previous":{"title":"How to skip steps or jobs in GitHub Actions for PRs from forks","level":"6.1","depth":1,"path":"other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md","ref":"other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"other/update-version-and-publish-npm-from-gh.md","mtime":"2021-01-12T18:21:31.084Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-12T18:22:18.121Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Push to protected branch from GitHub actions","level":"6.3","depth":1,"previous":{"title":"Update version and publish npm from GH","level":"6.2","depth":1,"path":"devops-ci-cd/update-version-and-publish-npm-from-gh.md","ref":"devops-ci-cd/update-version-and-publish-npm-from-gh.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"devops-ci-cd/push-to-protected-branch-from-github-actions.md","mtime":"2021-01-30T01:00:02.039Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-30T01:00:49.320Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

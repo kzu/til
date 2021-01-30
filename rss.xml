@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 12 Jan 2021 18:22:21 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 30 Jan 2021 01:00:53 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -216,15 +216,22 @@
         <item>
             <title><![CDATA[How to skip steps or jobs in GitHub Actions for PRs from forks]]></title>
             <description><![CDATA[Encrypted secrets in GitHub actions aren't available for builds from forks, so if your build script includes PRs, like Avatar:]]></description>
-            <link>https://til.cazzulino.com/other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html</link>
-            <guid isPermaLink="true">https://til.cazzulino.com/other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html</guid>
+            <link>https://til.cazzulino.com/devops-ci-cd/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/devops-ci-cd/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
             <title><![CDATA[Update version and publish npm from GH]]></title>
             <description><![CDATA[Super proud of this, since it's my first node.js package ever (created brand-new account on https://www.npmjs.com/ and all 😁), for doing syntax highlighting for dotnetconfig that works in docfx.]]></description>
-            <link>https://til.cazzulino.com/other/update-version-and-publish-npm-from-gh.html</link>
-            <guid isPermaLink="true">https://til.cazzulino.com/other/update-version-and-publish-npm-from-gh.html</guid>
+            <link>https://til.cazzulino.com/devops-ci-cd/update-version-and-publish-npm-from-gh.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/devops-ci-cd/update-version-and-publish-npm-from-gh.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Push to protected branch from GitHub actions]]></title>
+            <description><![CDATA[It turns out that you really can't just git push from your GitHub actions if the repository has branch protection turned on or required checks before merging. Sorta makes sense, but still a PITA.]]></description>
+            <link>https://til.cazzulino.com/devops-ci-cd/push-to-protected-branch-from-github-actions.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/devops-ci-cd/push-to-protected-branch-from-github-actions.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
     </channel>

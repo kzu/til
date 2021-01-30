@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>How to skip steps or jobs in GitHub Actions for PRs from forks · GitBook</title>
+        <title>Update version and publish npm from GH · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="">
+        <meta name="description" content="Setting up CI with GitHub Actions to update a node.js package version from GitHub release tag and publish it to npm">
         <meta name="generator" content="GitBook 3.2.3">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="update-version-and-publish-npm-from-gh.html" />
+    <link rel="next" href="push-to-protected-branch-from-github-actions.html" />
     
     
-    <link rel="prev" href="../azure/code-less-redirection-with-serverless-azure-functions.html" />
+    <link rel="prev" href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -508,11 +508,11 @@
 
     
         
-        <li class="header">other</li>
+        <li class="header">DevOps/CI/CD</li>
         
         
     
-        <li class="chapter active" data-level="6.1" data-path="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
+        <li class="chapter " data-level="6.1" data-path="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
             
                 <a href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html">
             
@@ -525,12 +525,25 @@
             
         </li>
     
-        <li class="chapter " data-level="6.2" data-path="update-version-and-publish-npm-from-gh.html">
+        <li class="chapter active" data-level="6.2" data-path="update-version-and-publish-npm-from-gh.html">
             
                 <a href="update-version-and-publish-npm-from-gh.html">
             
                     
                     Update version and publish npm from GH
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="push-to-protected-branch-from-github-actions.html">
+            
+                <a href="push-to-protected-branch-from-github-actions.html">
+            
+                    
+                    Push to protected branch from GitHub actions
             
                 </a>
             
@@ -568,7 +581,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >How to skip steps or jobs in GitHub Actions for PRs from forks</a>
+        <a href=".." >Update version and publish npm from GH</a>
     </h1>
 </div>
 
@@ -583,24 +596,35 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks">How to skip steps or jobs in GitHub Actions for PRs from forks</h1>
-<p><a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#using-encrypted-secrets-in-a-workflow" target="_blank">Encrypted secrets in GitHub</a> actions aren&apos;t available for builds from forks, so if your build script includes PRs, like <a href="https://github.com/kzu/avatar/blob/main/.github/workflows/build.yml#L2-L6" target="_blank">Avatar</a>:</p>
-<pre><code class="lang-yaml"><span class="hljs-attr">on:</span> 
-<span class="hljs-attr">  push:</span>
-<span class="hljs-attr">    branches:</span> [ main, dev, <span class="hljs-string">&apos;feature/*&apos;</span>, <span class="hljs-string">&apos;rel/*&apos;</span> ]
-<span class="hljs-attr">  pull_request:</span>
-<span class="hljs-attr">    types:</span> [opened, synchronize, reopened]
+                                <h1 id="update-version-and-publish-npm-from-gh">Update version and publish npm from GH</h1>
+<p>Super proud of this, since it&apos;s my first node.js package ever (created brand-new account on <a href="https://www.npmjs.com/" target="_blank">https://www.npmjs.com/</a> and all &#x1F601;), for doing <a href="https://github.com/dotnetconfig/highlightjs-dotnetconfig" target="_blank">syntax highlighting</a> for <a href="https://dotnetconfig.org/" target="_blank">dotnetconfig</a> that works in <a href="https://github.com/dotnetconfig/dotnet-config/tree/dev/docs" target="_blank">docfx</a>. </p>
+<p>Assuming you already have a <code>package.json</code> in the root repo dir, add the <code>.github\workflows\npm.yml</code> as follows:</p>
+<pre><code class="lang-text">name: publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Set version from tag
+        run: npm --no-git-tag-version version ${GITHUB_REF#refs/*/}
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 </code></pre>
-<p>You may need to limit steps or entire jobs from running when PRs are coming from forks due to missing secrets (i.e. pushing an output package to a CI nuget feed, say).</p>
-<p>The &quot;magic&quot; thing is to use an <code>if</code> condition with the following expression:</p>
-<pre><code class="lang-yaml"><span class="hljs-attr">  push:</span>
-<span class="hljs-attr">    name:</span> push nuget.ci
-<span class="hljs-attr">    runs-on:</span> ubuntu-latest
-<span class="hljs-attr">    needs:</span> [build, acceptance]
-<span class="hljs-attr">    if:</span> ${{ !github.event.pull_request.head.repo.fork }}
-<span class="hljs-attr">    steps:</span>
-</code></pre>
-<p>Note that in the above case, an entire job is skipped, but you can also apply it to a step instead.</p>
+<ol>
+<li>I&apos;m running only on release creation</li>
+<li>Using the GitHub envvar for the <a href="https://stackoverflow.com/questions/58177786/get-the-current-pushed-tag-in-github-actions/58178121#58178121" target="_blank">checked out tag</a>, I&apos;m <a href="https://docs.npmjs.com/cli/version" target="_blank">updating the version</a> but opting out of the git behavior (which fails on CI because it&apos;s a detached head at that point)</li>
+<li>Finally you&apos;ll need to create that secret in <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets" target="_blank">GH</a> for the publish step.</li>
+</ol>
 
                                 
                                 </section>
@@ -628,12 +652,12 @@
 
             
                 
-                <a href="../azure/code-less-redirection-with-serverless-azure-functions.html" class="navigation navigation-prev " aria-label="Previous page: Code-less redirection with serverless Azure Functions">
+                <a href="how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.html" class="navigation navigation-prev " aria-label="Previous page: How to skip steps or jobs in GitHub Actions for PRs from forks">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="update-version-and-publish-npm-from-gh.html" class="navigation navigation-next " aria-label="Next page: Update version and publish npm from GH">
+                <a href="push-to-protected-branch-from-github-actions.html" class="navigation navigation-next " aria-label="Next page: Push to protected branch from GitHub actions">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -644,7 +668,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"How to skip steps or jobs in GitHub Actions for PRs from forks","level":"6.1","depth":1,"next":{"title":"Update version and publish npm from GH","level":"6.2","depth":1,"path":"other/update-version-and-publish-npm-from-gh.md","ref":"other/update-version-and-publish-npm-from-gh.md","articles":[]},"previous":{"title":"Code-less redirection with serverless Azure Functions","level":"5.6","depth":1,"path":"azure/code-less-redirection-with-serverless-azure-functions.md","ref":"azure/code-less-redirection-with-serverless-azure-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"other/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md","mtime":"2021-01-12T18:21:31.084Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-12T18:22:18.121Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Setting up CI with GitHub Actions to update a node.js package version from GitHub release tag and publish it to npm","title":"Update version and publish npm from GH","level":"6.2","depth":1,"next":{"title":"Push to protected branch from GitHub actions","level":"6.3","depth":1,"path":"devops-ci-cd/push-to-protected-branch-from-github-actions.md","ref":"devops-ci-cd/push-to-protected-branch-from-github-actions.md","articles":[]},"previous":{"title":"How to skip steps or jobs in GitHub Actions for PRs from forks","level":"6.1","depth":1,"path":"devops-ci-cd/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md","ref":"devops-ci-cd/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"devops-ci-cd/update-version-and-publish-npm-from-gh.md","mtime":"2021-01-30T01:00:02.039Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-30T01:00:49.320Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
