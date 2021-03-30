@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 30 Jan 2021 01:00:53 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 30 Mar 2021 21:55:54 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -22,6 +22,13 @@
             <title><![CDATA[NuGet]]></title>
             <link>https://til.cazzulino.com/dotnet/nuget/README.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/README.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Suppress dependencies when packing]]></title>
+            <description><![CDATA[Some packing scenarios, especially those involving tools, require ignoring all dependencies (PackageReference as well as framework references) from the resulting package dependencies.]]></description>
+            <link>https://til.cazzulino.com/dotnet/nuget/suppress-dependencies-when-packing.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/suppress-dependencies-when-packing.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>

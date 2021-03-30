@@ -60,7 +60,7 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="hide-contentfiles-from-your-nuget-packages.html" />
+    <link rel="next" href="suppress-dependencies-when-packing.html" />
     
     
     <link rel="prev" href="../../" />
@@ -128,7 +128,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.1.1" data-path="hide-contentfiles-from-your-nuget-packages.html">
+        <li class="chapter " data-level="2.1.1" data-path="suppress-dependencies-when-packing.html">
+            
+                <a href="suppress-dependencies-when-packing.html">
+            
+                    
+                    Suppress dependencies when packing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="hide-contentfiles-from-your-nuget-packages.html">
             
                 <a href="hide-contentfiles-from-your-nuget-packages.html">
             
@@ -141,7 +154,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.2" data-path="packaging-transitive-analyzers-with-nuget.html">
+        <li class="chapter " data-level="2.1.3" data-path="packaging-transitive-analyzers-with-nuget.html">
             
                 <a href="packaging-transitive-analyzers-with-nuget.html">
             
@@ -154,7 +167,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.3" data-path="use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
+        <li class="chapter " data-level="2.1.4" data-path="use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
             
                 <a href="use-dotnet-vs-to-get-developer-prompt-in-terminal.html">
             
@@ -167,7 +180,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.4" data-path="populate-repositorybranch-in-ci-for-nuget-pack.html">
+        <li class="chapter " data-level="2.1.5" data-path="populate-repositorybranch-in-ci-for-nuget-pack.html">
             
                 <a href="populate-repositorybranch-in-ci-for-nuget-pack.html">
             
@@ -629,7 +642,7 @@
                 </a>
                 
                 
-                <a href="hide-contentfiles-from-your-nuget-packages.html" class="navigation navigation-next " aria-label="Next page: Hide contentFiles from your nuget packages">
+                <a href="suppress-dependencies-when-packing.html" class="navigation navigation-next " aria-label="Next page: Suppress dependencies when packing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -640,7 +653,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"NuGet-related learnings","title":"NuGet","level":"2.1","depth":1,"next":{"title":"Hide contentFiles from your nuget packages","level":"2.1.1","depth":2,"path":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","ref":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","articles":[]},"previous":{"title":"Today I Learned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/nuget/README.md","mtime":"2021-01-30T01:00:02.039Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-30T01:00:49.320Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"NuGet-related learnings","title":"NuGet","level":"2.1","depth":1,"next":{"title":"Suppress dependencies when packing","level":"2.1.1","depth":2,"path":"dotnet/nuget/suppress-dependencies-when-packing.md","ref":"dotnet/nuget/suppress-dependencies-when-packing.md","articles":[]},"previous":{"title":"Today I Learned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/nuget/README.md","mtime":"2021-03-30T21:55:07.242Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-30T21:55:51.144Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

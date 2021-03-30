@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Packaging transitive analyzers with NuGet · GitBook</title>
+        <title>Suppress dependencies when packing · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="use-dotnet-vs-to-get-developer-prompt-in-terminal.html" />
+    <link rel="next" href="hide-contentfiles-from-your-nuget-packages.html" />
     
     
-    <link rel="prev" href="hide-contentfiles-from-your-nuget-packages.html" />
+    <link rel="prev" href="./" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -128,7 +128,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.1.1" data-path="suppress-dependencies-when-packing.html">
+        <li class="chapter active" data-level="2.1.1" data-path="suppress-dependencies-when-packing.html">
             
                 <a href="suppress-dependencies-when-packing.html">
             
@@ -154,7 +154,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.1.3" data-path="packaging-transitive-analyzers-with-nuget.html">
+        <li class="chapter " data-level="2.1.3" data-path="packaging-transitive-analyzers-with-nuget.html">
             
                 <a href="packaging-transitive-analyzers-with-nuget.html">
             
@@ -594,7 +594,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Packaging transitive analyzers with NuGet</a>
+        <a href="../.." >Suppress dependencies when packing</a>
     </h1>
 </div>
 
@@ -609,27 +609,33 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="packaging-transitive-analyzers-with-nuget">Packaging transitive analyzers with NuGet</h1>
-<p>Consider the scenario of <a href="https://github.com/kzu/ThisAssembly" target="_blank">ThisAssembly</a> and its referenced packages: the main package is essentially a meta-package so that anyone wanting to leverage all the codegen in all the ThisAssembly.* packages can reference a single one. By default, NuGet pack will create a package that declares the project reference dependencies like so:</p>
-<pre><code class="lang-markup">    &lt;dependencies&gt;
-      &lt;group targetFramework=&quot;.NETStandard2.0&quot;&gt;
-        &lt;dependency id=&quot;ThisAssembly.AssemblyInfo&quot; version=&quot;42.42.42&quot; exclude=&quot;Build,Analyzers&quot; /&gt;
-        &lt;dependency id=&quot;ThisAssembly.Metadata&quot; version=&quot;42.42.42&quot; exclude=&quot;Build,Analyzers&quot; /&gt;
-        &lt;dependency id=&quot;ThisAssembly.Project&quot; version=&quot;42.42.42&quot; exclude=&quot;Build,Analyzers&quot; /&gt;
-        &lt;dependency id=&quot;ThisAssembly.Strings&quot; version=&quot;42.42.42&quot; exclude=&quot;Build,Analyzers&quot; /&gt;
-      &lt;/group&gt;
-    &lt;/dependencies&gt;
+                                <h1 id="suppress-dependencies-when-packing">Suppress dependencies when packing</h1>
+<p>Some packing scenarios, especially those involving tools, require ignoring all dependencies (PackageReference as well as framework references) from the resulting package dependencies.</p>
+<p>I <a href="https://github.com/NuGet/Home/issues/6354" target="_blank">learned of a property</a> supported by <code>dotnet pack</code> for this:  </p>
+<pre><code class="lang-markup">&lt;PropertyGroup&gt;
+  &lt;SuppressDependenciesWhenPacking&gt;true&lt;/SuppressDependenciesWhenPacking&gt;
+&lt;/PropertyGroup&gt;
 </code></pre>
-<p> Note all those <code>exclude</code>. Not good since now it means projects referencing this package will not get the transitive analyzers, which are precisely the point of this meta-package. </p>
-<p>The fix is <a href="https://github.com/NuGet/Home/issues/3697#issuecomment-342983009" target="_blank">highly non-obvious</a>: you must explicitly state that <em>none</em> of the referenced project assets are to be flagged as private:</p>
-<pre><code class="lang-markup">  &lt;ItemGroup&gt;
-    &lt;ProjectReference Include=&quot;../ThisAssembly.AssemblyInfo/ThisAssembly.AssemblyInfo.csproj&quot; PrivateAssets=&quot;none&quot; /&gt;
-    &lt;ProjectReference Include=&quot;../ThisAssembly.Metadata/ThisAssembly.Metadata.csproj&quot; PrivateAssets=&quot;none&quot; /&gt;
-    &lt;ProjectReference Include=&quot;../ThisAssembly.Project/ThisAssembly.Project.csproj&quot; PrivateAssets=&quot;none&quot; /&gt;
-    &lt;ProjectReference Include=&quot;../ThisAssembly.Strings/ThisAssembly.Strings.csproj&quot; PrivateAssets=&quot;none&quot; /&gt;
-  &lt;/ItemGroup&gt;
+<p>NuGetizer has more flexibility in this regard, providing both a <code>$(PackFrameworkReferences)</code> property as well as granular control over referenced packages via the <code>Pack</code> metadata on each <code>PackageReference</code>:  </p>
+<pre><code class="lang-markup">&lt;PropertyGroup&gt;
+  &lt;!-- Opt out of all framework references/dependencies --&gt;
+  &lt;PackFrameworkReferences&gt;false&lt;/PackFrameworkReferences&gt;
+&lt;/PropertyGroup&gt;
+
+&lt;ItemDefinitionGroup&gt;
+  &lt;PackageReference&gt;
+    &lt;!-- Unless specified otherwise, opt-out of all dependencies --&gt;
+    &lt;Pack&gt;false&lt;/Pack&gt;
+  &lt;/PackageReference&gt;
+&lt;/ItemDefinitionGroup&gt;
+
+&lt;ItemGroup&gt;
+  &lt;!-- Example of explicitly opting in for a particular one --&gt;
+  &lt;PackageReference Include=&quot;Foo&quot; Pack=&quot;true&quot; /&gt;
+  &lt;PackageReference Include=&quot;Bar&quot; /&gt; &lt;!-- Will not be packed --&gt;
+&lt;/ItemGrop&gt;
 </code></pre>
-<p>This properly allows the transitive build and analyzer assets to be properly installed on the referencing project.</p>
+<p>But in order to simplify this scenario further, both the compatibility <code>SuppressDependenciesWhenPacking</code> property as well as a new <code>PackDependencies</code> property is supported in <a href="https://www.nuget.org/packages/nugetizer" target="_blank">nugetizer</a> to achieve the same.</p>
 
                                 
                                 </section>
@@ -657,12 +663,12 @@
 
             
                 
-                <a href="hide-contentfiles-from-your-nuget-packages.html" class="navigation navigation-prev " aria-label="Previous page: Hide contentFiles from your nuget packages">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: NuGet">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="use-dotnet-vs-to-get-developer-prompt-in-terminal.html" class="navigation navigation-next " aria-label="Next page: How to add search to static nuget feed">
+                <a href="hide-contentfiles-from-your-nuget-packages.html" class="navigation navigation-next " aria-label="Next page: Hide contentFiles from your nuget packages">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -673,7 +679,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Packaging transitive analyzers with NuGet","level":"2.1.3","depth":2,"next":{"title":"How to add search to static nuget feed","level":"2.1.4","depth":2,"path":"dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md","ref":"dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md","articles":[]},"previous":{"title":"Hide contentFiles from your nuget packages","level":"2.1.2","depth":2,"path":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","ref":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/nuget/packaging-transitive-analyzers-with-nuget.md","mtime":"2021-03-30T21:55:07.242Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-30T21:55:51.144Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Suppress dependencies when packing","level":"2.1.1","depth":2,"next":{"title":"Hide contentFiles from your nuget packages","level":"2.1.2","depth":2,"path":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","ref":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","articles":[]},"previous":{"title":"NuGet","level":"2.1","depth":1,"path":"dotnet/nuget/README.md","ref":"dotnet/nuget/README.md","articles":[{"title":"Suppress dependencies when packing","level":"2.1.1","depth":2,"path":"dotnet/nuget/suppress-dependencies-when-packing.md","ref":"dotnet/nuget/suppress-dependencies-when-packing.md","articles":[]},{"title":"Hide contentFiles from your nuget packages","level":"2.1.2","depth":2,"path":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","ref":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","articles":[]},{"title":"Packaging transitive analyzers with NuGet","level":"2.1.3","depth":2,"path":"dotnet/nuget/packaging-transitive-analyzers-with-nuget.md","ref":"dotnet/nuget/packaging-transitive-analyzers-with-nuget.md","articles":[]},{"title":"How to add search to static nuget feed","level":"2.1.4","depth":2,"path":"dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md","ref":"dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md","articles":[]},{"title":"Populate RepositoryBranch in CI for NuGet Pack","level":"2.1.5","depth":2,"path":"dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.md","ref":"dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/nuget/suppress-dependencies-when-packing.md","mtime":"2021-03-30T21:55:07.242Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-30T21:55:51.144Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
