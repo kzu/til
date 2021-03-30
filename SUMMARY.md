@@ -5,6 +5,7 @@
 ## dotnet
 
 * [NuGet](dotnet/nuget/README.md)
+  * [Suppress dependencies when packing](dotnet/nuget/suppress-dependencies-when-packing.md)
   * [Hide contentFiles from your nuget packages](dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md)
   * [Packaging transitive analyzers with NuGet](dotnet/nuget/packaging-transitive-analyzers-with-nuget.md)
   * [How to add search to static nuget feed](dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md)
