@@ -45,6 +45,7 @@
 
 ## DevOps/CI/CD
 
+* [How to run Azure Storage unit tests in CI](devops-ci-cd/how-to-run-azure-storage-unit-tests-in-ci.md)
 * [How to skip steps or jobs in GitHub Actions for PRs from forks](devops-ci-cd/how-to-skip-steps-or-jobs-in-github-actions-for-prs-from-forks.md)
 * [Update version and publish npm from GH](devops-ci-cd/update-version-and-publish-npm-from-gh.md)
 * [Push to protected branch from GitHub actions](devops-ci-cd/push-to-protected-branch-from-github-actions.md)
