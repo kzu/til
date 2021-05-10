@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 30 Mar 2021 21:55:54 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 10 May 2021 19:25:27 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -218,6 +218,13 @@
             <description><![CDATA[Say you want to have a nicer URI for something (like an Azure storage blob, a feed or something else). You  likely have a nice short custom domain (i.e. I use kzu.io for things like this), and would like to set up arbitrary (temporary or permanent) redirections. This can trivially be achieved by creating an empty Functions App and leveraging Functions Proxies.]]></description>
             <link>https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/azure/code-less-redirection-with-serverless-azure-functions.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to run Azure Storage unit tests in CI]]></title>
+            <description><![CDATA[If you have tests that need to exercise Blob, Queue or Table storage from Azure Storage, you can use Azurite (v3) in CI, which can be configured for GitHub Actions as follows:]]></description>
+            <link>https://til.cazzulino.com/devops-ci-cd/how-to-run-azure-storage-unit-tests-in-ci.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/devops-ci-cd/how-to-run-azure-storage-unit-tests-in-ci.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
