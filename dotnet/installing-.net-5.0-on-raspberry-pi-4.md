@@ -1,6 +1,6 @@
 # Installing .NET 5.0 on Raspberry Pi 4
 
-None of the official methods worked for me. So I ended up going the super manual route \(basically copying [https://elbruno.com/2019/08/27/raspberrypi-how-to-install-dotnetcore-in-a-raspberrypi4-and-test-with-helloworld-of-course/](https://elbruno.com/2019/08/27/raspberrypi-how-to-install-dotnetcore-in-a-raspberrypi4-and-test-with-helloworld-of-course/)\).
+None of the official methods worked for me \(not even [involving horrid fixes](https://github.com/dotnet/core/issues/4446#issuecomment-843162084) ;\)\). So I ended up going the super manual route \(basically copying [https://elbruno.com/2019/08/27/raspberrypi-how-to-install-dotnetcore-in-a-raspberrypi4-and-test-with-helloworld-of-course/](https://elbruno.com/2019/08/27/raspberrypi-how-to-install-dotnetcore-in-a-raspberrypi4-and-test-with-helloworld-of-course/)\).
 
 ```text
 $ sudo apt-get install lshw
