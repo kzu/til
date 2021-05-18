@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 10 May 2021 19:25:27 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 May 2021 13:35:11 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -57,6 +57,13 @@
             <description><![CDATA[I learned that RepositoryBranch is the only NuGet Pack-related property not populated already by the .NET SDK+SourceLink. So instead of going for a full-blown (and typically over-blown) solution for build/assembly versioning from Git information (such as GitInfo or GitVersion or the myriad others), you can trivially pass in this value from your CI script with:]]></description>
             <link>https://til.cazzulino.com/dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Installing .NET 5.0 on Raspberry Pi 4]]></title>
+            <description><![CDATA[None of the official methods worked for me. So I ended up going the super manual route (basically copying https://elbruno.com/2019/08/27/raspberrypi-how-to-install-dotnetcore-in-a-raspberrypi4-and-test-with-helloworld-of-course/).]]></description>
+            <link>https://til.cazzulino.com/dotnet/installing-.net-5.0-on-raspberry-pi-4.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/installing-.net-5.0-on-raspberry-pi-4.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
