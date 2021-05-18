@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 18 May 2021 13:35:11 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 May 2021 13:36:40 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -61,7 +61,7 @@
         </item>
         <item>
             <title><![CDATA[Installing .NET 5.0 on Raspberry Pi 4]]></title>
-            <description><![CDATA[None of the official methods worked for me. So I ended up going the super manual route (basically copying https://elbruno.com/2019/08/27/raspberrypi-how-to-install-dotnetcore-in-a-raspberrypi4-and-test-with-helloworld-of-course/).]]></description>
+            <description><![CDATA[None of the official methods worked for me (not even involving horrid fixes ;)). So I ended up going the super manual route (basically copying https://elbruno.com/2019/08/27/raspberrypi-how-to-install-dotnetcore-in-a-raspberrypi4-and-test-with-helloworld-of-course/).]]></description>
             <link>https://til.cazzulino.com/dotnet/installing-.net-5.0-on-raspberry-pi-4.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/dotnet/installing-.net-5.0-on-raspberry-pi-4.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
