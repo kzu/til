@@ -11,7 +11,7 @@ $ sudo lshw
     width: 64 bits
 ; OK, it's 64bits
 ; Get Arm64 download URL from https://dotnet.microsoft.com/download/dotnet/5.0
-$ cd temp
+$ mkdir temp && cd temp
 $ curl [URL] --output [FILENAME]
 $ mkdir $HOME/dotnet
 $ sudo tar zxf [FILENAME] -C $HOME/dotnet/
