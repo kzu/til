@@ -21,13 +21,8 @@ You can get the daily .NET6 SDK installer permalinks from:
 
 | Platform | Main |
 | :--- | :---: |
-| **Windows \(x64\)** | \[SDK Installer\]\[win-x64-sdkinstaller-6.0.X\] \[Runtime Installer\]\[win-x64-installer-6.0.X\] \(\[Checksum\]\[win-x64-installer-checksum-6.0.X\]\) \[zip\]\[win-x64-zip-6.0.X\] \(\[Checksum\]\[win-x64-zip-checksum-6.0.X\]\) |
-| **Windows \(x86\)** | \[SDK Installer\]\[win-x86-sdkinstaller-6.0.X\] \[Runtime Installer\]\[win-x86-installer-6.0.X\] \(\[Checksum\]\[win-x86-installer-checksum-6.0.X\]\) \[zip\]\[win-x86-zip-6.0.X\] \(\[Checksum\]\[win-x86-zip-checksum-6.0.X\]\) |
-| **Windows \(arm64\)** | \[SDK Installer\]\[win-arm64-sdkinstaller-6.0.X\] \[Runtime Installer\]\[win-arm64-installer-6.0.X\] \(\[Checksum\]\[win-arm64-installer-checksum-6.0.X\]\) \[zip\]\[win-arm64-zip-6.0.X\] \(\[Checksum\]\[win-arm64-zip-checksum-6.0.X\]\) |
-| **macOS \(x64\)** | \[SDK Installer\]\[osx-x64-sdkinstaller-6.0.X\] \[Runtime Installer\]\[osx-x64-installer-6.0.X\] \(\[Checksum\]\[osx-x64-installer-checksum-6.0.X\]\) \[tar.gz\]\[osx-x64-targz-6.0.X\] \(\[Checksum\]\[osx-x64-targz-checksum-6.0.X\]\) |
-| **macOS \(arm64\)** | \[SDK Installer\]\[osx-arm64-sdkinstaller-6.0.X\] \[Runtime Installer\]\[osx-arm64-installer-6.0.X\] \(\[Checksum\]\[osx-arm64-installer-checksum-6.0.X\]\) \[tar.gz\]\[osx-arm64-targz-6.0.X\] \(\[Checksum\]\[osx-arm64-targz-checksum-6.0.X\]\) |
-
- 
-
-
-
+| **Windows \(x64\)** | https://aka.ms/dotnet/6.0/daily/dotnet-sdk-win-x64.exe |
+| **Windows \(x86\)** | https://aka.ms/dotnet/6.0/daily/dotnet-sdk-win-x86.exe |
+| **Windows \(arm64\)** | https://aka.ms/dotnet/6.0/daily/dotnet-sdk-win-arm64.exe |
+| **macOS \(x64\)** | https://aka.ms/dotnet/6.0/daily/dotnet-sdk-osx-x64.pkg |
+| **macOS \(arm64\)** | https://aka.ms/dotnet/6.0/daily/dotnet-sdk-osx-arm64.pkg |
