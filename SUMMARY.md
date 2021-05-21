@@ -10,7 +10,7 @@
   * [Packaging transitive analyzers with NuGet](dotnet/nuget/packaging-transitive-analyzers-with-nuget.md)
   * [How to add search to static nuget feed](dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md)
   * [Populate RepositoryBranch in CI for NuGet Pack](dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.md)
-* [Accessing Tor URLs via HttpClient with .NET6](dotnet/accessing-tor-via-httpclient-with-.net6.md)
+* [Accessing Tor .onion URLs via HttpClient with .NET6](dotnet/accessing-tor-via-httpclient-with-.net6.md)
 * [Installing .NET 5.0 on Raspberry Pi 4](dotnet/installing-.net-5.0-on-raspberry-pi-4.md)
 * [Quickly check C\# compiler and language version](dotnet/quickly-check-c-compiler-and-language-version.md)
 * [Disable diagnostic analyzers for entire folder/submodules](dotnet/disable-diagnostic-analyzers-for-entire-folder-submodules.md)

@@ -1,4 +1,4 @@
-# Accessing Tor URLs via HttpClient with .NET6
+# Accessing Tor .onion URLs via HttpClient with .NET6
 
 In .NET6, there is built-in [support for SOCKS4/5 proxies](https://github.com/dotnet/runtime/pull/48883)! This means you can install the [Tor](https://dist.torproject.org/torbrowser/) service and without anything else, access any `.onion` URL with plain `HttpClient`:
 
