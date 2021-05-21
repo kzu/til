@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 19 May 2021 20:05:34 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 21 May 2021 04:32:23 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -57,6 +57,13 @@
             <description><![CDATA[I learned that RepositoryBranch is the only NuGet Pack-related property not populated already by the .NET SDK+SourceLink. So instead of going for a full-blown (and typically over-blown) solution for build/assembly versioning from Git information (such as GitInfo or GitVersion or the myriad others), you can trivially pass in this value from your CI script with:]]></description>
             <link>https://til.cazzulino.com/dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Accessing Tor via HttpClient with .NET6]]></title>
+            <description><![CDATA[In .NET6, there is built-in support for SOCKS4/5 proxies! This means you can install the Tor service and without anything else, access any .onion URL with plain HttpClient:]]></description>
+            <link>https://til.cazzulino.com/dotnet/accessing-tor-via-httpclient-with-.net6.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/accessing-tor-via-httpclient-with-.net6.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
