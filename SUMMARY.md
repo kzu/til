@@ -38,6 +38,7 @@
 
 ## azure
 
+* [How to launch multiple Azure Functions apps on different ports](azure/how-to-launch-multiple-azure-functions-apps-on-different-ports.md)
 * [C\# script function apps beyond Azure portal](azure/c-script-function-apps-beyond-azure-portal.md)
 * [Publishing function app from GitHub folder](azure/publishing-function-app-from-github-folder.md)
 * [Exploring Azure Data with Kusto and Dashboards](azure/exploring-azure-data-with-kusto-and-dashboards.md)
