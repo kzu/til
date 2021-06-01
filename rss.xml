@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 21 May 2021 04:36:58 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 01 Jun 2021 06:01:03 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -190,6 +190,13 @@
             <description><![CDATA[Visual Studio will typically just report the project is up-to-date and doesn't need to be built if you just changed a Content or None item. If you want it to consider those file types to also trigger a build, just add the relevant items as UpToDateCheckInput:]]></description>
             <link>https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-build-project-when-content-files-change.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to launch multiple Azure Functions apps on different ports]]></title>
+            <description><![CDATA[You might want to add a --pause-on-error in there too.]]></description>
+            <link>https://til.cazzulino.com/azure/how-to-launch-multiple-azure-functions-apps-on-different-ports.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/azure/how-to-launch-multiple-azure-functions-apps-on-different-ports.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
