@@ -12,7 +12,8 @@ In order to unify the environment variable to detect whether a build is a CI bui
                  '$(BuildRunner)' == 'MyGet' or 
                  '$(JENKINS_URL)' != '' or 
                  '$(TRAVIS)' == 'true' or 
-                 '$(BUDDY)' == 'true'">true</CI>
+                 '$(BUDDY)' == 'true' or
+                 '$(CODEBUILD_CI)' == 'true'">true</CI>
 </PropertyGroup>
 ```
 
