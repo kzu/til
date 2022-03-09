@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 26 Oct 2021 05:57:14 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 09 Mar 2022 18:51:02 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -57,6 +57,13 @@
             <description><![CDATA[I learned that RepositoryBranch is the only NuGet Pack-related property not populated already by the .NET SDK+SourceLink. So instead of going for a full-blown (and typically over-blown) solution for build/assembly versioning from Git information (such as GitInfo or GitVersion or the myriad others), you can trivially pass in this value from your CI script with:]]></description>
             <link>https://til.cazzulino.com/dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Ignore folder from dotnet-format]]></title>
+            <description><![CDATA[The easiest way to ignore an entire folder (i.e. one containing files you're syncing from an external repository such as catbag using dotnet-file) is to create a .editorconfig file with the following content:]]></description>
+            <link>https://til.cazzulino.com/dotnet/ignore-folder-from-dotnet-format.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/ignore-folder-from-dotnet-format.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
