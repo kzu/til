@@ -28,6 +28,7 @@
 
 ## msbuild
 
+* [How to get user home dir \~ cross-platform](msbuild/how-to-get-user-home-dir-cross-platform.md)
 * [Modifying the build for every solution in a repository](msbuild/modifying-the-build-for-every-solution-in-a-repository.md)
 * [Detect CI builds for every CI system](msbuild/detect-ci-builds-for-every-ci-system.md)
 * [Modify all command-line builds in entire repo](msbuild/modify-all-command-line-builds-in-entire-repo.md)
