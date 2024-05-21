@@ -9,7 +9,7 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 09 Mar 2022 18:51:02 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 21 May 2024 00:24:24 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
@@ -141,6 +141,13 @@
             <description><![CDATA[First apply a tag of your choosing to flag scenarios that are still not ready for running:]]></description>
             <link>https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</link>
             <guid isPermaLink="true">https://til.cazzulino.com/testing/skip-tagged-scenarios-in-specflow-with-xunit.html</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to get user home dir ~ cross-platform]]></title>
+            <description><![CDATA[It would be great if you could just use $(~), say, but that would be too good to be true :). ]]></description>
+            <link>https://til.cazzulino.com/msbuild/how-to-get-user-home-dir-cross-platform.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/msbuild/how-to-get-user-home-dir-cross-platform.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
