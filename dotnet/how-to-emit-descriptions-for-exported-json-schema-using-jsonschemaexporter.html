@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Disable diagnostic analyzers for entire folder/submodules · GitBook</title>
+        <title>How to emit descriptions for exported JSON schema using JsonSchemaExporter · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="persisting-output-files-from-source-generators.html" />
+    <link rel="next" href="nuget/" />
     
     
-    <link rel="prev" href="quickly-check-c-compiler-and-language-version.html" />
+    <link rel="prev" href="../" />
     
 
     <link href="https://til.cazzulino.com/rss.xml" title="Kzu's Today I Learned" rel="alternate" type="application/rss+xml" />
@@ -114,7 +114,7 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="how-to-emit-descriptions-for-exported-json-schema-using-jsonschemaexporter.html">
+        <li class="chapter active" data-level="2.1" data-path="how-to-emit-descriptions-for-exported-json-schema-using-jsonschemaexporter.html">
             
                 <a href="how-to-emit-descriptions-for-exported-json-schema-using-jsonschemaexporter.html">
             
@@ -263,7 +263,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.7" data-path="disable-diagnostic-analyzers-for-entire-folder-submodules.html">
+        <li class="chapter " data-level="2.7" data-path="disable-diagnostic-analyzers-for-entire-folder-submodules.html">
             
                 <a href="disable-diagnostic-analyzers-for-entire-folder-submodules.html">
             
@@ -685,7 +685,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Disable diagnostic analyzers for entire folder/submodules</a>
+        <a href=".." >How to emit descriptions for exported JSON schema using JsonSchemaExporter</a>
     </h1>
 </div>
 
@@ -700,13 +700,27 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="disable-diagnostic-analyzers-for-entire-foldersubmodules">Disable diagnostic analyzers for entire folder/submodules</h1>
-<p>When you have submodules in your repository, it&apos;s not uncommon for those to be subject to a different quality bar than your main project. You may not even have a say in fixing issues upstream, or conventions may be totally different even. </p>
-<p>In this case, you can introduce an <code>.editorconfig</code> in your repository which turns off all analyzer diagnostics for an entire directory path (and all subdirectories) by leveraging wildcards. Say your submodules are in a folder <code>ext</code> a couple levels up from your <code>.editorconfig</code>:</p>
-<pre><code class="lang-text">[../../ext/**/*.cs]
-dotnet_analyzer_diagnostic.severity = none
+                                <h1 id="how-to-emit-descriptions-for-exported-json-schema-using-jsonschemaexporter">How to emit descriptions for exported JSON schema using JsonSchemaExporter</h1>
+<p>We now (.NET 9+) have an API to export a JSON schema from a .NET type:</p>
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+<p>The default exporter will not, however, provide descriptions for those properties, even if a <code>[Description(...)]</code>attribute is provided. The way to fix that is to provide a <code>TransformSchemaNode</code> callback like so:</p>
+<pre><code class="lang-csharp"><span class="hljs-keyword">var</span> node = JsonSchemaExporter.GetJsonSchemaAsNode(options, <span class="hljs-keyword">typeof</span>(Product), <span class="hljs-keyword">new</span> JsonSchemaExporterOptions 
+{ 
+    TreatNullObliviousAsNonNullable = <span class="hljs-keyword">true</span>, 
+    TransformSchemaNode = (context, node) =&gt;
+    {
+        <span class="hljs-keyword">var</span> description = context.PropertyInfo?.AttributeProvider?.GetCustomAttributes(<span class="hljs-keyword">typeof</span>(DescriptionAttribute), <span class="hljs-keyword">false</span>)
+            .OfType&lt;DescriptionAttribute&gt;()
+            .FirstOrDefault()?.Description;
+
+        <span class="hljs-keyword">if</span> (description != <span class="hljs-keyword">null</span>)
+            node[<span class="hljs-string">&quot;description&quot;</span>] = description;
+
+        <span class="hljs-keyword">return</span> node;
+    },
+});
 </code></pre>
-<p>Learned from <a href="https://github.com/AArnott/Nerdbank.Streams/commit/50e322a90903283191ccaf67a8f27cf5aba6784c" target="_blank">this commit</a> after following it from a related <a href="https://github.com/dotnet/roslyn/issues/42762" target="_blank">roslyn issue</a>.</p>
 
                                 
                                 </section>
@@ -734,12 +748,12 @@ dotnet_analyzer_diagnostic.severity = none
 
             
                 
-                <a href="quickly-check-c-compiler-and-language-version.html" class="navigation navigation-prev " aria-label="Previous page: Quickly check C# compiler and language version">
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Today I Learned">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="persisting-output-files-from-source-generators.html" class="navigation navigation-next " aria-label="Next page: Persisting output files from source generators">
+                <a href="nuget/" class="navigation navigation-next " aria-label="Next page: NuGet">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -750,7 +764,7 @@ dotnet_analyzer_diagnostic.severity = none
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Disable diagnostic analyzers for entire folder/submodules","level":"2.7","depth":1,"next":{"title":"Persisting output files from source generators","level":"2.8","depth":1,"path":"dotnet/persisting-output-files-from-source-generators.md","ref":"dotnet/persisting-output-files-from-source-generators.md","articles":[]},"previous":{"title":"Quickly check C# compiler and language version","level":"2.6","depth":1,"path":"dotnet/quickly-check-c-compiler-and-language-version.md","ref":"dotnet/quickly-check-c-compiler-and-language-version.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/disable-diagnostic-analyzers-for-entire-folder-submodules.md","mtime":"2024-10-07T18:18:39.243Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-10-07T18:19:15.327Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"How to emit descriptions for exported JSON schema using JsonSchemaExporter","level":"2.1","depth":1,"next":{"title":"NuGet","level":"2.2","depth":1,"path":"dotnet/nuget/README.md","ref":"dotnet/nuget/README.md","articles":[{"title":"Suppress dependencies when packing","level":"2.2.1","depth":2,"path":"dotnet/nuget/suppress-dependencies-when-packing.md","ref":"dotnet/nuget/suppress-dependencies-when-packing.md","articles":[]},{"title":"Hide contentFiles from your nuget packages","level":"2.2.2","depth":2,"path":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","ref":"dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md","articles":[]},{"title":"Packaging transitive analyzers with NuGet","level":"2.2.3","depth":2,"path":"dotnet/nuget/packaging-transitive-analyzers-with-nuget.md","ref":"dotnet/nuget/packaging-transitive-analyzers-with-nuget.md","articles":[]},{"title":"How to add search to static nuget feed","level":"2.2.4","depth":2,"path":"dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md","ref":"dotnet/nuget/use-dotnet-vs-to-get-developer-prompt-in-terminal.md","articles":[]},{"title":"Populate RepositoryBranch in CI for NuGet Pack","level":"2.2.5","depth":2,"path":"dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.md","ref":"dotnet/nuget/populate-repositorybranch-in-ci-for-nuget-pack.md","articles":[]}]},"previous":{"title":"Today I Learned","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["rss"],"pluginsConfig":{"rss":{"categories":[],"title":"Kzu's Today I Learned","description":"My daily learning tidbits.","author":"Daniel Cazzulino","site_url":"https://til.cazzulino.com/","feed_url":"https://til.cazzulino.com/rss.xml","image_url":"https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"},"styles":{"website":"styles/website.css"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dotnet/how-to-emit-descriptions-for-exported-json-schema-using-jsonschemaexporter.md","mtime":"2024-10-07T18:18:39.243Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-10-07T18:19:15.327Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
