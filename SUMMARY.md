@@ -4,6 +4,7 @@
 
 ## dotnet
 
+* [How to emit descriptions for exported JSON schema using JsonSchemaExporter](dotnet/how-to-emit-descriptions-for-exported-json-schema-using-jsonschemaexporter.md)
 * [NuGet](dotnet/nuget/README.md)
   * [Suppress dependencies when packing](dotnet/nuget/suppress-dependencies-when-packing.md)
   * [Hide contentFiles from your nuget packages](dotnet/nuget/hide-contentfiles-from-your-nuget-packages.md)
