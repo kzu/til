@@ -9,13 +9,20 @@
             <link>https://til.cazzulino.com/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 07 Oct 2024 18:19:18 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 May 2026 18:17:50 GMT</lastBuildDate>
         <atom:link href="https://til.cazzulino.com/rss.xml" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Daniel Cazzulino]]></author>
         <item>
             <title><![CDATA[Today I Learned]]></title>
             <link>https://til.cazzulino.com/</link>
             <guid isPermaLink="true">https://til.cazzulino.com/</guid>
+            <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to get messages logged in dotnet build output]]></title>
+            <description><![CDATA[I learned that the reason my high-importance messages were totally gone from the dotnet build output is due to the new terminal logger being the new default.]]></description>
+            <link>https://til.cazzulino.com/dotnet/how-to-get-messages-logged-in-dotnet-build-output.html</link>
+            <guid isPermaLink="true">https://til.cazzulino.com/dotnet/how-to-get-messages-logged-in-dotnet-build-output.html</guid>
             <dc:creator><![CDATA[Daniel Cazzulino]]></dc:creator>
         </item>
         <item>
