@@ -7,7 +7,7 @@
         "author": "Daniel Cazzulino",
         "site_url": "https://til.cazzulino.com/",
         "feed_url": "https://til.cazzulino.com/rss.xml",
-        "image_url": "https://github.com/kzu/kzu.github.io/raw/master/img/kzu.jpg"
+        "image_url": "https://github.com/kzu/kzu.github.io/raw/main/img/KzuBadge-SpaceX.png"
     },
     "styles": {
         "website": "styles/website.css"
